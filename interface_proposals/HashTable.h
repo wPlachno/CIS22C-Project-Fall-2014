@@ -5,7 +5,7 @@
 //rhoyer - namespace std?
 //rhoyer - 
 
-using namespace std;
+using namespace std; //take this out and place std:: in front of every string for file consistency
 
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
@@ -17,20 +17,22 @@ private:
 	static const int tableSize = 25; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
 
 	//default values
-	string dfS = "";
-	int dfI = 0;
-	double dfD = 0.00;
+	static const string dfS = "";
+	static const int dfI = 0;
+	static const double dfD = 0.00;
 	//rhoyer there should be only two things here
+	
+	
 	struct item //struct named item that will be held in the hash table (this will act like the items)
 	{ //what the items contain
-		int ID; //item's id (might just be considered key. May have to take this out later
+		/*int ID; //item's id (might just be considered key. May have to take this out later
 		string name; //name of the item
 		double cost; //cost of the item
 		int quanity; //quanity needed of the item
 		string store; //prefered store to use for the item
-		string dueDate; //date in which the item is needed
+		string dueDate; //date in which the item is needed*/
 		// types may change depending on later decisions
-
+		item* listItem; //
 		item* next; // pointer that allows the item to point to another item
 	};
 
@@ -46,6 +48,7 @@ public:
 	void addItem(int ID, string name, double cost, int quanity, string store, string dueDate); //Function that will add items into the hash table
 
 	void removeItem(const string& name); //Removes items and indexes depending on what name is passed to it
+		//Set all 'deleted' to NULL instead
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
