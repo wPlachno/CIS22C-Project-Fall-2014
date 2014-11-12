@@ -2,11 +2,16 @@
 #ifndef GROCERY_H
 #define GROCERY_H
 #include <string>
-using namespace std; //rhoyer - should we be doing this?
-//rhoyer - why are there implementations in the header?  Are these the implementations you plan on useing?
+using namespace std; //rhoyer - should we be doing this?    AL- lazy implementation, so i don't have to deal with going std::string a bunch, will modify later
+//rhoyer - why are there implementations in the header?  Are these the implementations you plan on useing? AL- not in the slightest, they're just for testing purposes
 //rhoyer - use const in functions and params
+<<<<<<< HEAD
 //rhoyer - string params should be const references
 //rhoyer - should this be named grocery? 
+=======
+//rhoyer - string params should be const references AL- noted
+
+>>>>>>> FETCH_HEAD
 class grocery
 {
 public:
@@ -22,7 +27,7 @@ public:
     void Setquantity(int val) { quantity = val; }
     string Getdate() { return date; }
     void Setdate(string val) { date = val; }
-    string Getid() { return id; } //rhoyer - id is name
+    string Getid() { return id; } //rhoyer - id is name AL- noted, will remove
     void Setid(string val) { id = val; } 
 protected:
 private:
