@@ -5,13 +5,10 @@
 using namespace std; //rhoyer - should we be doing this?    AL- lazy implementation, so i don't have to deal with going std::string a bunch, will modify later
 //rhoyer - why are there implementations in the header?  Are these the implementations you plan on useing? AL- not in the slightest, they're just for testing purposes
 //rhoyer - use const in functions and params
-<<<<<<< HEAD
 //rhoyer - string params should be const references
 //rhoyer - should this be named grocery? 
-=======
 //rhoyer - string params should be const references AL- noted
 
->>>>>>> FETCH_HEAD
 class grocery
 {
 public:
