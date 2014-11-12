@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
+//rhoyer - unneccessary comments (not all of them just some)
+//rhoyer - namespace std?
+//rhoyer - 
 
 using namespace std;
 
@@ -17,7 +20,7 @@ private:
 	string dfS = "";
 	int dfI = 0;
 	double dfD = 0.00;
-
+	//rhoyer there should be only two things here
 	struct item //struct named item that will be held in the hash table (this will act like the items)
 	{ //what the items contain
 		int ID; //item's id (might just be considered key. May have to take this out later
@@ -36,13 +39,13 @@ private:
 public:
 	Hashing();
 
-	int hashFcn(string key); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const string& key); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 							
 	void search(string name); //searches the hash table with the name of the item and displays the index id found
-
+	//rhoyer - change this to take one argument (const ListItem* -- or whatever we decide on during the meeting)
 	void addItem(int ID, string name, double cost, int quanity, string store, string dueDate); //Function that will add items into the hash table
 
-	void removeItem(string name); //Removes items and indexes depending on what name is passed to it
+	void removeItem(const string& name); //Removes items and indexes depending on what name is passed to it
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 

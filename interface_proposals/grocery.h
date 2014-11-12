@@ -6,7 +6,7 @@ using namespace std; //rhoyer - should we be doing this?
 //rhoyer - why are there implementations in the header?  Are these the implementations you plan on useing?
 //rhoyer - use const in functions and params
 //rhoyer - string params should be const references
-
+//rhoyer - should this be named grocery? 
 class grocery
 {
 public:
