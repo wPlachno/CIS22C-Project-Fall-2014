@@ -40,22 +40,22 @@ private:
 
 public:
 	Hashing();
-
+	//i think this should be private or protected.  No one outside of this class will be using it
 	int hashFcn(const string& key); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
-							
+	//rhoyer - this should return a pointer to the data not print						
 	void search(string name); //searches the hash table with the name of the item and displays the index id found
 	//rhoyer - change this to take one argument (const ListItem* -- or whatever we decide on during the meeting)
 	void addItem(int ID, string name, double cost, int quanity, string store, string dueDate); //Function that will add items into the hash table
-
+	//rhoyer - this should return a pointer to the removed item
 	void removeItem(const string& name); //Removes items and indexes depending on what name is passed to it
-		//Set all 'deleted' to NULL instead
+		//Set all 'deleted' to NULL instead - rhoyer actually just remove the node from the list at the table location
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
 	void display(); //Displays the hash table;
 
 	void displayKeySeq(); //Displays the hash table using the hashing key sequence
-
+	//rhoyer - is this necessary? - I think this would be best implemented outside of this class
 	void displayItems(int index); //Displays the items of a particular index
 
 
