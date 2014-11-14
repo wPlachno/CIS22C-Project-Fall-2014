@@ -51,7 +51,7 @@ public:
 		//Set all 'deleted' to NULL instead - rhoyer actually just remove the node from the list at the table location
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
-
+	//rhoyer - how does this differ from the displayKeySeq method?
 	void display(); //Displays the hash table;
 
 	void displayKeySeq(); //Displays the hash table using the hashing key sequence
