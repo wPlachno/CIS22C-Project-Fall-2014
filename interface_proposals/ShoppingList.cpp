@@ -1,16 +1,20 @@
 
+
+#include "ShoppingList.h"
 #include <string>
 #include <fstream>
 
+//todo: which has faster access time tree or hash table.  the one with faster time will be used for retrieval
 //temporary
 class BSTree;
-class HTable;
 class ListItem;
 
 
 
 ShoppingList::ShoppingList():
-itemCount(itemCount)
+itemCount(itemCount),
+htable(),
+bstree()
 {
 
 }
@@ -19,7 +23,7 @@ itemCount(itemCount)
 ShoppingList::~ShoppingList()
 {}
 
-ListItem* ShoppingList::findItemPtr(const std::string& name)
+ListItem* ShoppingList::findRecordPtr(const std::string& name)
 {
 	return htable.search(name); //or bst
 }
@@ -80,7 +84,7 @@ int ShoppingList::removeRecord(const std::string& name)
 
 ListItem ShoppingList::findRecord(const std::string& name) 
 {
-	ListItem* found = findItemPtr(name);
+	ListItem* found = findRecordPtr(name);
 
 
 	/*
@@ -94,13 +98,30 @@ ListItem ShoppingList::findRecord(const std::string& name)
 
 
 //print methods... separate?
-// bool displayItem(const std::string& item);	
+void ShoppingList::displayItem(const std::string& item)
+{
+	ListItem* found = findRecordPtr(name);
+
+	if(found)
+	{
+		//display item
+	}
+	else
+	{
+		//print error
+	}
+
+
+	return true;
+}
 // void printTree(); 
 
 void ShoppingList::printListHashSeq() const 
 {
 	htable.displayKeySeq();
 }
+
+
 // void printListByName();
 
 

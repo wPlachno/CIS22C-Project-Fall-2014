@@ -1,9 +1,9 @@
 
 #include <string>
-
+#include "HashTable"
 //temporary
 class BSTree;
-class HTable;
+
 class ListItem;
 
 class ShoppingList
@@ -11,13 +11,13 @@ class ShoppingList
 private:
 	int itemCount;
 	BSTree bstree;
-	HTable htable; 
+	HashTable htable; 
 
 
 	//std::string fileName; //in a gui app this would be a better configuration
 
 
-	ListItem* findItemPtr(const std::string& name); 
+	ListItem* findRecordPtr(const std::string& name); 
 public:
 	ShoppingList();
 	~ShoppingList();
@@ -37,7 +37,7 @@ public:
 
 
 	//print methods... separate?
-	bool displayItem(const std::string& item) const;	
+	void displayItem(const std::string& item) const;	
 	void printTree() const; 
 	void printListHashSeq() const;
 	void printListByName() const;
