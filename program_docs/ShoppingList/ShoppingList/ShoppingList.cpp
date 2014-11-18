@@ -2,16 +2,14 @@
 #include "ShoppingList.h"
 #include <fstream>
 
-//todo: which has faster access time tree or hash table.  the one with faster time will be used for retrieval
+//todo: which has faster times for various actions: tree or hash table?  the one with faster time will be used for retrieval
 
 
-ShoppingList::ShoppingList() :
+ShoppingList::ShoppingList():
 itemCount(itemCount),
-htable(),
+htable(), //todo: double check if this is right for initializer lists
 bstree()
-{
-
-}
+{}
 
 
 ShoppingList::~ShoppingList()

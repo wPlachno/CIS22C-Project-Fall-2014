@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{71C7CE09-C58E-4479-A746-79C23048C5EC}</ProjectGuid>
-    <RootNamespace>ShoppingList</RootNamespace>
+    <ProjectGuid>{BBF5A4C7-E96F-4AD2-8F07-D1620BC60C1F}</ProjectGuid>
+    <RootNamespace>BSTree_Test</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -66,17 +66,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ListItem.cpp" />
-    <ClCompile Include="ShoppingList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BSTree.h" />
-    <ClInclude Include="BSTreeNode.h" />
-    <ClInclude Include="HashTable.h" />
-    <ClInclude Include="ShoppingList.h" />
-    <ClInclude Include="ListItem.h" />
+    <ClInclude Include="..\ShoppingList\BSTree.h" />
+    <ClInclude Include="..\ShoppingList\BSTreeNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

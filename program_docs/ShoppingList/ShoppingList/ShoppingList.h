@@ -12,7 +12,7 @@ class ShoppingList
 
 private:
     int itemCount;
-    BSTree bstree;
+    BSTree<ListItem, std::string> bstree;
     HashTable htable;
 
 

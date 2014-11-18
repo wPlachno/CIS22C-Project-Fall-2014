@@ -18,30 +18,12 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HashTable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ShoppingList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListItem.h">
+    <ClInclude Include="..\ShoppingList\BSTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HashTable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShoppingList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BSTree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BSTreeNode.h">
+    <ClInclude Include="..\ShoppingList\BSTreeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

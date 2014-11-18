@@ -1,0 +1,8 @@
+When you add a test driver project to the solution you need to point to the ShoppingList directory containing the source files to be able to reference them from the project.  To do this, right click on the project and go down to Properties (Alt-Enter).  Under Configuration Properties->C/C++->General there will be an option "Include Directories".  Copy and paste the following into the text field:
+
+$(SolutionDir)ShoppingList;%(AdditionalIncludeDirectories)
+
+
+Set the subsystem to 'Console' under Configuration Properties->Linker->System->SubSystem.
+
+Set the character set to 'Not Set' under Configuration Properties->General.
