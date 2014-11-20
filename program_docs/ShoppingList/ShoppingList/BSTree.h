@@ -1,5 +1,9 @@
 /******************************************************************************
  
+ Generic binary search tree for handling pointers to objects.  Allocation and
+ deallocation of data can be handled outside of the tree.
+
+
  Requires:
  int T::compareKey(K keyVal)
  T T::getKey()
@@ -29,21 +33,22 @@ class BSTree
 
     void _removeAll(BSTreeNode<T>* subTreeptr);
     void _inorder(BSTreeNode<T>* subTreePtr, const std::function<void(T&)>& visit) const;
-    void _deleteAllData(BSTreeNode<T>* subTreePtr);
+    void _destroyAll(BSTreeNode<T>* subTreePtr);
     void _printTree(BSTreeNode<T>* subTreePtr, int level) const;
 public:
     BSTree();
     ~BSTree();
     
     bool isEmpty() const;
-    bool insert( T* newItem);
+    bool insert( T* pNewRecord);
     T* remove(const K& targetKey);
-    bool exists(const K& targetKey) const;
+    //bool exists(const K& targetKey) const;
     T* get(const K& targetKey) const;
     void removeAll();
-    void deleteAllData();
+    void destroyAll();
     void breadthFirstTraversal(const std::function<void(T&)>& visit) const;
     void inorderTraversal(const std::function<void(T&)>& visit) const;
+    //void preorderTraversal(const std::function<void(T&)>& visist) const;
     void printTree() const; //this is a pre-order traversal
     
     
@@ -69,6 +74,10 @@ BSTree<T, K>::~BSTree()
     removeAll();
 }
 
+/** Test to see if the tree is empty.
+@return true if the tree is empty, false otherwise.
+ */
+
 template <typename T, typename K>
 bool BSTree<T, K>::isEmpty() const
 {
@@ -76,15 +85,17 @@ bool BSTree<T, K>::isEmpty() const
 }
 
 
-//maybe try pointer to pointer method
+/** Insert a recrod into the tree.
+ @param pNewRecord A pointer to the record to be inserted.
+ @return true if the insertion was performed, false otherwise. //todo: this might be better as an int
+ */
 template <typename T, typename K>
-bool BSTree<T, K>::insert(T* newItem)
+bool BSTree<T, K>::insert(T* pNewRecord)
 {
-    assert(newItem);
-    if(!newItem)
+    if(!pNewRecord)
         return false;
     
-    BSTreeNode<T>* newNode = new BSTreeNode<T>(newItem);
+    BSTreeNode<T>* newNode = new BSTreeNode<T>(pNewRecord);
     
     if(nullptr == root)
     {
@@ -127,7 +138,10 @@ bool BSTree<T, K>::insert(T* newItem)
 }
 
 
-// hack to make the interface work
+/** Remove a record from the tree with a key value matching the target.
+@param targetKey The key value of the record to be deleted.
+@return A pointer to the data record that was removed from the tree.  nullptr if the data record was not found.
+ */
 template <typename T, typename K>
 T* BSTree<T, K>::remove(const K& targetKey)
 {
@@ -137,14 +151,25 @@ T* BSTree<T, K>::remove(const K& targetKey)
 }
 
 
+/** Recurisve internal function for remove.  Traverses the tree searching for the node to be
+    removed the removes it.
+    @param subTreePtr A pointer to the subtree to be traversed.
+    @param targetKey  Key value of the record being searched for for deletion.
+    @param removed Pointer to a pointer of the data value to be removed.  The pointer pointed to by removed
+                   will be set to nullptr if the record to be removed is not found.
+    @return Pointer to the node to be put in the place of subTreePtr.
+ */
 
 template <typename T, typename K>
 BSTreeNode<T>* BSTree<T, K>::_removeValue(BSTreeNode<T>* subTreePtr, const K& targetKey, T** removed)
 {
     BSTreeNode<T>* tmpPtr;
     
-    if(nullptr == subTreePtr)
+    if(nullptr == subTreePtr) //nothing found
+    {
+        *removed = nullptr; //todo: double check this
         return nullptr;
+    }
     
     int compareResult = subTreePtr->data->compareKey(targetKey);
     
@@ -170,6 +195,11 @@ BSTreeNode<T>* BSTree<T, K>::_removeValue(BSTreeNode<T>* subTreePtr, const K& ta
     
 }
 
+
+/** Remove a node from a binary search tree.
+@param nodePtr Pointer to the node to be removed.
+@return Pointer to the node to replace nodePtr.  nullptr if there is no node to replace it.
+ */
 
 template <typename T, typename K>
 BSTreeNode<T>* BSTree<T, K>::_removeNode(BSTreeNode<T>* nodePtr)
@@ -209,6 +239,13 @@ BSTreeNode<T>* BSTree<T, K>::_removeNode(BSTreeNode<T>* nodePtr)
 }
 
 
+/** Remove the left-most node from a subtree of a binary search tree.  Intended to be called
+    recursively.  Part of delete.
+@param nodePtr The node to be traversed and tested to see if it is a leaf.
+@param inorderSuccessor Pointer to a pointer that will contain the pointer to the data of the left-most node.
+@return Pointer to the new node at the current position in the tree.
+ */
+
 template <typename T, typename K>
 BSTreeNode<T>* BSTree<T, K>::_removeLeftMostNode(BSTreeNode<T>* nodePtr, T** inorderSuccessor)
 {
@@ -227,6 +264,8 @@ BSTreeNode<T>* BSTree<T, K>::_removeLeftMostNode(BSTreeNode<T>* nodePtr, T** ino
     return nullptr;
 }
 
+/** Get a a record from the tree with a key value matching the target.
+ */
 
 template <typename T, typename K>
 T* BSTree<T, K>::get(const K& targetKey) const
@@ -237,7 +276,7 @@ T* BSTree<T, K>::get(const K& targetKey) const
     {
         int compareResult = current->data->compareKey(targetKey);
         if(0 == compareResult)
-            return current;
+            return current->data;
         else if(0 < compareResult)
             current = current->left;
         else
@@ -247,6 +286,39 @@ T* BSTree<T, K>::get(const K& targetKey) const
     return nullptr;
 }
 
+
+/** Delete all the nodes in the tree and all data pointed to by each node.
+ */
+
+template <typename T, typename K>
+void BSTree<T, K>::destroyAll()
+{
+    _destroyAll(root);
+    root = nullptr;
+}
+
+
+/** Recursive internal method for destroyAll.
+ */
+
+template <typename T, typename K>
+void BSTree<T, K>::_destroyAll(BSTreeNode<T>* subTreePtr)
+{
+    if(!subTreePtr)
+        return;
+    
+    _destroyAll(subTreePtr->left);
+    if(subTreePtr->data)
+    {
+        delete subTreePtr->data;
+        delete subTreePtr;
+    }
+    _destroyAll(subTreePtr->right);
+}
+
+
+/** Deletes all nodes from the tree without deleting the data pointed to by each node.
+ */
 
 template <typename T, typename K>
 void BSTree<T, K>::removeAll()
@@ -258,28 +330,9 @@ void BSTree<T, K>::removeAll()
     }
 }
 
-template <typename T, typename K>
-void BSTree<T, K>::deleteAllData()
-{
-    _deleteAllData(root);
-}
 
-
-template <typename T, typename K>
-void BSTree<T, K>::_deleteAllData(BSTreeNode<T>* subTreePtr)
-{
-    if(!subTreePtr)
-        return;
-    
-    _deleteAllData(subTreePtr->left);
-    if(subTreePtr->data)
-    {
-        delete subTreePtr->data;
-        subTreePtr->data = nullptr;
-    }
-    _deleteAllData(subTreePtr->right);
-}
-
+/** Recursive internal method for destroyAll.
+ */
 
 template <typename T, typename K>
 void BSTree<T, K>::_removeAll(BSTreeNode<T>* subTreePtr)
@@ -291,6 +344,14 @@ void BSTree<T, K>::_removeAll(BSTreeNode<T>* subTreePtr)
     if(subTreePtr)
         delete subTreePtr;
 }
+
+
+//todo - why do we need this again???
+/** Perform a breadth-first traversal on the tree calling a non-destructive
+    function on each of the data records pointed to by each node.
+@param visit Function object to be called on each data record.
+ */
+
 
 template <typename T, typename K>
 void BSTree<T, K>::breadthFirstTraversal(const std::function<void(T&)>& visit) const
@@ -306,7 +367,9 @@ void BSTree<T, K>::breadthFirstTraversal(const std::function<void(T&)>& visit) c
     BSTreeNode<T>* current;
     while(!nodeQ.empty())
     {
-        current = nodeQ.pop();
+        current = nodeQ.front();
+        nodeQ.pop();
+        
         visit(*current->data);
         
         if(current->left)
@@ -319,6 +382,10 @@ void BSTree<T, K>::breadthFirstTraversal(const std::function<void(T&)>& visit) c
 }
 
 
+/** Performs a non-destructive action on each data item in the tree through an inorder traversal.
+@param visit Function object to be called on the data of each node in the traversal
+*/
+
 
 template <typename T, typename K>
 void BSTree<T, K>::inorderTraversal(const std::function<void(T&)>& visit) const
@@ -326,6 +393,11 @@ void BSTree<T, K>::inorderTraversal(const std::function<void(T&)>& visit) const
     _inorder(root, visit);
 }
 
+
+/** Recursive internal method for inorderTraversal
+ @param subTreePtr Pointer to the sub-tree to be traversed.
+ @param visit Function object to be called on the data of each node in the traversal
+ */
 
 template <typename T, typename K>
 void BSTree<T, K>::_inorder(BSTreeNode<T>* subTreePtr, const std::function<void(T&)>& visit) const
@@ -338,13 +410,19 @@ void BSTree<T, K>::_inorder(BSTreeNode<T>* subTreePtr, const std::function<void(
     _inorder(subTreePtr->right, visit);
 }
 
-
+/** Print the structure of tree to standard output.
+ */
 template <typename T, typename K>
 void BSTree<T, K>::printTree() const
 {
     _printTree(root, 0);
 }
 
+
+/** Recursive internal method for printTree().
+ @param subTreePtr Pointer to the subtree to print.
+ @param level The current level of the subtree.
+ */
 template <typename T, typename K>
 void BSTree<T, K>::_printTree(BSTreeNode<T>* subTreePtr, int level) const
 {
