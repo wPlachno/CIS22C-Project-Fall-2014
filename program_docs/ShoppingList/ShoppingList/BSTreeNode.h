@@ -1,5 +1,6 @@
 /******************************************************************************
  
+ Generic node class for BSTree.
  
  Author: Robert Hoyer
  ******************************************************************************/
@@ -23,6 +24,8 @@ public:
 };
 
 
+/** Constructor
+ */
 
 template <typename T>
 BSTreeNode<T>::BSTreeNode():
@@ -31,7 +34,9 @@ right(nullptr),
 data(nullptr)
 {}
 
-
+/** Constructor
+@param data Pointer to the data value for the node.
+ */
 
 template <typename T>
 BSTreeNode<T>::BSTreeNode(T* data):
@@ -41,12 +46,20 @@ data(data)
 {}
 
 
+/** Test to see if the node is a leaf.
+@return true if the node is a leaf, false otherwise.
+ */
+
 template <typename T>
 bool BSTreeNode<T>::isLeaf() const
 {
     return (nullptr == left && nullptr == right);
 }
 
+
+/** Get the number of children the node has.
+@return The number of children.
+ */
 
 template <typename T>
 int BSTreeNode<T>::childCount() const

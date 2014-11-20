@@ -33,9 +33,9 @@ public:
     int writeToFile(const std::string& fileName);
 
 
-    int addRecord(const ListItem& listItem); //copy the data into a new allocated item
-    int removeRecord(const std::string& name);
-    ListItem findRecord(const std::string& name) const; //this might change
+    bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
+    bool removeRecord(const std::string& name);
+    bool findRecord(const std::string& name, ListItem& found) const; //this might change
 
 
     //print methods... separate?

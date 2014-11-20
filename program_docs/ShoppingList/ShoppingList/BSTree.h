@@ -346,8 +346,8 @@ void BSTree<T, K>::_removeAll(BSTreeNode<T>* subTreePtr)
 }
 
 
-//todo - why do we need this again???
-/** Perform a breadth-first traversal on the tree calling a non-destructive
+
+/** Perform a breadth-first traversal on the tree calling a
     function on each of the data records pointed to by each node.
 @param visit Function object to be called on each data record.
  */
@@ -382,7 +382,7 @@ void BSTree<T, K>::breadthFirstTraversal(const std::function<void(T&)>& visit) c
 }
 
 
-/** Performs a non-destructive action on each data item in the tree through an inorder traversal.
+/** Performs an action on each data item in the tree through an inorder traversal.
 @param visit Function object to be called on the data of each node in the traversal
 */
 
