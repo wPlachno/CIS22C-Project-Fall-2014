@@ -17,7 +17,8 @@ class ListItem
 		bool operator>=(const ListItem& right);
 		bool operator<=(const ListItem& right);
 		bool operator==(const ListItem& right);
-		bool equals(const ListItem& right); //not implemented, intending to use this for comparison based on name ONLY, so that we can catch duplicates
+		int compareKey(const string& b);
+		string getKey();
 		ListItem operator=(const ListItem& right);
 		virtual ~ListItem();
 		string getName();	//anyone think any of the variables need to be safed?
