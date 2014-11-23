@@ -13,10 +13,18 @@ std::string dfS = "";
 int dfI = 0;
 double dfD = 0.00;
 
-struct listNode //linked list
+struct listKey //linked list for key comparing
+{
+	int itemKey;
+	item* itemPtr;
+	listKey* next;
+	listKey *&start;
+};
+
+struct keyOverFlow //linked list for collision resolution
 {
 	item* itemPtr;
-	listNode* next;
+	keyOverFlow* next;
 };
 
 struct item //struct named item that will be held in the hash table (this will act like the items)
@@ -24,6 +32,8 @@ struct item //struct named item that will be held in the hash table (this will a
 	
 	ListItem* list;
 	item* next; // pointer that allows the item to point to another item
+	keyOverFlow* overflow; //puts any key conflicts here
+
 };
 
 class Hashing
@@ -34,7 +44,7 @@ private:
 
 	item* HashTable[tableSize]; //the hash table essentially; an array of items
 
-	int hashFcn(const std::string& key); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const std::string& key, const ListItem* newItem); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
 public:
 	Hashing();
@@ -42,22 +52,20 @@ public:
 							
 	item *search(std::string name); //searches the hash table with the name of the item and displays the index id found
 
-	void addItem(const *ListItem newItem, listNode *&start, listNode *&end); //Function that will add items into the hash table
+	void addItem(ListItem* newItem); //Function that will add items into the hash table
 
-	item *removeItem(const std::string name, listNode *&start, listNode *&end); //Removes items and indexes depending on what name is passed to it
+	item *removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
 	void display(); //Displays the hash table;
 
-	//void displayKeySeq(); //Displays the hash table using the hashing key sequence
-
 	void displayItems(int index); //Displays the items of a particular index
 
 
-	//for the linked list
+	//for the comparing linked list
 
-	bool empty(listNode *start)//checks to see if the list is empty
+	bool empty(listKey *start)//checks to see if the list is empty
 	{
 		if (start == NULL) //if the first element hsa nothing
 		{
@@ -67,24 +75,24 @@ public:
 			return false;
 	}
 
-	void firstNode(listNode *&start, listNode *&end, item *itemPtr)//sets up the first node in the linked list
+	void firstNode(int index)//sets up the first node in the linked list
 	{
 		//set up first node
-		listNode *temp = new listNode;
-		temp->itemPtr = itemPtr;
+		listKey *temp = new listKey;
+		temp->itemKey = index;
 		temp->next = NULL;
 	}
 
-	bool searchList(item *itemPtr, listNode *&start)// searches through the list to stop doubles from being entered into the hash table
+	bool searchList(listKey *&start, int index)// searches through the list to detect key doubles
 	{
-		listNode *node = start; //set the first node to the first element in the list
+		listKey *node = start; //set the first node to the first element in the list
 		
 
 		//traverse the list with the node
 		while (node != NULL) //while node has something in it,
 		{
 			
-			if (node->itemPtr == itemPtr) //check to see if there's a match
+			if (node->itemKey == index) //check to see if there's a match
 			{
 				return true; //return the node
 			}
@@ -98,7 +106,9 @@ public:
 		//if nothing matched, return NULL
 		return false;
 	}
-	
+
+
+	//for the overFlow linked list	
 
 };
 

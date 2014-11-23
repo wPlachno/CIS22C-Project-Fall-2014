@@ -6,9 +6,6 @@
 #include "ListItem.h"
 
 
-
-//using namespace std;
-
 Hashing::Hashing()
 {
 	for (int i = 0; i < tableSize; i++) //runs through the hash table
@@ -24,7 +21,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int Hashing::hashFcn(const std::string& key)
+int Hashing::hashFcn(const std::string& key, const ListItem* newItem)
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -39,6 +36,24 @@ int Hashing::hashFcn(const std::string& key)
 
 	index = hash % tableSize; //making the index
 
+	listKey *keys;
+
+	//create the first node in the list if none exists yet;
+	if (empty(keys->start))//if there's nothing in the list,
+	{
+		//create the first node
+		firstNode(index);
+	}
+	//if it isn't empty, it should just skip the first if statement a start comparing
+	//compare with the linked list
+	else if (searchList(keys->start, index))
+	{
+		keyOverFlow *flow = new keyOverFlow;
+
+		//retrieve the first occurrence from the table
+		flow = HashTable[index]->overflow; //and add the second key occurrence to the overflow list
+	}
+
 		return index;
 }
 
@@ -50,7 +65,8 @@ found in the hash table.
 */
 item *Hashing::search(std::string name)
 {
-	int index = hashFcn(name); //finds the hash value of that particular name and sets index equal to it
+	const ListItem *temp;
+	int index = hashFcn(name, temp); //finds the hash value of that particular name and sets index equal to it
 
 	bool found = false; //bool for if found/if not found
 	//string product;
@@ -59,7 +75,7 @@ item *Hashing::search(std::string name)
 
 	while (tablePtr != NULL) //go through the table as long as there is an item
 	{
-		if (tablePtr->ListItem->name == name)//if the pointer is pointing at the name that is equal to the string passsed to it,
+		if (tablePtr->list->getName() == name)//if the pointer is pointing at the name that is equal to the string passsed to it,
 		{
 			found = true; //it has been found
 			//product = tablePtr->ID;
@@ -86,62 +102,43 @@ item *Hashing::search(std::string name)
 and use these strings to add a new item/ element into the hash table or write over an existing
 item with the same index. This will probably need to get changed to use the collision requirements instead.
 */
-void Hashing::addItem(const *ListItem newItem, listNode *&start, listNode *&end)
+void Hashing::addItem(ListItem* newItem)
 {
-	int index = hashFcn(newItem->name); //Index will be set to the hashed value of the ID (ID is being used as the key here)
+	int index = hashFcn(newItem->getName(), newItem); //Index will be set to the hashed value of the ID (ID is being used as the key here)
 
 
 	//Info Check!
 	
-	if (searchList(HashTable[index]->list, start))//if the item at the index can be found on the list,
-	{//override it with the new information !!!!!!!!!!!!!!!!!!!!!!!!!!!!!This will need to be changed for the collision check requirement
-		/*HashTable[index]->list->name == newItem->name
-		
-		HashTable[index]->list->ID = newItem->ID;
-		HashTable[index]->list->name = newItem->name;
-		HashTable[index]->list->cost = newItem->cost;
-		HashTable[index]->list->quanity = newItem->quanity;
-		HashTable[index]->list->store = newItem->store;
-		HashTable[index]->list->dueDate = newItem->dueDate;*/
-
+	if (search(HashTable[index]->list->getName()) != NULL )//if the item at the index can be found in the table already,
+	{
+		//then it's a duplicate of the same item
 		
 		//don't add it again
 		std::cout << "This item already exists" << std::endl;
 
 	}
-	else //if the item wasn't found in the list...
+	else //if the item wasn't found in the table...
 	{//add a new item
 
-		//add to the linked list
-		if (empty(start)) //if the first node is empty
-		{
-			firstNode(start, end, newItem); //set up the first node with the info
-		}
-		else //if the first node is already filled, just add the info to the linked list
-		{
-			listNode *temp = new listNode;
-			temp->itemPtr = newItem;
-			temp->next = NULL;
-		}
 
 		//add to the hash table
 		item* tablePtr = HashTable[index];
 		item* newPtr = new item; //points to a new item to place the info
 
 		//pass the new info to the new item with newPtr
-		newPtr->list->ID = newItem->ID;
-		newPtr->list->name = newItem->name;
-		newPtr->list->cost = newItem->cost;
-		newPtr->list->quanity = newItem->quanity;
-		newPtr->list->store = newItem->store;
-		newPtr->list->dueDate = newItem->dueDate;
+		//newPtr->list->ID = newItem->ID; Not doing ID?
+		newPtr->list->getName() = newItem->getName();
+		newPtr->list->getCost() = newItem->getCost();   //!!!!!!!!!!!!!!!!!!!Errors: Expression must be a modifiable value
+		newPtr->list->getQuantity() = newItem->getQuantity(); //!!!!!!!!!!!!!!!!!!!! Same
+		newPtr->list->getStore() = newItem->getStore();
+		newPtr->list->getDate() = newItem->getDate();
 
 		newPtr->next = NULL; //next one has a pointer pointing to nothing
 
 		//Now we need to add the new item to the end of the table
 		while (tablePtr->next->list != NULL)//while the next pointer in the hash table isn't pointing to nothing,
 		{
-			tablePtr = tablePtr->next->list; //This will make the pointer go through the table until it gets to the last element to be able to point to it. (This is just to get tablePtr to point to the last element)
+			tablePtr = tablePtr->next; //This will make the pointer go through the table until it gets to the last element to be able to point to it. (This is just to get tablePtr to point to the last element)
 		}
 		tablePtr->next = newPtr; //Link last element of the table to the new info. (Adding the new info to the back of the table)
 	}
@@ -154,22 +151,23 @@ anything, it will go through many if statements to try to
 find the item first. If the item was found, it's information 
 will be removed. 
 */
-item* Hashing::removeItem(const std::string name, listNode *&start, listNode *&end)
+item* Hashing::removeItem(const std::string name)
 {
-	int index = hashFcn(name); //set the index equal to the hash value of the name
+	const ListItem *temp;
+	int index = hashFcn(name, temp); //set the index equal to the hash value of the name
 
 	item* remPtr; //removePointer
 	item* itemPtr1;
 	item* itemPtr2;
 
 	//If the index is empty
-	if (HashTable[index]->list->name == NULL) //if the name in hash table index is the default one (means nothing is there)
+	if (HashTable[index]->list->getName() == dfS) //if the name in hash table index is the default one (means nothing is there)
 	{
 		std::cout << "Item was not found." << std::endl;
 	}
 
 	//Index only contains 1 item and and it has a matching name
-	else if (HashTable[index]->list->name == name && HashTable[index]->next == NULL) //if the name in the hash table matchs the name passed to the function AND there is not next item,
+	else if (HashTable[index]->list->getName() == name && HashTable[index]->next == NULL) //if the name in the hash table matchs the name passed to the function AND there is not next item,
 	{
 		
 		HashTable[index]->list == NULL; //removes the item from the list
@@ -180,10 +178,10 @@ item* Hashing::removeItem(const std::string name, listNode *&start, listNode *&e
 
 	//The match is located in the first item in the index but there are more items in the index
 
-	else if (HashTable[index]->list->name == name) //Last 'if' checked to see if the next item was nothing so this 'if' is designed to already assume that
+	else if (HashTable[index]->list->getName() == name) //Last 'if' checked to see if the next item was nothing so this 'if' is designed to already assume that
 	{										//the index has nore than one item in it.
-		remPtr = HashTable[index]->list; //have remPtr point to that particular index of the hash table
-		HashTable[index] = HashTable[index]->next->list; //And then have HashTable[index] actually be the next item in the list
+		remPtr = HashTable[index]; //have remPtr point to that particular index of the hash table
+		HashTable[index] = HashTable[index]->next; //And then have HashTable[index] actually be the next item in the list
 
 		delete remPtr; //removes the index from the hashtable
 
@@ -194,13 +192,13 @@ item* Hashing::removeItem(const std::string name, listNode *&start, listNode *&e
 	//Index contains items but the first item doesn't match
 	else
 	{
-		itemPtr1 = HashTable[index]->next->list; //Make the first pointer point to the second item in the index. (Becasue from the other 'ifs', we can assume that there is more than one item)
+		itemPtr1 = HashTable[index]->next; //Make the first pointer point to the second item in the index. (Becasue from the other 'ifs', we can assume that there is more than one item)
 		itemPtr2 = HashTable[index]; //Make the second pointer point to the first item in the index
 
-		while (itemPtr1 != NULL && itemPtr1->list->name != name) //while itemPtr1 has something and that something doesn't equal the name that was passed to the function
+		while (itemPtr1 != NULL && itemPtr1->list->getName() != name) //while itemPtr1 has something and that something doesn't equal the name that was passed to the function
 		{//move both pointers along the index list
 			itemPtr2 = itemPtr1;
-			itemPtr1 = itemPtr1->next->list;
+			itemPtr1 = itemPtr1->next;
 			//is is just to step through the entire list of the index to look though everything for a match
 		}
 
@@ -215,8 +213,8 @@ item* Hashing::removeItem(const std::string name, listNode *&start, listNode *&e
 		{
 			//remove the info
 			remPtr = itemPtr1;
-			itemPtr1 = itemPtr1->next->list;
-			itemPtr2->next->list = itemPtr1;
+			itemPtr1 = itemPtr1->next;
+			itemPtr2->next = itemPtr1;
 
 			delete remPtr;
 
@@ -236,19 +234,19 @@ int Hashing::countItems(int index)
 	int count = 0;
 
 	//Looking at the first item of the index.
-	if (HashTable[index]->list->ID == dfI) //If the first item is just a default form,
+	if (HashTable[index]->list->getName() == dfS) //If the first item is just a default form,
 	{
 		return count; //returns nothing (zero; nothing has been set to that index yet)
 	}
 	else
 	{
 		count++;
-		item* tablePtr = HashTable[index]->list; //points to the first item in the index
+		item* tablePtr = HashTable[index]; //points to the first item in the index
 
 		while (tablePtr->next->list != NULL)//while the next item in the index is not nothing,
 		{
 			count++;
-			tablePtr = tablePtr->next->list; //move it down the list of items in the index
+			tablePtr = tablePtr->next; //move it down the list of items in the index
 		}
 	}
 }
@@ -266,12 +264,12 @@ void Hashing::display()
 
 		//Display the contains of this index
 		std::cout << "index: " << i << std::endl;
-		std::cout << "ID: " << HashTable[i]->list->ID << std::endl;
-		std::cout << "Name: " << HashTable[i]->list->name << std::endl;
-		std::cout << "Cost: " << HashTable[i]->list->cost << std::endl;
-		std::cout << "Quanity: " << HashTable[i]->list->quanity << std::endl;
-		std::cout << "Prefered Store: " << HashTable[i]->list->store << std::endl;
-		std::cout << "Due Date: " << HashTable[i]->list->dueDate << std::endl;
+		//std::cout << "ID: " << HashTable[i]->list->ID << std::endl; ???
+		std::cout << "Name: " << HashTable[i]->list->getName() << std::endl;
+		std::cout << "Cost: " << HashTable[i]->list->getCost() << std::endl;
+		std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
+		std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
+		std::cout << "Due Date: " << HashTable[i]->list->getDate() << std::endl;
 
 	} 
 }
@@ -282,7 +280,7 @@ void Hashing::displayItems(int index)
 {
 	item* tablePtr = HashTable[index]; //points to the index of hash table
 
-	if (tablePtr->list->ID == dfI) //check to see if the index is empty (default),
+	if (tablePtr->list->getName() == dfS) //check to see if the index is empty (default),
 	{ //This method assumes that only ID needs to change to be considered not empty, may need to come back to fix this 
 		std::cout << "Info for index: " << index << std::endl;
 		std::cout << "This index is empty" << std::endl;
@@ -294,104 +292,15 @@ void Hashing::displayItems(int index)
 		while (tablePtr != NULL) //While the index does have something
 		{
 
-			std::cout << "ID: " << tablePtr->list->ID << std::endl;
-			std::cout << "Name: " << tablePtr->list->name << std::endl;
-			std::cout << "Cost: " << tablePtr->list->cost << std::endl;
-			std::cout << "Quanity: " << tablePtr->list->quanity << std::endl;
-			std::cout << "Prefered Store: " << tablePtr->list->store << std::endl;
-			std::cout << "Due Date: " << tablePtr->list->dueDate << std::endl;
+			//std::cout << "ID: " << tablePtr->list->ID << std::endl; ???
+			std::cout << "Name: " << tablePtr->list->getName() << std::endl;
+			std::cout << "Cost: " << tablePtr->list->getCost() << std::endl;
+			std::cout << "Quanity: " << tablePtr->list->getQuantity() << std::endl;
+			std::cout << "Prefered Store: " << tablePtr->list->getStore() << std::endl;
+			std::cout << "Due Date: " << tablePtr->list->getDate() << std::endl;
 
 			tablePtr = tablePtr->next;//points to the next item
 		}
 	}
 }
 
-/*displayKeySeq(): This function will display the hash table's
-contents only after it has been sorted by 'key' order. The one 
-with the smallest hash key will be the first to be displayed. 
-*/
-/*void Hashing::displayKeySeq()//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!This function is messy, gross and doesn't work properly and I know it.  
-{		
-																		//Could I get some help in making it run more logically?/Actually do what it's meant to do?
-	
-	int keys[tableSize]; //array of keys
-	item *ptr; //pointer of item type
-
-
-	for (int i = 0; i < tableSize; i++)//fill the array
-	{
-		ptr = HashTable[i];
-
-		keys[i] = hashFcn(ptr->name); //start filling the keys array
-	}
-
-	//now sort the array
-	int i, j, imin, temp;
-	
-	for (j = 0; j < tableSize; j++)
-	{
-		imin = j;
-		for (i = j + 1; i < tableSize; i++)
-		{
-			if (keys[i] < keys[imin])
-			{
-				imin = i;
-			}
-		}
-		if (imin != j)
-		{
-			temp = keys[j];
-			keys[j] = keys[imin];
-			keys[imin] = temp;
-		}
-	}
-	//just a selection sort
-
-	for (int i = 0; i < tableSize; i++)
-	{
-		int index = keys[i];
-
-		cout << "ID: " << HashTable[index]->ID << endl;
-		cout << "Name: " << HashTable[index]->name << endl;
-		cout << "Cost: " << HashTable[index]->cost << endl;
-		cout << "Quanity: " << HashTable[index]->quanity << endl;
-		cout << "Prefered Store: " << HashTable[index]->store << endl;
-		cout << "Due Date: " << HashTable[index]->dueDate << endl;
-		cout << "-----------------------------" << endl;
-		
-	}
-	
-	
-	/*item *Ptr;
-	for (int i = 1; i < tableSize; i++)
-	{
-		Ptr = HashTable[i]; //set it to point to the table
-
-		int keyVal1; //key values
-		int keyVal2;
-
-		for (int j = i; (j > 0); j--)
-		{
-			keyVal1 = hashFcn(HashTable[j - 1]->name); //set the key values 
-			keyVal2 = hashFcn(Ptr->name);
-
-			if (keyVal1 < keyVal2) //if key 1 is greater than key 2
-			{
-				HashTable[j] = HashTable[j - 1];  //set it back one
-
-				HashTable[j] = Ptr; //assign new value to the pointer
-				
-			}
-		}
-			//display
-			cout << "index: " << i << endl;
-			cout << "ID: " << Ptr->ID << endl;
-			cout << "Name: " << Ptr->name << endl;
-			cout << "Cost: " << Ptr->cost << endl;
-			cout << "Quanity: " << Ptr->quanity << endl;
-			cout << "Prefered Store: " << Ptr->store << endl;
-			cout << "Due Date: " << Ptr->dueDate << endl;
-		
-	}
-
-}*/
