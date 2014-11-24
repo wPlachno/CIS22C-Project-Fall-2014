@@ -111,7 +111,7 @@ bool ShoppingList::addRecord(const ListItem& toAdd)
 
 bool ShoppingList::removeRecord(const std::string& name)
 {
-   ListItem* toDeleteTable, toDeleteTree;
+   ListItem* toDeleteTable, *toDeleteTree;
 
 
    toDeleteTable = htable.removeItem(name);

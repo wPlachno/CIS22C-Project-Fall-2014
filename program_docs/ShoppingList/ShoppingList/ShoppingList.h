@@ -13,7 +13,7 @@ class ShoppingList
 private:
     int itemCount;
     BSTree<ListItem, std::string> bstree;
-    HashTable htable;
+    Hashing htable;
 
 
     //std::string fileName; //in a gui app this would be a better configuration
