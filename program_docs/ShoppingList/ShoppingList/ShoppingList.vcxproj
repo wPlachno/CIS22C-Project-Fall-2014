@@ -67,14 +67,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ListItem.cpp" />
+    <ClCompile Include="Output.cpp" />
     <ClCompile Include="ShoppingList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BSTree.h" />
     <ClInclude Include="BSTreeNode.h" />
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Output.h" />
     <ClInclude Include="ShoppingList.h" />
     <ClInclude Include="ListItem.h" />
   </ItemGroup>
