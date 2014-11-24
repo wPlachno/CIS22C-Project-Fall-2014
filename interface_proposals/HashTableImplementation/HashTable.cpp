@@ -8,6 +8,8 @@
 
 Hashing::Hashing()
 {
+
+
 	for (int i = 0; i < tableSize; i++) //runs through the hash table
 	{//D.A. all indexes of the hash table
 		HashTable[i] = new item;
@@ -125,11 +127,15 @@ void Hashing::addItem(ListItem* newItem)
 		item* tablePtr = HashTable[index];
 		item* newPtr = new item; //points to a new item to place the info
 
+		//set the double and int values for assignment
+		double Dtemp = newPtr->list->getCost();
+		int Itemp = newPtr->list->getQuantity();
+
 		//pass the new info to the new item with newPtr
 		//newPtr->list->ID = newItem->ID; Not doing ID?
 		newPtr->list->getName() = newItem->getName();
-		newPtr->list->getCost() = newItem->getCost();   //!!!!!!!!!!!!!!!!!!!Errors: Expression must be a modifiable value
-		newPtr->list->getQuantity() = newItem->getQuantity(); //!!!!!!!!!!!!!!!!!!!! Same
+		Dtemp = newItem->getCost();   //setting up the double and int values before assignment seemed to have fixed the error...
+		Itemp = newItem->getQuantity(); 
 		newPtr->list->getStore() = newItem->getStore();
 		newPtr->list->getDate() = newItem->getDate();
 

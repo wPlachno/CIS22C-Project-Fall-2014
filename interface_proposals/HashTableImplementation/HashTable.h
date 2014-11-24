@@ -15,10 +15,12 @@ double dfD = 0.00;
 
 struct listKey //linked list for key comparing
 {
+	listKey();
+	listKey(listKey*& start1, int itemKey1, item* itemPtr1, listKey* next1) : start(start1), itemKey(itemKey1), itemPtr(itemPtr1), next(next1) {}; //used to initialize the ref variable start.
 	int itemKey;
 	item* itemPtr;
 	listKey* next;
-	listKey *&start;
+	listKey*& start;
 };
 
 struct keyOverFlow //linked list for collision resolution
