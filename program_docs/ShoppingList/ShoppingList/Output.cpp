@@ -39,6 +39,14 @@ void Output::PrintMainMenu()
 	std::cout << "9. Quit the Shopping List." << std::endl;
 }
 
+/* static void PrintError(string errMsg) */
+/* Prints an error line with the errMsg
+*/
+void Output::PrintError(const std::string errMsg)
+{
+	std::cout << "ERROR: " << errMsg << std::endl;
+}
+
 /* static void Item(ListItem* item) */
 /* Prints the details of the item
 */

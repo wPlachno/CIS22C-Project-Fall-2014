@@ -9,24 +9,38 @@ Functions:
  - MainMenuOption GetMainMenuChoice();
 */
 
-		/* static char* StringPrompt(char* prompt) */
-		/* Prints prompt, then gets the user input
-		*/
-char* Input::StringPrompt(char* prompt)
+
+/* static const string StringPrompt(string prompt) */
+/* Prints prompt, then gets the user input
+*/
+const std::string Input::StringPrompt(const std::string prompt)
 {
 	std::cout << prompt << std::endl;
-	char answer[MAX_INPUT_CHARS_STRING];
+	std::string answer;
 	std::cin >> answer;
+	answer = answer.substr(answer.find_first_not_of(' '), answer.find_last_not_of(' '));
 	return answer;
+
+}
+
+/* static const double DoublePrompt(string prompt) */
+/* Prints prompt, then gets the user input
+*/
+const double Input::DoublePrompt(const std::string prompt)
+{
+	std::cout << prompt << std::endl;
+	std::string answer;
+	std::cin >> answer;
+	return str2Dbl(answer);
 }
 
 /* static int MenuPrompt(char* prompt) */
 /* Prints prompt, then gets the user input and converts to int
 */
-int Input::MenuPrompt(char* prompt)
+const int Input::IntPrompt(std::string prompt)
 {
 	std::cout << prompt << std::endl;
-	char answer[MAX_INPUT_CHARS_MENU];
+	std::string answer;
 	std::cin >> answer;
 	return str2Int(answer);
 }
@@ -40,7 +54,7 @@ MainMenuOption Input::GetMainMenuChoice()
 	do
 	{
 		std::cout << "Your menu choice: ";
-		char answer[MAX_INPUT_CHARS_MENU];
+		std::string answer;
 		std::cin >> answer;
 		ans = str2Int(answer);
 		if (ans > 9 || ans < 1)
@@ -52,24 +66,15 @@ MainMenuOption Input::GetMainMenuChoice()
 /* static int str2Int(char* charStr) */
 /* Takes the argument and converts it into an int. If error, return -1;
 */
-int Input::str2Int(char* charStr)
+const int Input::str2Int(const std::string charStr)
 {
-	int currentNum = 0;
-	int curIndex = 0;
-	while (charStr[curIndex] != '\0')
-	{
-		char curChar = charStr[curIndex];
-		int numFromChar = (int)curChar - 48;
-		if (numFromChar >= 0 && numFromChar <= 10)
-		{
-			currentNum *= 10;
-			currentNum += numFromChar;
-		}
-		else if (curChar != ' ')
-		{
-			return -1;
-		}
-		++curIndex;
-	}
-	return currentNum;
+	return std::stoi(charStr, nullptr);
+}
+
+/* static double str2Dbl(string charStr) */
+/* Takes the argument and converts it into a double. If error, return -1;
+*/
+const double Input::str2Dbl(const std::string charStr)
+{
+	return std::stod(charStr, nullptr);
 }

@@ -23,6 +23,11 @@
 		*/
 		static void PrintMainMenu();
 
+		/* static void PrintError(string errMsg) */
+		/* Prints an error line with the errMsg
+		*/
+		static void PrintError(const std::string errMsg);
+
 		/* static void Item(ListItem* item) */
 		/* Prints the details of the item
 		*/

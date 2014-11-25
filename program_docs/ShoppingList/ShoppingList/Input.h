@@ -3,6 +3,7 @@
 
 #ifndef USRPULL_H
 #define USRPULL_H
+#include <string>
 
 	/* enum MainMenuOptions */
 	/* Contains the choices for the main menu
@@ -27,15 +28,20 @@
 	{
 	public:
 
-		/* static char* StringPrompt(char* prompt) */
+		/* static const string StringPrompt(string prompt) */
 		/* Prints prompt, then gets the user input
 		*/
-		static char* StringPrompt(char* prompt);
+		static const std::string StringPrompt(const std::string prompt);
+
+		/* static const double DoublePrompt(string prompt) */
+		/* Prints prompt, then gets the user input
+		*/
+		static const double DoublePrompt(const std::string prompt);
 
 		/* static int MenuPrompt(char* prompt) */
 		/* Prints prompt, then gets the user input and converts to int
 		*/
-		static int MenuPrompt(char* prompt);
+		static const int IntPrompt(std::string prompt);
 
 		/* static int MainMenu() */
 		/* Prompts for the users main menu choice, then returns the option
@@ -47,17 +53,13 @@
 		/* static int str2Int(char* charStr) */
 		/* Takes the argument and converts it into an int. If error, return -1;
 		*/
-		static int str2Int(char* charStr);
+		static const int str2Int(const std::string charStr);
 
-		/* const int MAX_INPUT_CHARS_MENU */
-		/* The maximum number of chars to read in during user input
+		/* static double str2Dbl(string charStr) */
+		/* Takes the argument and converts it into a double. If error, return -1;
 		*/
-		static const int MAX_INPUT_CHARS_MENU = 3;
+		static const double str2Dbl(const std::string charStr);
 
-		/* const int MAX_INPUT_CHARS_STRING */
-		/* The maximum number of chars to read in during user input
-		*/
-		static const int MAX_INPUT_CHARS_STRING = 30;
 	};
 
 #endif
