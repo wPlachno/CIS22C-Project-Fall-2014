@@ -19,7 +19,7 @@ private:
     //std::string fileName; //in a gui app this would be a better configuration
 
 
-    ListItem* findRecordPtr(const std::string& name)const ;
+    ListItem* findRecordPtr(const std::string& name); //const ;
 public:
     ShoppingList();
     ~ShoppingList();
@@ -35,13 +35,13 @@ public:
 
     bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
     bool removeRecord(const std::string& name);
-    bool findRecord(const std::string& name, ListItem& found) const; //this might change
+    bool findRecord(const std::string& name, ListItem& found); //const; //this might change
     int getItemCount() const;
 
     //print methods... separate?
-    void displayItem(const std::string& item) const;
+    void displayItem(const std::string& item);// const;
     void printTree() const;
-    void printListHashSeq() const;
+    void printListHashSeq(); //const;
     void printListByName() const;
     void printHashTableEfficiency() const;
 

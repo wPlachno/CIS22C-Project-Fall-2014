@@ -53,7 +53,7 @@ ShoppingList::~ShoppingList()
 @return A pointer to the found record.  Returns nullptr if the record is not found.
  */
 
-ListItem* ShoppingList::findRecordPtr(const std::string& name) const
+ListItem* ShoppingList::findRecordPtr(const std::string& name) //const
 {
     return htable.search(name); 
 }
@@ -72,7 +72,7 @@ int ShoppingList::loadFromFile(const std::string& fileName)
 
 
 
-int ShoppingList::writeToFile(const std::string& fileName)
+int ShoppingList::writeToFile(const std::string& fileName) const
 {
     //breadthFirstTraversal
 
@@ -114,12 +114,12 @@ bool ShoppingList::removeRecord(const std::string& name)
 /*    toDeleteTable =*/ htable.removeItem(name);
     toDeleteTree  = bstree.remove(name);
 
-    if (toDeleteTree && toDeleteTable)
+    if (toDeleteTree /*&& toDeleteTable*/)
     {
         delete toDeleteTree;
         return false;
     }
-    else if(!toDeleteTree && !toDeleteTable)
+    else if(!toDeleteTree /*&& !toDeleteTable*/)
         return false;
     else
     {
@@ -128,8 +128,8 @@ bool ShoppingList::removeRecord(const std::string& name)
         //if we do get here in production, handle this as gracefully as possible.
         if(toDeleteTree)
             delete toDeleteTree;
-        else
-            delete toDeleteTable;
+//        else
+//            delete toDeleteTable;
 
         itemCount--;
         return true; //todo: should this be true or false?  or should we throw an out of sync error
@@ -145,7 +145,7 @@ bool ShoppingList::removeRecord(const std::string& name)
  @return true if the record was found, false otherwise.
  */
 
-bool ShoppingList::findRecord(const std::string& name, ListItem& found) const
+bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
 {
    ListItem* pFound = findRecordPtr(name);
 
@@ -173,7 +173,7 @@ int ShoppingList::getItemCount() const
 /** Find a record and print it to the screen.
 @param item The name of the item to display.
  */
-void ShoppingList::displayItem(const std::string& name) const
+void ShoppingList::displayItem(const std::string& name) //const
 {
     ListItem* found = findRecordPtr(name);
  
@@ -200,7 +200,7 @@ void ShoppingList::printTree() const
 /** Print the list in hash key sequence to stdout.
  */
 
-void ShoppingList::printListHashSeq() const
+void ShoppingList::printListHashSeq() //const
 {
     htable.display(); //todo what happended to the other function
    // htable.displayKeySeq();
@@ -221,7 +221,7 @@ void ShoppingList::printListByName() const
 @param storeName The name of the store to be searched for.
  */
 
-void ShoppingList::printByStore(const std::string& storeName)
+void ShoppingList::printByStore(const std::string& storeName) const
 {
     auto visitFunc = std::bind(printIfStore, std::placeholders::_1, storeName);
 

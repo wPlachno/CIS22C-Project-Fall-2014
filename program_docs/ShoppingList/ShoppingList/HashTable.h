@@ -7,7 +7,7 @@ Goel
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include "stdafx.h"
+
 #include <iostream>
 #include <string>
 #include "ListItem.h"
