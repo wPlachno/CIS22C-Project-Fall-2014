@@ -1,5 +1,9 @@
 #pragma once
-// Created by Will Plachno
+
+/* Created by Will Plachno */
+// De Anza Fall 2014 14F Goel
+// Final Project Team 5 "Shopping List"
+
 #include <string>
 #include <iostream>
 

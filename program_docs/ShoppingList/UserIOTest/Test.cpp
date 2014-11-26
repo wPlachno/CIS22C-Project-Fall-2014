@@ -1,4 +1,6 @@
-// Created by Will Plachno
+/* Created by Will Plachno */
+// De Anza CIS22C Final Project
+// Team 5
 
 #include "Test.h"
 

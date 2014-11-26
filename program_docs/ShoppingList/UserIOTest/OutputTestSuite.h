@@ -1,6 +1,9 @@
-// Created by Will Plachno
-
 #pragma once
+
+/* Created by Will Plachno */
+// De Anza Fall 2014 14F Goel
+// Final Project Team 5 "Shopping List"
+
 #include "TestSuite.h"
 
 /* class OutputTestSuite
