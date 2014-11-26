@@ -8,7 +8,7 @@ Goel
 #include <iostream>
 #include <string>
 #include <vector>
-#include "HTable.h"
+#include "HashTable.h"
 #include "ListItem.h"
 
 //default values
