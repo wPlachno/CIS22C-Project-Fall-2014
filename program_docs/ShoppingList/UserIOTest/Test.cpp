@@ -1,6 +1,6 @@
 /* Created by Will Plachno */
-// De Anza CIS22C Final Project
-// Team 5
+// De Anza Fall 2014 14F Goel
+// Final Project Team 5 "Shopping List"
 
 #include "Test.h"
 
