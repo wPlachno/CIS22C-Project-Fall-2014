@@ -17,7 +17,7 @@
 @param item The ListItem to be printed.
  */
 
-void printItemName(ListItem& item);
+void printItemName(ListItem& item)
 {
     std::cout << item.getName() << std::endl;
 }
@@ -53,7 +53,7 @@ ShoppingList::~ShoppingList()
 @return A pointer to the found record.  Returns nullptr if the record is not found.
  */
 
-ListItem* ShoppingList::findRecordPtr(const std::string& name)
+ListItem* ShoppingList::findRecordPtr(const std::string& name) const
 {
     return htable.search(name); 
 }
@@ -67,8 +67,7 @@ ListItem* ShoppingList::findRecordPtr(const std::string& name)
 
 int ShoppingList::loadFromFile(const std::string& fileName)
 {
-    FileIO io;
-    return io.readFromFile(*this, fileName);
+    return 1;
 }
 
 
@@ -111,8 +110,8 @@ bool ShoppingList::removeRecord(const std::string& name)
 {
     ListItem* toDeleteTable, *toDeleteTree;
 
-
-    toDeleteTable = htable.removeItem(name);
+    //todo interface for this needs to be fixed
+/*    toDeleteTable =*/ htable.removeItem(name);
     toDeleteTree  = bstree.remove(name);
 
     if (toDeleteTree && toDeleteTable)
@@ -146,7 +145,7 @@ bool ShoppingList::removeRecord(const std::string& name)
  @return true if the record was found, false otherwise.
  */
 
-bool ShoppingList::findRecord(const std::string& name, ListItem& found)
+bool ShoppingList::findRecord(const std::string& name, ListItem& found) const
 {
    ListItem* pFound = findRecordPtr(name);
 
@@ -174,7 +173,7 @@ int ShoppingList::getItemCount() const
 /** Find a record and print it to the screen.
 @param item The name of the item to display.
  */
-void ShoppingList::displayItem(const std::string& name)
+void ShoppingList::displayItem(const std::string& name) const
 {
     ListItem* found = findRecordPtr(name);
  
@@ -192,7 +191,7 @@ void ShoppingList::displayItem(const std::string& name)
 /** Print the list as an indented tree.
  */
 
-void ShoppingList::printTree()
+void ShoppingList::printTree() const
 {
     bstree.printTree();
 }
@@ -203,7 +202,8 @@ void ShoppingList::printTree()
 
 void ShoppingList::printListHashSeq() const
 {
-    htable.displayKeySeq();
+    htable.display(); //todo what happended to the other function
+   // htable.displayKeySeq();
 }
 
 
@@ -213,7 +213,7 @@ void ShoppingList::printListHashSeq() const
 
 void ShoppingList::printListByName() const
 {
-    tree.inorderTraversal(printItemName);
+    bstree.inorderTraversal(printItemName);
 }
 
 
@@ -225,7 +225,7 @@ void ShoppingList::printByStore(const std::string& storeName)
 {
     auto visitFunc = std::bind(printIfStore, std::placeholders::_1, storeName);
 
-    tree.inorderTraversal(visitFunc);
+    bstree.inorderTraversal(visitFunc);
     //tree.breadthFirstTraversal(visitFunc);
 
 }

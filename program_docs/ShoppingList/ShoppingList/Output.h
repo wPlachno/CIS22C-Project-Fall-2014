@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef OUTPUT_H
+#define OUTPUT_H
+
 /* Created by Will Plachno */
 // De Anza Fall 2014 14F Goel
 // Final Project Team 5 "Shopping List"
