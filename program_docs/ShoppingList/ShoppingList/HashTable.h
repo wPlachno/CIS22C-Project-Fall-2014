@@ -30,12 +30,11 @@ struct item //struct named item that will be held in the hash table (this will a
 
 struct listKey //linked list for key comparing
 {
-	listKey();
-	listKey(listKey*& start1, int itemKey1, item* itemPtr1, listKey* next1) : start(start1), itemKey(itemKey1), itemPtr(itemPtr1), next(next1) {}; //used to initialize the ref variable start.
+	//listKey(listKey *&start1, int itemKey1, item* itemPtr1, listKey* next1) : start(start1), itemKey(itemKey1), itemPtr(itemPtr1), next(next1) {}; //used to initialize the ref variable start.
 	int itemKey;
-	item* itemPtr;
-	listKey* next;
-	listKey*& start;
+	item *itemPtr;
+	listKey *next;
+	//listKey *&start;
 };
 
 class HTable
@@ -87,65 +86,15 @@ public:
 		temp->next = NULL;
 	}
 
-	void addToList(int index) //adds the index to the list, but checks for double indexes first
-	{
-		listKey *keys = new listKey;
-
-		//create the first node in the list if none exists yet;
-		if (empty(keys->start))//if there's nothing in the list,
-		{
-			//create the first node
-			firstNode(index);
-		}
-		//if it isn't empty, it should just skip the first if statement a start comparing
-		//compare with the linked list
-		else if (searchList(keys->start, index))
-		{
-			keyOverFlow *flow = new keyOverFlow;
-
-			//retrieve the first occurrence from the table
-			flow = HashTable[index]->overflow; //and add the second key occurrence to the overflow list
-		}
-		else //if the index isn't used yet, add it to the list
-		{ 
-			keys->itemKey = index; //set the value to the node
-			keys->next = NULL;// and set the next node to NULL
-		}
-	}
-
-
-	void removeFromList(int index) //removes an index from the list (if the index can be found
-	{
-		listKey *keys = new listKey;
-		listKey *del = NULL; //delete
-
-		if (empty(keys->start))//if the list is empty,
-			{
-				return; //just return
-			}
-		else if (searchList(keys->start, index)) //if found,
-		{
-			//delete it
-			del = keys;
-			keys = del->next;
-			delete del;
-		}
-		else //if the list isn't empty AND the index wasn't found in the list
-		{
-			return; //just return
-		}
-	}
-
-
-	bool searchList(listKey *&start, int index)// searches through the list to detect key doubles
+	bool searchList(listKey *start, int index)// searches through the list to detect key doubles
 	{
 		listKey *node = start; //set the first node to the first element in the list
-		
+
 
 		//traverse the list with the node
 		while (node != NULL) //while node has something in it,
 		{
-			
+
 			if (node->itemKey == index) //check to see if there's a match
 			{
 				return true; //return the node
@@ -161,6 +110,55 @@ public:
 		return false;
 	}
 
+
+	void addToList(int index) //adds the index to the list, but checks for double indexes first
+	{
+		listKey *newKeys = new listKey;
+
+		//create the first node in the list if none exists yet;
+		if (empty(newKeys))//if there's nothing in the list,
+		{
+			//create the first node
+			firstNode(index);
+		}
+		//if it isn't empty, it should just skip the first if statement a start comparing
+		//compare with the linked list
+		else if (searchList(newKeys, index))
+		{
+			keyOverFlow *flow = new keyOverFlow;
+
+			//retrieve the first occurrence from the table
+			flow = HashTable[index]->overflow; //and add the second key occurrence to the overflow list
+		}
+		else //if the index isn't used yet, add it to the list
+		{ 
+			newKeys->itemKey = index; //set the value to the node
+			newKeys->next = NULL;// and set the next node to NULL
+		}
+	}
+
+
+	void removeFromList(int index) //removes an index from the list (if the index can be found
+	{
+		listKey *keys = new listKey;
+		listKey *del = NULL; //delete
+
+		if (empty(keys))//if the list is empty,
+			{
+				return; //just return
+			}
+		else if (searchList(keys, index)) //if found,
+		{
+			//delete it
+			del = keys;
+			keys = del->next;
+			delete del;
+		}
+		else //if the list isn't empty AND the index wasn't found in the list
+		{
+			return; //just return
+		}
+	}
 
 };
 
