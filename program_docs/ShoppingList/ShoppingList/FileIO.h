@@ -1,3 +1,7 @@
+/* Olivia Zhang
+CIS 22C Fall 2014 Goel
+Team 5 Project*/
+
 #ifndef FILEIO_H
 #define FILEIO_H
 #include <iostream>
