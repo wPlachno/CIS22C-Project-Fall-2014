@@ -1,7 +1,3 @@
-/* Olivia Zhang
-CIS 22C Fall 2014 Goel
-Team 5 Project*/
-
 #include "fileio.h"
 //initialize static member - must be in cpp file to avoid multiple definitions
 FileIO_TempFileData FileIO::f;
@@ -45,6 +41,7 @@ bool FileIO::loadFile(ShoppingList& list, const std::string& fileName)
 	//checks if file opened
 	if (!infile.is_open())
 	{
+		std::cout << "ERROR! File did not open!\n";
 		return false;
 	}
 
@@ -75,6 +72,7 @@ bool FileIO::writeToFile(ListItem& item, const std::string& fileName)
 
 	if (!(outfile.is_open()))
 	{
+		std::cout << "ERROR! File did not open!\n";
 		status = false;
 	}
 	else
