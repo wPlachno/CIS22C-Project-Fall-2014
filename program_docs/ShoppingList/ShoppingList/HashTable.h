@@ -16,7 +16,7 @@ Goel
 struct keyOverFlow //linked list for collision resolution
 {
 	ListItem* itemPtr;
-	keyOverFlow* next;
+	keyOverFlow* overflow;	//change to be named overflow
 };
 
 struct item //struct named item that will be held in the hash table (this will act like the items)
@@ -25,7 +25,11 @@ struct item //struct named item that will be held in the hash table (this will a
 	ListItem* list;
 	item* next; // pointer that allows the item to point to another item
 	keyOverFlow* overflow; //puts any key conflicts here
-
+	item(){
+		list = NULL;
+		next = NULL;
+		overflow = NULL;
+	};
 };
 
 struct listKey //linked list for key comparing
@@ -33,19 +37,24 @@ struct listKey //linked list for key comparing
 	//listKey(listKey *&start1, int itemKey1, item* itemPtr1, listKey* next1) : start(start1), itemKey(itemKey1), itemPtr(itemPtr1), next(next1) {}; //used to initialize the ref variable start.
 	int itemKey;
 	item *itemPtr;
-	listKey *next;
+	listKey *next;	//remove entirely, use HashTable[x+1] or whatever
 	//listKey *&start;
+	listKey(){
+		itemKey = NULL;
+		itemPtr = NULL;
+		next = NULL;
+	}
 };
 
 class HTable
 {
 private:
-	static const int tableSize = 25; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
+	static const int tableSize = 1; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
 
+	item** HashTable;
+	//item* HashTable[tableSize]; //the hash table essentially; an array of items
 
-	item* HashTable[tableSize]; //the hash table essentially; an array of items
-
-	int hashFcn(const std::string& key, const ListItem* newItem); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const std::string& key/*, const ListItem* newItem*/); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
 public:
 	HTable(); //construct
@@ -70,12 +79,14 @@ public:
 
 	bool empty(listKey *start)//checks to see if the list is empty
 	{
-		if (start == NULL) //if the first element hsa nothing
+		if (start == NULL || start->itemKey == NULL) //if the first element has nothing
 		{
 			return true; //we can assume that the rest of the list is empty as well
 		}
-		else //if not,
+		else
+		{//if not,
 			return false;
+		}
 	}
 
 	void firstNode(int index)//sets up the first node in the linked list
@@ -88,14 +99,14 @@ public:
 
 	bool searchList(listKey *start, int index)// searches through the list to detect key doubles
 	{
-		listKey *node = start; //set the first node to the first element in the list
+		//listKey *node = start; //set the first node to the first element in the list
 
 
 		//traverse the list with the node
-		while (node != NULL) //while node has something in it,
+		while (start != NULL && start->itemKey != NULL) //while the node has something in it,
 		{
 
-			if (node->itemKey == index) //check to see if there's a match
+			if (start->itemKey == index) //check to see if there's a match
 			{
 				return true; //return the node
 			}
@@ -103,7 +114,7 @@ public:
 			else //if it doesn't match,
 			{
 				//move on to the next one
-				node = node->next;
+				start = start->next;
 			}
 		}
 		//if nothing matched, return NULL
@@ -123,14 +134,15 @@ public:
 		}
 		//if it isn't empty, it should just skip the first if statement a start comparing
 		//compare with the linked list
-		else if (searchList(newKeys, index))
+		/*else if (searchList(newKeys, index))
 		{
 			keyOverFlow *flow = new keyOverFlow;
 
 			//retrieve the first occurrence from the table
 			flow = HashTable[index]->overflow; //and add the second key occurrence to the overflow list
-		}
-		else //if the index isn't used yet, add it to the list
+
+		}*/
+		else if(!searchList(newKeys, index)) //if the index isn't used yet, add it to the list
 		{ 
 			newKeys->itemKey = index; //set the value to the node
 			newKeys->next = NULL;// and set the next node to NULL

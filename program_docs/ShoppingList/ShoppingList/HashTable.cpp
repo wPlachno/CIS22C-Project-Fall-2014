@@ -19,11 +19,12 @@ double dfD = 0.00;
 
 HTable::HTable()
 {
+	HashTable = new item*[tableSize];
 	for (int i = 0; i < tableSize; i++) //runs through the hash table
 	{//D.A. all indexes of the hash table
 		HashTable[i] = new item;
 		
-		HashTable[i + 1] = NULL; //what it points to for the next item.
+		//HashTable[i + 1] = NULL; //what it points to for the next item.
 	}
 }
 
@@ -32,7 +33,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int HTable::hashFcn(const std::string& key, const ListItem* newItem)
+int HTable::hashFcn(const std::string& key/*, const ListItem* newItem*/)
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -58,18 +59,17 @@ found in the hash table.
 */
 ListItem *HTable::search(std::string name)
 {
-	const ListItem *temp = new ListItem;
-	int index = hashFcn(name, temp); //finds the hash value of that particular name and sets index equal to it
+	//const ListItem *temp = new ListItem;
+	int index = hashFcn(name/*, temp*/); //finds the hash value of that particular name and sets index equal to it
 
 
 	bool found = false; //bool for if found/if not found
 	//string product;
 
 	item *tablePtr = HashTable[index]; //create a pointer to the hash table
-
-	while (tablePtr != NULL) //go through the table as long as there is an item
+	while (tablePtr != NULL && tablePtr->list != NULL && !found) //go through the table as long as there is an item
 	{
-		if (tablePtr->list->getName() == name || tablePtr->overflow->itemPtr->getName() == name) //if the pointer is pointing at the name that is equal to the string passsed to it,
+		if (tablePtr->list->getKey() == name || tablePtr->overflow->itemPtr->getKey() == name) //if the pointer is pointing at the name that is equal to the string passsed to it,
 		{
 			found = true; //it has been found
 		
@@ -91,22 +91,21 @@ ListItem *HTable::search(std::string name)
 
 }
 
-
 /*addItem(): Function that will take in 6 strings (ID, name, cost, quanity, store and dueDate)
 and use these strings to add a new item/ element into the hash table or write over an existing
 item with the same index. This will probably need to get changed to use the collision requirements instead.
 */
 void HTable::addItem(ListItem* newItem)
 {
-	int index = hashFcn(newItem->getName(), newItem); //Index will be set to the hashed value of the ID (ID is being used as the key here)
+	int index = hashFcn(newItem->getKey()/*, newItem*/); //Index will be set to the hashed value of the ID (ID is being used as the key here)
 
 
 	//Info Check!
-	
-	if (search(HashTable[index]->list->getName()) != NULL )//if the item at the index can be found in the table already,
+
+	if (search(/*HashTable[index]->list->getName()*/newItem->getKey()) != NULL)//if the item at the index can be found in the table already,
 	{
 		//then it's a duplicate of the same item
-		
+
 		//don't add it again
 		std::cout << "This item already exists" << std::endl;
 
@@ -116,30 +115,138 @@ void HTable::addItem(ListItem* newItem)
 
 		addToList(index); //add the index to the list
 
+
 		//add to the hash table
-		item* tablePtr = HashTable[index];
+		item* tablePtr = HashTable[index]; // //
 		item* newPtr = new item; //points to a new item to place the info
 
-		//set the double and int values for assignment
-		double Dtemp = newPtr->list->getCost();
-		int Itemp = newPtr->list->getQuantity();
-
-		//pass the new info to the new item with newPtr
-		//newPtr->list->ID = newItem->ID; Not doing ID?
-		newPtr->list->getName() = newItem->getName();
-		Dtemp = newItem->getCost();   //setting up the double and int values before assignment seemed to have fixed the error...
-		Itemp = newItem->getQuantity(); 
-		newPtr->list->getStore() = newItem->getStore();
-		newPtr->list->getDate() = newItem->getDate();
-
-		newPtr->next = NULL; //next one has a pointer pointing to nothing
-
-		//Now we need to add the new item to the end of the table
-		while (tablePtr->next->list != NULL)//while the next pointer in the hash table isn't pointing to nothing,
+		if (HashTable[index]->list == NULL) //if hashTable list is empty
 		{
-			tablePtr = tablePtr->next; //This will make the pointer go through the table until it gets to the last element to be able to point to it. (This is just to get tablePtr to point to the last element)
+			HashTable[index]->list = newItem; //set the new item's values to that particular element
 		}
-		tablePtr->next = newPtr; //Link last element of the table to the new info. (Adding the new info to the back of the table)
+		else //if the index of the HashTable is NULL
+		{
+			ListItem* data;	// a temp object pointer of ListItem
+			string s = newItem->getKey(); //a temp string to hold the new item's name value
+
+			if (s < HashTable[index]->list->getKey()) //if the new name is smaller than the name that's already in the index,
+			{
+				data = HashTable[index]->list; //data will hold the the element that's already in that index of the HashTable
+
+				if (HashTable[index]->overflow == NULL)// if the overflow list of that index is empty,
+				{
+					keyOverFlow* flow = new keyOverFlow; //create a new keyOverFlow pointer object,
+					flow->itemPtr = data; // set the itemPtr equal to data (which still holds the element) 
+					flow->overflow = NULL; //and set the new object's (flow) overflow equal to NULL
+					HashTable[index]->list = newItem; //set the HashTable of that index with the values of the new item, (it overwrites what's already in there; don't worry, it's saved in data!)
+					HashTable[index]->overflow = flow; //Then set the HashTable of the index's (the one we just overwrote with the new item's values) overflow list equal to the object flow (the item that was previously in that hashTable's index!)
+				}
+				else //if the overflow list isn't empty,
+				{
+					keyOverFlow* head = HashTable[index]->overflow;	//create temp object pointer called head to hold everything that's inside the element's overflow
+					keyOverFlow* follow = NULL;	//and another temp object pointer named follow (Will be used to hold the values of the element before the "head")
+					do //do ...
+					{
+						if (head->itemPtr->getKey() < data->getKey()) //if the name stored in head is less than the new name that was passed to data,
+						{
+							follow = head; //follow now moves up one, (head's values)
+							head = head->overflow; //and head now equals the values in it's overflow
+						}
+						else if (head->itemPtr->getKey() > data->getKey()) //if the name stored in head is GREATER than the new name that was passed to data,
+						{
+							break; //don't do anything (It's fine the way it is)
+						}
+
+					} while (head != NULL); //...while head has something in it
+
+					if (follow == NULL) //if follow is empty (meaning head is at the very beginning of the list)
+					{
+						keyOverFlow* added = new keyOverFlow;	//create a new temp object pointer named added
+						added->overflow = head; //the overflow list of added is equal to the values of head
+						added->itemPtr = data; //added's itemPtr now equals data's info
+						HashTable[index]->overflow = added; //The overflow of the index is then equal to the info of added
+						HashTable[index]->list = newItem; //and HashTable list now equals the new element info
+					}
+					else //if follow isn't empty
+					{
+						keyOverFlow* added = new keyOverFlow; //create added again
+						follow->overflow = added; //set follow's overflow equal to added (making an empty space in the overflow)
+						added->overflow = head; //added's overflow equals head
+						added->itemPtr = data; //and added's itemPtr equals data
+						HashTable[index]->list = newItem; //Lastly, set HashTAble list equal to the new info
+					}
+				}
+			}
+			else if (s > HashTable[index]->list->getKey()) //If the new name is bigger that the one in the index already, uses the same algorithm as the first if statement, but only modifies the overflow list, NOT the HashTable[index]->list item
+			{
+				data = newItem; //data equals the new element
+
+				if (HashTable[index]->overflow == NULL)// if the overflow list of that index is empty,
+				{
+					keyOverFlow* flow = new keyOverFlow; //create a new keyOverFlow pointer object,
+					flow->itemPtr = data; // set the itemPtr equal to data (which still holds the new element) 
+					flow->overflow = NULL; //and set the new object's (flow) overflow equal to NULL
+					//HashTable[index]->list = newItem; //set the HashTable of that index with the values of the new item, (it overwrites what's already in there; don't worry, it's saved in data!)
+					HashTable[index]->overflow = flow; //Then set the HashTable of the index's overflow list equal to the object flow (the new item!)
+				}
+				else //if the overflow list isn't empty,
+				{
+					keyOverFlow* head = HashTable[index]->overflow;	//create temp object pointer called head to hold everything that's inside the element's overflow
+					keyOverFlow* follow = NULL;	//and another temp object pointer named follow (Will be used to hold the values of the element before the "head")
+					do //do ...
+					{
+						if (head->itemPtr->getKey() < data->getKey()) //if the name stored in head is less than the new name that was passed to data,
+						{
+							follow = head; //follow now moves up one, (head's values)
+							head = head->overflow; //and head now equals the values in it's overflow
+						}
+						else if (head->itemPtr->getKey() > data->getKey()) //if the name stored in head is GREATER than the new name that was passed to data,
+						{
+							break; //don't do anything (It's fine the way it is)
+						}
+
+					} while (head != NULL); //...while head has something in it
+
+					if (follow == NULL) //if follow is empty (meaning head is at the very beginning of the list)
+					{
+						keyOverFlow* added = new keyOverFlow;	//create a new temp object pointer named added
+						added->overflow = head; //the overflow list of added is equal to the values of head
+						added->itemPtr = data; //added's itemPtr now equals data's info (the new info)
+						HashTable[index]->overflow = added; //The overflow of the index is then equal to the info of added
+						//HashTable[index]->list = newItem; //and HashTable list now equals the new element info
+					}
+					else //if follow isn't empty (meaning head is not at the beginning of the list)
+					{
+						keyOverFlow* added = new keyOverFlow; //create added still
+						follow->overflow = added; //set follow's overflow equal to added (making an empty space in the overflow)
+						added->overflow = head; //added's overflow equals head
+						added->itemPtr = data; //and added's itemPtr equals data
+						HashTable[index]->overflow = added; //Lastly, set HashTable's overflow equal to the new info (added)
+					}
+				}
+			}
+
+			/*//set the double and int values for assignment
+			double Dtemp = newItem->getCost();
+			int Itemp = newItem->getQuantity();
+
+			//pass the new info to the new item with newPtr
+			//newPtr->list->ID = newItem->ID; Not doing ID?
+			newPtr->list->getKey() = newItem->getKey();
+			Dtemp = newPtr->list->getCost(); // = newItem->getCost();   //setting up the double and int values before assignment seemed to have fixed the error...
+			Itemp = newPtr->list->getQuantity();
+			newPtr->list->getStore() = newItem->getStore();
+			newPtr->list->getDate() = newItem->getDate();*/
+
+			newPtr->next = NULL; //next one has a pointer pointing to nothing
+
+			//Now we need to add the new item to the end of the table
+			while (tablePtr->next->list != NULL)//while the next pointer in the hash table isn't pointing to nothing,
+			{
+				tablePtr = tablePtr->next; //This will make the pointer go through the table until it gets to the last element to be able to point to it. (This is just to get tablePtr to point to the last element)
+			}
+			tablePtr->next = newPtr; //Link last element of the table to the new info. (Adding the new info to the back of the table)
+		}
 	}
 }
 
@@ -154,7 +261,7 @@ this function will return a true or false bool
 bool HTable::removeItem(const std::string name)
 {
 	const ListItem *temp = new ListItem;
-	int index = hashFcn(name, temp); //set the index equal to the hash value of the name
+	int index = hashFcn(name/*, temp*/); //set the index equal to the hash value of the name
 
 	bool done = false; //bool to will be returned from this function to specify whether removal was a success
 	//true: success
@@ -165,7 +272,7 @@ bool HTable::removeItem(const std::string name)
 	item* itemPtr2;
 
 	//If the index is empty
-	if (HashTable[index]->list->getName() == dfS) //if the name in hash table index is the default one (means nothing is there)
+	if (HashTable[index]->list->getKey() == dfS) //if the name in hash table index is the default one (means nothing is there)
 	{
 		//if there's nothing in the element, the same can be said for the overflow list
 
@@ -175,9 +282,9 @@ bool HTable::removeItem(const std::string name)
 	}
 
 	//Index only contains 1 item and and it has a matching name
-	else if (HashTable[index]->list->getName() == name || HashTable[index]->overflow->itemPtr->getName() == name /*the overflow list*/&& HashTable[index]->next == NULL) //if the name in the hash table matchs the name passed to the function AND there is not next item,
+	else if (HashTable[index]->list->getKey() == name || HashTable[index]->overflow->itemPtr->getKey() == name /*the overflow list*/&& HashTable[index]->next == NULL) //if the name in the hash table matchs the name passed to the function AND there is not next item,
 	{
-		if (HashTable[index]->overflow->itemPtr->getName() == name) //if the match is in the overflow list
+		if (HashTable[index]->overflow->itemPtr->getKey() == name) //if the match is in the overflow list
 		{
 			HashTable[index]->overflow->itemPtr = NULL; //set the item in the overflow list to NULL
 		}
@@ -193,10 +300,10 @@ bool HTable::removeItem(const std::string name)
 
 	//The match is located in the first item in the index but there are more items in the index
 
-	else if (HashTable[index]->list->getName() == name || HashTable[index]->overflow->itemPtr->getName() == name /*the overflow list*/) //Last 'if' checked to see if the next item was nothing so this 'if' is designed to already assume that
+	else if (HashTable[index]->list->getKey() == name || HashTable[index]->overflow->itemPtr->getKey() == name /*the overflow list*/) //Last 'if' checked to see if the next item was nothing so this 'if' is designed to already assume that
 	{										//the index has nore than one item in it.
 
-		if (HashTable[index]->overflow->itemPtr->getName() == name) //the overflow list
+		if (HashTable[index]->overflow->itemPtr->getKey() == name) //the overflow list
 		{
 			HashTable[index]->overflow->itemPtr = NULL; //set the item in the overflow list to NULL
 		}
@@ -220,7 +327,7 @@ bool HTable::removeItem(const std::string name)
 		itemPtr1 = HashTable[index + 1]; //Make the first pointer point to the second item in the index. (Becasue from the other 'ifs', we can assume that there is more than one item)
 		itemPtr2 = HashTable[index]; //Make the second pointer point to the first item in the index
 
-		while (itemPtr1 != NULL && itemPtr1->list->getName() != name) //while itemPtr1 has something and that something doesn't equal the name that was passed to the function
+		while (itemPtr1 != NULL && itemPtr1->list->getKey() != name) //while itemPtr1 has something and that something doesn't equal the name that was passed to the function
 		{//move both pointers along the index list
 			itemPtr2 = itemPtr1;
 			itemPtr1 = itemPtr1->next;
@@ -262,7 +369,7 @@ int HTable::countItems(int index)
 	int count = 0;
 
 	//Looking at the first item of the index.
-	if (HashTable[index]->list->getName() == dfS) //If the first item is just a default form,
+	if (HashTable[index]->list->getKey() == dfS) //If the first item is just a default form,
 	{
 		return count; //returns nothing (zero; nothing has been set to that index yet)
 	}
@@ -271,7 +378,7 @@ int HTable::countItems(int index)
 		count++;
 		item* tablePtr = HashTable[index]; //points to the first item in the index
 
-		while (tablePtr->next->list != NULL)//while the next item in the index is not nothing,
+		while (tablePtr->next != NULL)//while the next item in the index is not nothing,
 		{
 			if (tablePtr->overflow->itemPtr != NULL) //if there'ssomething in the overflow list,
 			{
@@ -284,6 +391,7 @@ int HTable::countItems(int index)
 			}
 		}
 	}
+	return count;
 }
 
 /*display(): Displays the contents (items of the indexes) and number of items for each index
@@ -295,11 +403,11 @@ void HTable::display()
 
 	for (int i = 0; i < tableSize; i++)
 	{
-		num = countItems(i); //set num equal to the number of items for this index
+		//num = countItems(i); //set num equal to the number of items for this index
 
 		//Display the contains of this index
 		std::cout << "index: " << i << std::endl;
-		std::cout << "Name: " << HashTable[i]->list->getName() << std::endl;
+		std::cout << "Name: " << HashTable[i]->list->getKey() << std::endl;
 		std::cout << "Cost: " << HashTable[i]->list->getCost() << std::endl;
 		std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
 		std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
@@ -314,7 +422,7 @@ void HTable::displayItems(int index)
 {
 	item* tablePtr = HashTable[index]; //points to the index of hash table
 
-	if (tablePtr->list->getName() == dfS) //check to see if the index is empty (default),
+	if (tablePtr->list->getKey() == dfS) //check to see if the index is empty (default),
 	{ //This method assumes that only ID needs to change to be considered not empty, may need to come back to fix this 
 		std::cout << "Info for index: " << index << std::endl;
 		std::cout << "This index is empty" << std::endl;
@@ -325,7 +433,7 @@ void HTable::displayItems(int index)
 
 		while (tablePtr != NULL) //While the index does have something
 		{
-			std::cout << "Name: " << tablePtr->list->getName() << std::endl;
+			std::cout << "Name: " << tablePtr->list->getKey() << std::endl;
 			std::cout << "Cost: " << tablePtr->list->getCost() << std::endl;
 			std::cout << "Quanity: " << tablePtr->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << tablePtr->list->getStore() << std::endl;
