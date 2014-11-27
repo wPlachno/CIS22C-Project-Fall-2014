@@ -73,6 +73,7 @@
     <ClCompile Include="ListItem.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="ShoppingList.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BSTree.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="Output.h" />
     <ClInclude Include="ShoppingList.h" />
     <ClInclude Include="ListItem.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

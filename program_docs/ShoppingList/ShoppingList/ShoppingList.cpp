@@ -1,6 +1,8 @@
 /******************************************************************************
  Implemenation of ShoppingList class.
 
+ todo: if list is empty, then say that it is when printing full list.
+
  Author: Robert Hoyer
  ******************************************************************************/
 
@@ -10,6 +12,7 @@
 #include <functional>
 #include "FileIO.h"
 #include "Output.h"
+#include "util.h"
 
 //todo: which has faster times for various actions: tree or hash table?  the one with faster time will be used for retrieval
 
@@ -30,7 +33,7 @@ void printItemName(ListItem& item)
 
 void printIfStore(ListItem& item, const std::string& storeName)
 {
-    if(item.getStore() == storeName)
+    if(string_to_lower(item.getStore()) == storeName)
     {
         std::cout << item.getName() << std::endl;
     }
@@ -53,9 +56,10 @@ ShoppingList::~ShoppingList()
 @return A pointer to the found record.  Returns nullptr if the record is not found.
  */
 
-ListItem* ShoppingList::findRecordPtr(const std::string& name) //const
+ListItem* ShoppingList::findRecordPtr(const std::string& name) 
 {
-    return htable.search(name); 
+    return bstree.get(name);
+    //return htable.search(name); 
 }
 
 
@@ -67,7 +71,9 @@ ListItem* ShoppingList::findRecordPtr(const std::string& name) //const
 
 int ShoppingList::loadFromFile(const std::string& fileName)
 {
-    return 1;
+    FileIO io;
+   
+    return io.loadFile(*this, fileName);
 }
 
 
@@ -93,7 +99,7 @@ bool ShoppingList::addRecord(const ListItem& toAdd)
     //before we add to the hash table make sure that the item is unique in the bstree
     if(!bstree.insert(newItem))
         return false;
-    htable.addItem(newItem);
+    //htable.addItem(newItem);
 
     itemCount++;
     return true;
@@ -111,7 +117,7 @@ bool ShoppingList::removeRecord(const std::string& name)
     ListItem* toDeleteTable, *toDeleteTree;
 
     //todo interface for this needs to be fixed
-/*    toDeleteTable =*/ htable.removeItem(name);
+/*    toDeleteTable =*/ //htable.removeItem(name);
     toDeleteTree  = bstree.remove(name);
 
     if (toDeleteTree /*&& toDeleteTable*/)
@@ -202,7 +208,7 @@ void ShoppingList::printTree() const
 
 void ShoppingList::printListHashSeq() //const
 {
-    htable.display(); //todo what happended to the other function
+    //htable.display(); //todo what happended to the other function
    // htable.displayKeySeq();
 }
 
@@ -223,7 +229,7 @@ void ShoppingList::printListByName() const
 
 void ShoppingList::printByStore(const std::string& storeName) const
 {
-    auto visitFunc = std::bind(printIfStore, std::placeholders::_1, storeName);
+    auto visitFunc = std::bind(printIfStore, std::placeholders::_1, string_to_lower(storeName));
 
     bstree.inorderTraversal(visitFunc);
     //tree.breadthFirstTraversal(visitFunc);
@@ -231,9 +237,9 @@ void ShoppingList::printByStore(const std::string& storeName) const
 }
 
 
-void ShoppingList::printHashTableEfficiency() const
+void ShoppingList::printHashTableEfficiency() //const
 {
-
+    htable.PrintEff();
 }
 
 

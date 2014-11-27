@@ -7,7 +7,7 @@
 #include "ShoppingList.h"
 #include "Input.h"
 #include "Output.h"
-
+#include "util.h"
 
 
 void main_loop(ShoppingList& theList)
@@ -50,6 +50,7 @@ void main_loop(ShoppingList& theList)
                 break;
             case OPTION_BYSTORE:
                 input = Input::StringPrompt("Enter the store to search by:");
+
                 theList.printByStore(input);
                 break;
             case OPTION_QUIT:
@@ -65,6 +66,11 @@ int main(int argc, char* argv[])
 {
     ShoppingList theList;
 //read
+
+    if (!theList.loadFromFile("ShoppingListData.txt"))
+        return 1;
+
+
     main_loop(theList);
 //write
     return 0;

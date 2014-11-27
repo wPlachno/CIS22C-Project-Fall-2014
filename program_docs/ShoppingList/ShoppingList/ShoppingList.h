@@ -43,7 +43,7 @@ public:
     void printTree() const;
     void printListHashSeq(); //const;
     void printListByName() const;
-    void printHashTableEfficiency() const;
+    void printHashTableEfficiency(); //const;
 
     //group defiined
     void printByStore(const std::string& storeName) const;
