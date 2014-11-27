@@ -10,11 +10,23 @@
 #include <fstream>
 #include <iostream>
 #include <functional>
+#include <cassert>
 #include "FileIO.h"
 #include "Output.h"
 #include "util.h"
 
 //todo: which has faster times for various actions: tree or hash table?  the one with faster time will be used for retrieval
+
+/** Wrapper function for FileIO::writeToFile
+*/
+
+void fileWrite(ListItem& item, std::ofstream* outFile)
+{
+	//FileIO::writeToFile(item, outFile); //handle return values
+	std::cout << "Write: " << item.getName() << " to file." << std::endl;
+}
+
+
 
 /** Prints a ListItem's name to stdout.  Intended for use with tree traversals.
 @param item The ListItem to be printed.
@@ -22,7 +34,7 @@
 
 void printItemName(ListItem& item)
 {
-    std::cout << item.getName() << std::endl;
+	std::cout << item.getName() << std::endl;
 }
 
 
@@ -33,10 +45,10 @@ void printItemName(ListItem& item)
 
 void printIfStore(ListItem& item, const std::string& storeName)
 {
-    if(string_to_lower(item.getStore()) == storeName)
-    {
-        std::cout << item.getName() << std::endl;
-    }
+	if(string_to_lower(item.getStore()) == storeName)
+	{
+		std::cout << item.getName() << std::endl;
+	}
 }
 
 
@@ -58,8 +70,8 @@ ShoppingList::~ShoppingList()
 
 ListItem* ShoppingList::findRecordPtr(const std::string& name) 
 {
-    return bstree.get(name);
-    //return htable.search(name); 
+	return bstree.get(name);
+	//return htable.search(name); 
 }
 
 
@@ -71,18 +83,25 @@ ListItem* ShoppingList::findRecordPtr(const std::string& name)
 
 int ShoppingList::loadFromFile(const std::string& fileName)
 {
-    FileIO io;
-   
-    return io.loadFile(*this, fileName);
+	return FileIO::loadFile(*this, fileName);
 }
 
 
 
 int ShoppingList::writeToFile(const std::string& fileName) const
 {
-    //breadthFirstTraversal
+	std::ofstream outFile;
 
-   return 1;
+	outFile.open(fileName);
+
+	if (!outFile.is_open())
+		return 0;
+
+	auto visitFunc = std::bind(fileWrite, std::placeholders::_1, &outFile);
+
+	bstree.breadthFirstTraversal(visitFunc);
+
+	return 1;
 }
 
 
@@ -93,16 +112,16 @@ int ShoppingList::writeToFile(const std::string& fileName) const
 
 bool ShoppingList::addRecord(const ListItem& toAdd)
 {
-    ListItem* newItem = new ListItem(toAdd);
+	ListItem* newItem = new ListItem(toAdd);
 
 
-    //before we add to the hash table make sure that the item is unique in the bstree
-    if(!bstree.insert(newItem))
-        return false;
-    //htable.addItem(newItem);
+	//before we add to the hash table make sure that the item is unique in the bstree
+	if(!bstree.insert(newItem))
+		return false;
+	//htable.addItem(newItem);
 
-    itemCount++;
-    return true;
+	itemCount++;
+	return true;
 }
 
 
@@ -114,33 +133,33 @@ bool ShoppingList::addRecord(const ListItem& toAdd)
 
 bool ShoppingList::removeRecord(const std::string& name)
 {
-    ListItem* toDeleteTable, *toDeleteTree;
+	ListItem* toDeleteTable, *toDeleteTree;
 
-    //todo interface for this needs to be fixed
+	//todo interface for this needs to be fixed
 /*    toDeleteTable =*/ //htable.removeItem(name);
-    toDeleteTree  = bstree.remove(name);
+	toDeleteTree  = bstree.remove(name);
 
-    if (toDeleteTree /*&& toDeleteTable*/)
-    {
-        delete toDeleteTree;
-        return false;
-    }
-    else if(!toDeleteTree /*&& !toDeleteTable*/)
-        return false;
-    else
-    {
-        // we should never get here... this means that the table and the tree are out of sync.
-        assert(0); 
-        //if we do get here in production, handle this as gracefully as possible.
-        if(toDeleteTree)
-            delete toDeleteTree;
+	if (toDeleteTree /*&& toDeleteTable*/)
+	{
+		delete toDeleteTree;
+		return false;
+	}
+	else if(!toDeleteTree /*&& !toDeleteTable*/)
+		return false;
+	else
+	{
+		// we should never get here... this means that the table and the tree are out of sync.
+		assert(0); 
+		//if we do get here in production, handle this as gracefully as possible.
+		if(toDeleteTree)
+			delete toDeleteTree;
 //        else
 //            delete toDeleteTable;
 
-        itemCount--;
-        return true; //todo: should this be true or false?  or should we throw an out of sync error
-                      
-    }
+		itemCount--;
+		return true; //todo: should this be true or false?  or should we throw an out of sync error
+					  
+	}
 
 }
 
@@ -155,13 +174,13 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
 {
    ListItem* pFound = findRecordPtr(name);
 
-    if(pFound)
-    {
-        found = *pFound;
-        return true; 
-    }
-    else
-        return false;
+	if(pFound)
+	{
+		found = *pFound;
+		return true; 
+	}
+	else
+		return false;
 
 }
 
@@ -171,7 +190,7 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
  */
 int ShoppingList::getItemCount() const
 {
-    return itemCount;
+	return itemCount;
 }
 
 
@@ -181,16 +200,16 @@ int ShoppingList::getItemCount() const
  */
 void ShoppingList::displayItem(const std::string& name) //const
 {
-    ListItem* found = findRecordPtr(name);
+	ListItem* found = findRecordPtr(name);
  
-    if (found)
-    {
-        Output::PrintItem(*found);
-    }
-    else
-    {
-        std::cout << "Item not found." << std::endl;
-    }
+	if (found)
+	{
+		Output::PrintItem(*found);
+	}
+	else
+	{
+		std::cout << "Item not found." << std::endl;
+	}
 }
 
 
@@ -199,7 +218,7 @@ void ShoppingList::displayItem(const std::string& name) //const
 
 void ShoppingList::printTree() const
 {
-    bstree.printTree();
+	bstree.printTree();
 }
 
 
@@ -208,7 +227,7 @@ void ShoppingList::printTree() const
 
 void ShoppingList::printListHashSeq() //const
 {
-    //htable.display(); //todo what happended to the other function
+	//htable.display(); //todo what happended to the other function
    // htable.displayKeySeq();
 }
 
@@ -219,7 +238,7 @@ void ShoppingList::printListHashSeq() //const
 
 void ShoppingList::printListByName() const
 {
-    bstree.inorderTraversal(printItemName);
+	bstree.inorderTraversal(printItemName);
 }
 
 
@@ -229,17 +248,17 @@ void ShoppingList::printListByName() const
 
 void ShoppingList::printByStore(const std::string& storeName) const
 {
-    auto visitFunc = std::bind(printIfStore, std::placeholders::_1, string_to_lower(storeName));
+	auto visitFunc = std::bind(printIfStore, std::placeholders::_1, string_to_lower(storeName));
 
-    bstree.inorderTraversal(visitFunc);
-    //tree.breadthFirstTraversal(visitFunc);
+	bstree.inorderTraversal(visitFunc);
+	//tree.breadthFirstTraversal(visitFunc);
 
 }
 
 
 void ShoppingList::printHashTableEfficiency() //const
 {
-    htable.PrintEff();
+	htable.PrintEff();
 }
 
 

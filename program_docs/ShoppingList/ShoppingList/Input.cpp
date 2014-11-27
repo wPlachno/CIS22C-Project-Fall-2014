@@ -19,7 +19,8 @@ const std::string Input::StringPrompt(const std::string prompt)
 {
 	std::cout << prompt << std::endl;
 	std::string answer;
-	std::cin >> answer;
+	//std::cin >> answer;
+	std::getline(std::cin, answer);
 	answer = answer.substr(answer.find_first_not_of(' '), answer.find_last_not_of(' ')+1);
 	return answer;
 
@@ -57,7 +58,11 @@ MainMenuOption Input::GetMainMenuChoice()
 	{
 		std::cout << "Your menu choice: ";
 		std::string answer;
+	
 		std::cin >> answer;
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+
 		ans = str2Int(answer);
 		if (ans > 9 || ans < 1)
 			std::cout << "Invalid choice. (Valid: 1-9)" << std::endl;
