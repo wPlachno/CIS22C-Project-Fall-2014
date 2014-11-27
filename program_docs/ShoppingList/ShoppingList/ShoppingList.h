@@ -11,41 +11,42 @@ class ShoppingList
 {
 
 private:
-    int itemCount;
-    BSTree<ListItem, std::string> bstree;
-    HashTable htable;
+	int itemCount;
+	BSTree<ListItem, std::string> bstree;
+	HTable htable;
 
 
-    //std::string fileName; //in a gui app this would be a better configuration
+	//std::string fileName; //in a gui app this would be a better configuration
 
 
-    ListItem* findRecordPtr(const std::string& name);
+	ListItem* findRecordPtr(const std::string& name); //const ;
 public:
-    ShoppingList();
-    ~ShoppingList();
+	ShoppingList();
+	~ShoppingList();
 
-    // bool setFileName(const std::string& newFileName);
-    // std::string getFileName();
-    //int loadFromFile();//const std::string& fileName);
-    //int writeToFile();//const std::string& fileName);
+	// bool setFileName(const std::string& newFileName);
+	// std::string getFileName();
+	//int loadFromFile();//const std::string& fileName);
+	//int writeToFile();//const std::string& fileName);
 
-    int loadFromFile(const std::string& fileName);
-    int writeToFile(const std::string& fileName);
-
-
-    bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
-    bool removeRecord(const std::string& name);
-    bool findRecord(const std::string& name, ListItem& found) const; //this might change
+	int loadFromFile(const std::string& fileName);
+	int writeToFile(const std::string& fileName) const;
 
 
-    //print methods... separate?
-    void displayItem(const std::string& item) const;
-    void printTree() const;
-    void printListHashSeq() const;
-    void printListByName() const;
+	bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
+	bool removeRecord(const std::string& name);
+	bool findRecord(const std::string& name, ListItem& found); //const; //this might change
+	int getItemCount() const;
 
-    //group defiined
-    void printByStore(const std::string& storeName);
+	//print methods... separate?
+	void displayItem(const std::string& item);// const;
+	void printTree() const;
+	void printListHashSeq(); //const;
+	void printListByName() const;
+	void printHashTableEfficiency(); //const;
+
+	//group defiined
+	void printByStore(const std::string& storeName) const;
 
 
 

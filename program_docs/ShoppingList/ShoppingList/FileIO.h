@@ -11,20 +11,22 @@ Team 5 Project*/
 #include "ShoppingList.h"
 
 
+struct FileIO_TempFileData
+{
+	std::string groceryName, price, storeName = "blank";
+	std::string quantity, date = "0";
+	int intQuantity;
+	double douPrice;
+};
+
 class FileIO
 {
 private:
+
+
+
 	//struct as temporary variable
-	struct File
-	{
-		std::string groceryName, price, storeName = "blank";
-		std::string quantity, date = "0";
-		int intQuantity;
-		double douPrice;
-	};
-
-	File f;
-
+	static FileIO_TempFileData f;
 public:
 	//**************************************************
 	// readFromFile function
@@ -32,7 +34,7 @@ public:
 	// Reads each set of data from file.
 	// Returns true if item read from file, false if not
 	//**************************************************
-	bool readFromFile(std::ifstream& infile);
+	static bool readFromFile(std::ifstream& infile);
 
 	//**************************************************
 	// loadFile function
@@ -41,15 +43,17 @@ public:
 	// Creates a ListItem object & adds it to the list
 	// Returns true if successfully added, false if not
 	//**************************************************
-	bool loadFile(ShoppingList& list, const std::string& fileName);
+	static bool loadFile(ShoppingList& list, const std::string& fileName);
 
 	//**************************************************
 	// writeToFile function
 	// Writes a set of data to file
 	// Returns true if successful, false if not
 	//**************************************************
-	bool writeToFile(ListItem& item, const std::string& fileName);
+	static bool writeToFile(ListItem& item, const std::string& fileName);
 
 };
+
+
 
 #endif FILEIO_H

@@ -15,57 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListItem.cpp">
+    <ClCompile Include="TestSuite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HashTable.cpp">
+    <ClCompile Include="InputTestSuite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShoppingList.cpp">
+    <ClCompile Include="OutputTestSuite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Output.cpp">
+    <ClCompile Include="..\ShoppingList\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileIO.cpp">
+    <ClCompile Include="..\ShoppingList\ListItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
+    <ClCompile Include="..\ShoppingList\Output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListItem.h">
+    <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HashTable.h">
+    <ClInclude Include="TestSuite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShoppingList.h">
+    <ClInclude Include="InputTestSuite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BSTree.h">
+    <ClInclude Include="OutputTestSuite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BSTreeNode.h">
+    <ClInclude Include="..\ShoppingList\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="..\ShoppingList\ListItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Output.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
+    <ClInclude Include="..\ShoppingList\Output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

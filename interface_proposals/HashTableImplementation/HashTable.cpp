@@ -132,7 +132,6 @@ void Hashing::addItem(ListItem* newItem)
 		int Itemp = newPtr->list->getQuantity();
 
 		//pass the new info to the new item with newPtr
-		//newPtr->list->ID = newItem->ID; Not doing ID?
 		newPtr->list->getName() = newItem->getName();
 		Dtemp = newItem->getCost();   //setting up the double and int values before assignment seemed to have fixed the error...
 		Itemp = newItem->getQuantity(); 
@@ -270,7 +269,6 @@ void Hashing::display()
 
 		//Display the contains of this index
 		std::cout << "index: " << i << std::endl;
-		//std::cout << "ID: " << HashTable[i]->list->ID << std::endl; ???
 		std::cout << "Name: " << HashTable[i]->list->getName() << std::endl;
 		std::cout << "Cost: " << HashTable[i]->list->getCost() << std::endl;
 		std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
@@ -287,7 +285,7 @@ void Hashing::displayItems(int index)
 	item* tablePtr = HashTable[index]; //points to the index of hash table
 
 	if (tablePtr->list->getName() == dfS) //check to see if the index is empty (default),
-	{ //This method assumes that only ID needs to change to be considered not empty, may need to come back to fix this 
+	{ //This method assumes that only name needs to change to be considered not empty, may need to come back to fix this 
 		std::cout << "Info for index: " << index << std::endl;
 		std::cout << "This index is empty" << std::endl;
 	}
@@ -298,7 +296,6 @@ void Hashing::displayItems(int index)
 		while (tablePtr != NULL) //While the index does have something
 		{
 
-			//std::cout << "ID: " << tablePtr->list->ID << std::endl; ???
 			std::cout << "Name: " << tablePtr->list->getName() << std::endl;
 			std::cout << "Cost: " << tablePtr->list->getCost() << std::endl;
 			std::cout << "Quanity: " << tablePtr->list->getQuantity() << std::endl;

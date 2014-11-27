@@ -12,15 +12,15 @@ template <typename T>
 class BSTreeNode
 {
 public:
-    T* data;
-    BSTreeNode<T>* left;
-    BSTreeNode<T>* right;
-    
-    BSTreeNode();
-    BSTreeNode(T* data);
-    
-    bool isLeaf() const;
-    int childCount() const;
+	T* data;
+	BSTreeNode<T>* left;
+	BSTreeNode<T>* right;
+	
+	BSTreeNode();
+	BSTreeNode(T* data);
+	
+	bool isLeaf() const;
+	int childCount() const;
 };
 
 
@@ -53,7 +53,7 @@ data(data)
 template <typename T>
 bool BSTreeNode<T>::isLeaf() const
 {
-    return (nullptr == left && nullptr == right);
+	return (nullptr == left && nullptr == right);
 }
 
 
@@ -64,14 +64,14 @@ bool BSTreeNode<T>::isLeaf() const
 template <typename T>
 int BSTreeNode<T>::childCount() const
 {
-    int count = 0;
-    
-    if(left != nullptr)
-        count++;
-    if(right != nullptr)
-        count++;
-    
-    return count;
+	int count = 0;
+	
+	if(left != nullptr)
+		count++;
+	if(right != nullptr)
+		count++;
+	
+	return count;
 }
 
 

@@ -3,6 +3,8 @@ CIS 22C Fall 2014 Goel
 Team 5 Project*/
 
 #include "fileio.h"
+//initialize static member - must be in cpp file to avoid multiple definitions
+FileIO_TempFileData FileIO::f;
 
 bool FileIO::readFromFile(std::ifstream& infile)
 {
@@ -15,10 +17,19 @@ bool FileIO::readFromFile(std::ifstream& infile)
 
 	//reads in info into temporary variable
 	std::getline(infile, f.price);
-	f.douPrice = std::stod(f.price, &lastChar); //converts price to a double
+    if (f.price != "")
+        f.douPrice = std::stod(f.price, &lastChar); //converts price to a double
+    else
+        f.douPrice = -1;
+	
 	std::getline(infile, f.storeName);
+	
 	std::getline(infile, f.quantity);
-	f.intQuantity = std::stoi(f.quantity, &lastChar); //converts quantity to a int
+    if (f.quantity != "")
+        f.intQuantity = std::stoi(f.quantity, &lastChar); //converts quantity to a int
+    else
+        f.intQuantity = 1; // default to 1
+	
 	std::getline(infile, f.date);
 
 	return true;
