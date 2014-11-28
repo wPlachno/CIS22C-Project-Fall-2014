@@ -33,11 +33,6 @@ public:
 	ShoppingList();
 	~ShoppingList(); //todo - have this call bstree.destroyall to clean up.
 
-	// bool setFileName(const std::string& newFileName);
-	// std::string getFileName();
-	//int loadFromFile();//const std::string& fileName);
-	//int writeToFile();//const std::string& fileName);
-
 	int loadFromFile(const std::string& fileName);
 	int writeToFile(const std::string& fileName) const;
 
@@ -46,6 +41,7 @@ public:
 	bool removeRecord(const std::string& name); //todo: change to deleteRecord
 	bool findRecord(const std::string& name, ListItem& found); //const; //this might change
 	int getItemCount() const;
+	bool exists(const std::string& name);
 
 	//print methods... separate?
 	void displayItem(const std::string& item);// const;

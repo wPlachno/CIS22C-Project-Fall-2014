@@ -206,6 +206,17 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
 }
 
 
+/** Check to see if an item exists in the list.
+@param name The name of the item to search for
+@return true if found, false otherwise.
+*/
+
+//todo: add this to presentation
+bool ShoppingList::exists(const std::string& name) //const
+{
+	return findRecordPtr(name);
+}
+
 /** Get the number of items in the list.
 @return The number of items in the list.
  */
