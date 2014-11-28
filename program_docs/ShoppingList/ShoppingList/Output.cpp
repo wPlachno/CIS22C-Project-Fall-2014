@@ -4,6 +4,7 @@
 
 #include "Output.h"
 #include <iostream>
+#include <iomanip>
 
 /* Implementation file for Output class
 Functions:
@@ -62,20 +63,20 @@ void Output::PrintItem(ListItem& item)
 
 	// Convert ints to strings
 	int qty = item.getQuantity();
-	int cost = item.getCost();
+	double cost = item.getCost();
 	std::string qtyStr = std::to_string(qty);
-	std::string costStr = '$' + std::to_string(cost);
 
 	// Check for empty
 	if (date == "EMPTY DATE") { date = "N/A"; }
 	if (store == "EMPTY STORE") { store = "N/A"; }
 	if (qty == -1) { qtyStr = "N/A"; }
-	if (cost == -1) { costStr = "N/A"; }
 
 	// Output
 	std::cout << "Name: " << name << std::endl;
 	std::cout << "Date: " << date << std::endl;
 	std::cout << "Quantity: " << qtyStr << std::endl;
-	std::cout << "Cost: " << costStr << std::endl;
-	std::cout << "Preferred Store: " << store << std::endl;
+	std::cout << "Cost: ";
+	if (cost == -1) { std::cout << "N/A"; }
+	else { std::cout << std::setprecision(2) << std::fixed << "$" << cost; }
+	std::cout << std::endl << "Preferred Store: " << store << std::endl;
 }

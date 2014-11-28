@@ -37,6 +37,9 @@
 	- Test25
 	- Test26
 	- Test27
+	- Test28
+	- Test29
+	- Test30
 
 */
 class InputTestSuite : public TestSuite
@@ -176,5 +179,17 @@ public:
 	/* Test27ValidateInvalid */
 	// Tests Validate with invalid
 	static bool Test27_ValidateInvalid();
+
+	/* Test28AddItemBasicFunctionality */
+	// Tests the basic AddItem functionality
+	static bool Test28_AddItemBasic();
+
+	/* Test29AddItemBlanks */
+	// Tests blank fields in the AddItem function
+	static bool Test29_AddItemBlanks();
+
+	/* Test30AddItemExists */
+	// Tests AddItem when the item already exists
+	static bool Test30_AddItemExists();
 };
 

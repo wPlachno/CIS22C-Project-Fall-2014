@@ -35,6 +35,9 @@
 	- Test25()
 	- Test26()
 	- Test27()
+	- Test28()
+	- Test29()
+	- Test30()
 
 */
 
@@ -71,6 +74,9 @@ void InputTestSuite::SetUpTests()
 	std::string test25Name = "Validate true on true";
 	std::string test26Name = "Validate true on True";
 	std::string test27Name = "Validate false on n";
+	std::string test28Name = "AddItem Basic";
+	std::string test29Name = "AddItem Blank fields";
+	std::string test30Name = "AddItem Existing Item";
 
 	// Create TestFunction function pointers
 	TestFunction test1Func = &Test1_StringPromptBasic;
@@ -100,6 +106,9 @@ void InputTestSuite::SetUpTests()
 	TestFunction test25Func = &Test25_Validate_true;
 	TestFunction test26Func = &Test26_Validate_True;
 	TestFunction test27Func = &Test27_ValidateInvalid;
+	TestFunction test28Func = &Test28_AddItemBasic;
+	TestFunction test29Func = &Test29_AddItemBlanks;
+	TestFunction test30Func = &Test30_AddItemExists;
 
 	// Create the test cases
 	Test test1(test1Name, test1Func);
@@ -129,6 +138,9 @@ void InputTestSuite::SetUpTests()
 	Test test25(test25Name, test25Func);
 	Test test26(test26Name, test26Func); 
 	Test test27(test27Name, test27Func);
+	Test test28(test28Name, test28Func);
+	Test test29(test29Name, test29Func);
+	Test test30(test30Name, test30Func);
 	
 	// Add the Tests to the TestSuite architecture
 	AddTest(test1);
@@ -158,6 +170,9 @@ void InputTestSuite::SetUpTests()
 	AddTest(test25);
 	AddTest(test26);
 	AddTest(test27);
+	AddTest(test28);
+	AddTest(test29);
+	AddTest(test30);
 }
 
 /* ------ Test Functions ------ */
@@ -265,7 +280,7 @@ bool InputTestSuite::Test9_DoublePromptInteger()
 // of 1 as OPTION_ADD
 bool InputTestSuite::Test10_MainMenuOptionAdd()
 {
-	std::cout << "Please enter 1 after the prompt. ";
+	std::cout << "Please enter 1 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_ADD;
 }
@@ -275,7 +290,7 @@ bool InputTestSuite::Test10_MainMenuOptionAdd()
 // of 2 as OPTION_DELETE
 bool InputTestSuite::Test11_MainMenuOptionDelete()
 {
-	std::cout << "Please enter 2 after the prompt. ";
+	std::cout << "Please enter 2 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_DELETE;
 }
@@ -285,7 +300,7 @@ bool InputTestSuite::Test11_MainMenuOptionDelete()
 // of 3 as OPTION_PRIMARYKEY
 bool InputTestSuite::Test12_MainMenuOptionPrimaryKey()
 {
-	std::cout << "Please enter 3 after the prompt. ";
+	std::cout << "Please enter 3 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_PRIMARYKEY;
 }
@@ -295,7 +310,7 @@ bool InputTestSuite::Test12_MainMenuOptionPrimaryKey()
 // of 4 as OPTION_HASHSEQ
 bool InputTestSuite::Test13_MainMenuOptionHashSeq()
 {
-	std::cout << "Please enter 4 after the prompt. ";
+	std::cout << "Please enter 4 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_HASHSEQ;
 }
@@ -305,7 +320,7 @@ bool InputTestSuite::Test13_MainMenuOptionHashSeq()
 // of 5 as OPTION_KEYSEQ
 bool InputTestSuite::Test14_MainMenuOptionKeySeq()
 {
-	std::cout << "Please enter 5 after the prompt. ";
+	std::cout << "Please enter 5 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_KEYSEQ;
 }
@@ -315,7 +330,7 @@ bool InputTestSuite::Test14_MainMenuOptionKeySeq()
 // of 6 as OPTION_BST
 bool InputTestSuite::Test15_MainMenuOptionBST()
 {
-	std::cout << "Please enter 6 after the prompt. ";
+	std::cout << "Please enter 6 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_BST;
 }
@@ -325,7 +340,7 @@ bool InputTestSuite::Test15_MainMenuOptionBST()
 // of 7 as OPTION_EFFICIENCY
 bool InputTestSuite::Test16_MainMenuOptionEfficiency()
 {
-	std::cout << "Please enter 7 after the prompt. ";
+	std::cout << "Please enter 7 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_EFFICIENCY;
 }
@@ -335,7 +350,7 @@ bool InputTestSuite::Test16_MainMenuOptionEfficiency()
 // of 8 as OPTION_BYSTORE
 bool InputTestSuite::Test17_MainMenuOptionByStore()
 {
-	std::cout << "Please enter 8 after the prompt. ";
+	std::cout << "Please enter 8 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_BYSTORE;
 }
@@ -345,7 +360,7 @@ bool InputTestSuite::Test17_MainMenuOptionByStore()
 // of 9 as OPTION_QUIT
 bool InputTestSuite::Test18_MainMenuOptionQuit()
 {
-	std::cout << "Please enter 9 after the prompt. ";
+	std::cout << "Please enter 9 after the prompt." << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_QUIT;
 }
@@ -354,7 +369,7 @@ bool InputTestSuite::Test18_MainMenuOptionQuit()
 // Tests GetMainMenuChoice for non-option integer
 bool InputTestSuite::Test19_MainMenuNonOption()
 {
-	std::cout << "Please enter 10 after the prompt. Then enter 9 for valid input.";
+	std::cout << "Please enter 10 after the prompt. Then enter 9 for valid input." << std::endl;
 	MainMenuOption option;
 	try {
 		option = Input::GetMainMenuChoice();
@@ -367,7 +382,7 @@ bool InputTestSuite::Test19_MainMenuNonOption()
 // Tests GetMainMenuChoice for non-integer input
 bool InputTestSuite::Test20_MainMenuNonInteger()
 {
-	std::cout << "Please enter 'why' after the prompt. Then enter 9 for valid input.";
+	std::cout << "Please enter 'why' after the prompt. Then enter 9 for valid input." << std::endl;
 	MainMenuOption option;
 	try {
 		option = Input::GetMainMenuChoice();
@@ -444,4 +459,62 @@ bool InputTestSuite::Test27_ValidateInvalid()
 	prompt = "Please type 'n' and press enter";
 	answer = Input::StringPrompt(prompt);
 	return !(Input::Validate(answer));
+}
+
+/* Test28AddItemBasicFunctionality */
+// Tests the basic AddItem functionality
+bool InputTestSuite::Test28_AddItemBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	ListItem userItem("Water", 1.99, "Wal-Mart", 1, "11/21/2014");
+	std::cout << "Please enter the following item into the prompts: " << std::endl;
+	std::cout << "Name: Water, Date: 11/21/2014, Store: Wal-Mart, Quantity: 1, Cost: 1.99" << std::endl;
+	Input::AddItem(list);
+	return list.findRecord("Water", userItem);	
+}
+
+/* Test29AddItemBlanks */
+// Tests blank fields in the AddItem function
+bool InputTestSuite::Test29_AddItemBlanks()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	ListItem userItem("Water", 1.99, "Wal-Mart", 1, "11/21/2014");
+	std::cout << "Please enter the following item into the prompts: " << std::endl;
+	std::cout << "Name: Water, Cost: _, Store: _, Quantity: _, Date: _" << std::endl;
+	Input::AddItem(list);
+	if (list.findRecord("Water", userItem))
+	{
+		bool success = true;
+		success = success && (userItem.getCost() == -1);
+		success = success && (userItem.getDate() == "EMPTY DATE");
+		success = success && (userItem.getQuantity() == -1);
+		success = success && (userItem.getStore() == "EMPTY STORE");
+		return success;
+	}
+	else {
+		return false;
+	}
+}
+
+/* Test30AddItemExists */
+// Tests AddItem when the item already exists
+bool InputTestSuite::Test30_AddItemExists()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "Please attempt to enter 'Coors Light' as an item. \nTry again and attempt 'Toilet Paper'.\nAfter that do not attempt to add another item." << std::endl;
+	Input::AddItem(list);
+    std::string answer = Input::StringPrompt("As expected?");
+	return Input::Validate(answer);
 }

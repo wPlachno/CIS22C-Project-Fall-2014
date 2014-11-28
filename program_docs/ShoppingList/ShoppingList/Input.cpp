@@ -3,12 +3,18 @@
 // Final Project Team 5 "Shopping List"
 
 #include "Input.h"
+#include "Output.h"
 #include <iostream>
 
 /* Implementation file for Input class
 Functions:
- - char* Prompt(char* prompt);
+ - string StringPrompt(string prompt);
+ - double DoublePrompt(string prompt);
+ - int IntPrompt(string prompt);
  - MainMenuOption GetMainMenuChoice();
+ - bool Validate(string);
+ - int str2Int(string);
+ - double str2Dbl(string);
 */
 
 
@@ -19,9 +25,10 @@ const std::string Input::StringPrompt(const std::string prompt)
 {
 	std::cout << prompt << std::endl;
 	std::string answer;
-	//std::cin >> answer;
 	std::getline(std::cin, answer);
-	answer = answer.substr(answer.find_first_not_of(' '), answer.find_last_not_of(' ')+1);
+	int trimStringStart = answer.find_first_not_of(' ');
+	int trimStringLength = answer.find_last_not_of(' ') + 1 - trimStringStart;
+	answer = answer.substr(trimStringStart, trimStringLength);
 	return answer;
 
 }
@@ -34,6 +41,8 @@ const double Input::DoublePrompt(const std::string prompt)
 	std::cout << prompt << std::endl;
 	std::string answer;
 	std::cin >> answer;
+	std::cin.clear();
+	std::cin.ignore(1000, '\n');
 	return str2Dbl(answer);
 }
 
@@ -45,6 +54,9 @@ const int Input::IntPrompt(std::string prompt)
 	std::cout << prompt << std::endl;
 	std::string answer;
 	std::cin >> answer;
+	std::cin.clear();
+	std::cin.ignore(1000, '\n');
+
 	return str2Int(answer);
 }
 
@@ -56,18 +68,68 @@ MainMenuOption Input::GetMainMenuChoice()
 	int ans = -1;
 	do
 	{
-		std::cout << "Your menu choice: ";
-		std::string answer;
-	
-		std::cin >> answer;
-		std::cin.clear();
-		std::cin.ignore(1000, '\n');
-
-		ans = str2Int(answer);
+		ans = Input::IntPrompt("Your menu choice: ");
 		if (ans > 9 || ans < 1)
 			std::cout << "Invalid choice. (Valid: 1-9)" << std::endl;
 	} while (ans > 9 || ans < 1);
 	return (MainMenuOption)ans;
+}
+
+/* static void AddItem(ShoppingList&) */
+/* Goes through the process of adding a new item.
+Requires the ShoppingList in order to check for redundancy and add the item
+*/
+void Input::AddItem(ShoppingList& items)
+{
+	std::string name;
+	bool nameExists = true;
+	
+	do { // Do loop for checking the name against existing items
+		
+		// Prompt the user for the name
+		name = Input::StringPrompt("Enter the name of the new item");
+		
+		// Attempt to find the item in the shoppinglist
+		ListItem subjectItem;
+		nameExists = items.findRecord(name, subjectItem);
+
+		if (nameExists)
+		{
+			// If we found an item with the same name, tell the user and print the item
+			std::cout << name << " already exists." << std::endl;
+			Output::PrintItem(subjectItem);
+
+			// Ask the user if they still want to add a new item
+			std::string contStr = Input::StringPrompt("Would you still like to add a new item? (Y/N)");
+			if (!(Input::Validate(contStr)))
+				return;
+		}
+	} while (nameExists);
+
+	// Get the other fields for the item. '_' entries will be left blank
+	// Note: int/dbl conversion from string auto fixes '_' to -1
+	std::string itemDateStr = Input::StringPrompt("When did you last purchase this item? ('_' to leave blank)");
+	std::string itemStoreStr = Input::StringPrompt("Where do you buy this item? ('_' to leave blank)");
+	int itemQty = Input::IntPrompt("How many do you use? ('_' to leave blank)");
+	double itemCost = Input::DoublePrompt("What is the average price of this item? ('_' to leave blank)");
+
+	// Fix date and store if '_'
+	if (itemDateStr == "_") { itemDateStr = "EMPTY DATE"; }
+	if (itemStoreStr == "_") { itemStoreStr = "EMPTY STORE"; }
+
+	// Generate the new item
+	ListItem newItem(name, itemCost, itemStoreStr, itemQty, itemDateStr);
+
+	if (items.addRecord(newItem))
+	{
+		// If the item was successfully added, tell the user and print the final item
+		std::cout << name << " was successfully added to the shopping list." << std::endl;
+		Output::PrintItem(newItem);
+	}
+	else {
+		// If the item was not added successfully, tell the user 
+		std::cout << name << " was not added to the list. Apparently there exists a similar item. Our apologies." << std::endl;
+	}
 }
 
 /* bool Validate(string) */

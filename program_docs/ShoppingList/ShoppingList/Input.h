@@ -5,6 +5,7 @@
 #ifndef USRPULL_H
 #define USRPULL_H
 #include <string>
+#include "ShoppingList.h"
 
 /* enum MainMenuOptions */
 /* Contains the choices for the main menu
@@ -50,6 +51,12 @@ public:
 	/* Prompts for the users main menu choice, then returns the option
 	*/
 	static MainMenuOption GetMainMenuChoice();
+
+	/* static void AddItem(ShoppingList&) */
+	/* Goes through the process of adding a new item.
+	   Requires the ShoppingList in order to check for redundancy and add the item
+	*/
+	static void AddItem(ShoppingList& items);
 
 	/* static bool Validate(string) */
 	// Basically checks whether the argument is equivalent to 

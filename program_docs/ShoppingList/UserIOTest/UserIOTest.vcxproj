@@ -44,7 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)ShoppingList;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Will\Documents\GitHub\CIS22C-Project-Fall-2014\program_docs\ShoppingList\ShoppingList;$(SolutionDir)ShoppingList;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -66,9 +66,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ShoppingList\FileIO.cpp" />
+    <ClCompile Include="..\ShoppingList\HashTable.cpp" />
     <ClCompile Include="..\ShoppingList\Input.cpp" />
     <ClCompile Include="..\ShoppingList\ListItem.cpp" />
     <ClCompile Include="..\ShoppingList\Output.cpp" />
+    <ClCompile Include="..\ShoppingList\ShoppingList.cpp" />
+    <ClCompile Include="..\ShoppingList\util.cpp" />
     <ClCompile Include="InputTestSuite.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OutputTestSuite.cpp" />
@@ -76,9 +80,15 @@
     <ClCompile Include="TestSuite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ShoppingList\BSTree.h" />
+    <ClInclude Include="..\ShoppingList\BSTreeNode.h" />
+    <ClInclude Include="..\ShoppingList\FileIO.h" />
+    <ClInclude Include="..\ShoppingList\HashTable.h" />
     <ClInclude Include="..\ShoppingList\Input.h" />
     <ClInclude Include="..\ShoppingList\ListItem.h" />
     <ClInclude Include="..\ShoppingList\Output.h" />
+    <ClInclude Include="..\ShoppingList\ShoppingList.h" />
+    <ClInclude Include="..\ShoppingList\util.h" />
     <ClInclude Include="InputTestSuite.h" />
     <ClInclude Include="OutputTestSuite.h" />
     <ClInclude Include="Test.h" />

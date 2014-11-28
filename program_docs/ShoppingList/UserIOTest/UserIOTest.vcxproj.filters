@@ -33,10 +33,22 @@
     <ClCompile Include="..\ShoppingList\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ShoppingList\Output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShoppingList\FileIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShoppingList\HashTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\ShoppingList\ListItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ShoppingList\Output.cpp">
+    <ClCompile Include="..\ShoppingList\ShoppingList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShoppingList\util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,10 +68,28 @@
     <ClInclude Include="..\ShoppingList\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ShoppingList\Output.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShoppingList\BSTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShoppingList\BSTreeNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShoppingList\FileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShoppingList\HashTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\ShoppingList\ListItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ShoppingList\Output.h">
+    <ClInclude Include="..\ShoppingList\ShoppingList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShoppingList\util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
