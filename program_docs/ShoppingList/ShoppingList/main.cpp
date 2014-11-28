@@ -25,15 +25,10 @@ void main_loop(ShoppingList& theList)
 		switch(option)
 		{
 			case OPTION_ADD:
-				
+				Input::AddItem(theList);
 				break;
 			case OPTION_DELETE:
-				input = Input::StringPrompt("Enter the name of the item to delete:");
-				if (theList.removeRecord(input))
-				{
-					std::cout << "'" << input << "' was deleted." << std::endl;
-					//print item count
-				}
+				Input::DeleteItem(theList);
 				break;
 			case OPTION_PRIMARYKEY:
 				input = Input::StringPrompt("Enter the name of the item to print:");
