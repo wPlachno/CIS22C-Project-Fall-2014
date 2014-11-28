@@ -7,6 +7,15 @@
 #include "BSTree.h"
 #include "HashTable.h"
 
+enum
+{
+	SL_SUCCESS,
+	SL_ERROR_FILE_NOOPEN,
+	SL_ERROR_WRITE
+};
+
+
+
 class ShoppingList
 {
 

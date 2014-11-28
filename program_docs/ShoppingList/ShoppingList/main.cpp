@@ -28,7 +28,7 @@ void main_loop(ShoppingList& theList)
 				
 				break;
 			case OPTION_DELETE:
-				input = Input::StringPrompt("Enter the name of the item to delete.");
+				input = Input::StringPrompt("Enter the name of the item to delete:");
 				if (theList.removeRecord(input))
 				{
 					std::cout << "'" << input << "' was deleted." << std::endl;
@@ -36,7 +36,7 @@ void main_loop(ShoppingList& theList)
 				}
 				break;
 			case OPTION_PRIMARYKEY:
-				input = Input::StringPrompt("Enter the name of the item to print.");
+				input = Input::StringPrompt("Enter the name of the item to print:");
 				std::cout << std::endl;
 				theList.displayItem(input);
 				break;
@@ -75,7 +75,7 @@ int main(void)
 	Output::PrintLanding();
 
 //read
-	if (theList.loadFromFile(saveFileName) != 1)
+	if (theList.loadFromFile(saveFileName) != SL_SUCCESS)
 	{
 		std::cout << "Unable to open file '" << saveFileName << "'." << std::endl;
 		return 1;
@@ -84,7 +84,7 @@ int main(void)
 
 	main_loop(theList);
 
-	if (theList.writeToFile(saveFileName) != 1)
+	if (theList.writeToFile(saveFileName) != SL_SUCCESS)
 	{
 		std::cout << "Unable to write to '" << saveFileName << "'." << std::endl;
 		return 1;

@@ -423,6 +423,7 @@ void BSTree<T, K>::printTree() const
  @param subTreePtr Pointer to the subtree to print.
  @param level The current level of the subtree.
  */
+//todo - figure out a way of printing the tree so that it shows where null nodes are
 template <typename T, typename K>
 void BSTree<T, K>::_printTree(BSTreeNode<T>* subTreePtr, int level) const
 {

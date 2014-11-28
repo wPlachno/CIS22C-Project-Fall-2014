@@ -11,9 +11,12 @@
 #include <iostream>
 #include <functional>
 #include <cassert>
+#include <iomanip>
 #include "FileIO.h"
 #include "Output.h"
 #include "util.h"
+
+
 
 //todo: which has faster times for various actions: tree or hash table?  the one with faster time will be used for retrieval
 
@@ -22,8 +25,14 @@
 
 void fileWrite(ListItem& item, std::ofstream* outFile)
 {
-	//FileIO::writeToFile(item, outFile); //handle return values
-	std::cout << "Write: " << item.getName() << " to file." << std::endl;
+	int result = FileIO::writeToFile(item, outFile);
+	//todo - throw exception
+	assert(result != FILE_ERROR_OPENING);
+
+	assert(result != ERROR_OUTFILE_NULL);
+
+
+	//std::cout << "Write: " << item.getName() << " to file." << std::endl;
 }
 
 
@@ -47,7 +56,7 @@ void printIfStore(ListItem& item, const std::string& storeName)
 {
 	if(string_to_lower(item.getStore()) == storeName)
 	{
-		std::cout << item.getName() << std::endl;
+		std::cout << item.getName() << ", " << std::fixed << std::setprecision(2) << item.getCost() << ", " << item.getQuantity() << ", " << item.getDate() << std::endl;
 	}
 }
 
@@ -74,19 +83,27 @@ ListItem* ShoppingList::findRecordPtr(const std::string& name)
 	//return htable.search(name); 
 }
 
-
+//todo: finish
 /** Load the shopping list from a file.
  @param fileName The name of the file to load.
- @return 1 if success.
+ @return SL_SUCCESS if success. SL_ERROR_FILE_NOOPEN if the file cannot be opended.
  */
 
 
 int ShoppingList::loadFromFile(const std::string& fileName)
 {
-	return FileIO::loadFile(*this, fileName);
+	int result = FileIO::loadFile(*this, fileName);
+	if (FILE_ERROR_OPENING == result)
+		return SL_ERROR_FILE_NOOPEN;
+	else
+		return SL_SUCCESS;
 }
 
 
+/** Write the contents of the list to a file.
+@param fileName The name of the file to write to.
+@return SL_SUCCESS on success.  SL_ERROR_FILE_NOOPEN if file cannot be opened.
+*/
 
 int ShoppingList::writeToFile(const std::string& fileName) const
 {
@@ -95,13 +112,16 @@ int ShoppingList::writeToFile(const std::string& fileName) const
 	outFile.open(fileName);
 
 	if (!outFile.is_open())
-		return 0;
+		return SL_ERROR_FILE_NOOPEN; //todo - meaningful return values
 
 	auto visitFunc = std::bind(fileWrite, std::placeholders::_1, &outFile);
 
+
 	bstree.breadthFirstTraversal(visitFunc);
 
-	return 1;
+	outFile.close();
+
+	return SL_SUCCESS;
 }
 
 
@@ -142,7 +162,8 @@ bool ShoppingList::removeRecord(const std::string& name)
 	if (toDeleteTree /*&& toDeleteTable*/)
 	{
 		delete toDeleteTree;
-		return false;
+		itemCount--;
+		return true;
 	}
 	else if(!toDeleteTree /*&& !toDeleteTable*/)
 		return false;
@@ -255,6 +276,9 @@ void ShoppingList::printByStore(const std::string& storeName) const
 
 }
 
+
+/** Print efficiency statistics of the hash table.
+*/
 
 void ShoppingList::printHashTableEfficiency() //const
 {

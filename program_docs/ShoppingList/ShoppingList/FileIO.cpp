@@ -5,6 +5,8 @@ Team 5 Project
 */
 
 #include "fileio.h"
+#include <iomanip>
+
 //initialize static member - must be in cpp file to avoid multiple definitions
 FileIO_TempFileData FileIO::f;
 
@@ -51,7 +53,7 @@ int FileIO::loadFile(ShoppingList& list, const std::string& fileName)
 	}
 
 	//adds new record to list while there is still data to be read
-	while (readFromFile(infile))
+	while (FILE_ERROR_ADDING != readFromFile(infile))
 	{
 		ListItem data(f.groceryName);
 		data.setCost(f.douPrice);
@@ -78,7 +80,7 @@ int FileIO::writeToFile(ListItem& item, std::ofstream* outfile)
 	else
 	{
 		*outfile << item.getName() << "\n"
-			<< item.getCost() << "\n"
+			<< std::fixed << std::setprecision(2) << item.getCost() << "\n"
 			<< item.getStore() << "\n"
 			<< item.getQuantity() << "\n"
 			<< item.getDate() << "\n";

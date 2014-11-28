@@ -60,7 +60,7 @@ public:
 	// Writes a set of data to file
 	// Returns 1 if successful, 0 or -1 if not
 	//**************************************************
-	static int writeToFile(ListItem& item, std::ofstream outfile);
+	static int writeToFile(ListItem& item, std::ofstream* outfile);
 
 };
 
