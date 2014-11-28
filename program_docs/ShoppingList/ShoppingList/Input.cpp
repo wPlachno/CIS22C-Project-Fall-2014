@@ -132,6 +132,45 @@ void Input::AddItem(ShoppingList& items)
 	}
 }
 
+/* static void DeleteItem(ShoppingList&) */
+/* Prompts the user for a ListItem delete, then removes
+it from the shopping list.
+*/
+void Input::DeleteItem(ShoppingList& items)
+{
+	// Prompt the user for the name
+	std::string name = Input::StringPrompt("Please enter the name of the item to remove from the list:");
+
+	// Check for existence
+	ListItem thisItem;
+	if (items.findRecord(name, thisItem))
+	{
+		// If it exists, Print it out
+		std::cout << name << " was found: " << std::endl;
+		Output::PrintItem(thisItem);
+
+		// Confirm deletion
+		std::string confirm = Input::StringPrompt("Are you sure you wish to delete this item?");
+		if (Input::Validate(confirm))
+		{
+			// Confirmed Deletion
+			if (items.removeRecord(name))
+				std::cout << name << " was successfully removed." << std::endl;
+			// Unsuccessful deletion
+			else
+				std::cout << name << " could not be removed. It could not be found in the shopping list." << std::endl;
+		}
+		// Cancel the delete
+		else {
+			std::cout << name << " was not deleted." << std::endl;
+		}
+	}
+	// Nothing to delete
+	else {
+		std::cout << name << " does not exist in the list." << std::endl;
+	}
+}
+
 /* bool Validate(string) */
 // Basically checks whether the argument is equivalent to 
 // a positive statement, either "y", "Y", "yes", "Yes", "true", "True"

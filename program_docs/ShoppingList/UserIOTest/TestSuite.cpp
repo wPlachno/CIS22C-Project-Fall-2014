@@ -72,7 +72,7 @@ void TestSuite::Run()
 bool TestSuite::AddTest(Test test)
 {
 	// If the tests array is full, dont add
-	if (numTests == 30)
+	if (numTests == 40)
 		return false;
 
 	// Otherwise, put the new test in the first available slot

@@ -58,6 +58,12 @@ public:
 	*/
 	static void AddItem(ShoppingList& items);
 
+	/* static void DeleteItem(ShoppingList&) */
+	/* Prompts the user for a ListItem delete, then removes
+	   it from the shopping list.
+	*/
+	static void DeleteItem(ShoppingList& items);
+
 	/* static bool Validate(string) */
 	// Basically checks whether the argument is equivalent to 
 	// a positive statement, either "y", "Y", "yes", "Yes", "true", "True"

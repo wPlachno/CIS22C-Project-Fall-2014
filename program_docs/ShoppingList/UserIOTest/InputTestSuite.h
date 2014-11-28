@@ -40,6 +40,9 @@
 	- Test28
 	- Test29
 	- Test30
+	- Test31
+	- Test32
+	- Test33
 
 */
 class InputTestSuite : public TestSuite
@@ -191,5 +194,18 @@ public:
 	/* Test30AddItemExists */
 	// Tests AddItem when the item already exists
 	static bool Test30_AddItemExists();
+
+	/* Test31DeleteItemBasic */
+	// Tests DeleteItem basic functionality
+	static bool Test31_DeleteItemBasic();
+
+	/* Test32DeleteItemNotFound */
+	// DeleteItem when trying to delete an item that
+	// does not exist in the list.
+	static bool Test32_DeleteItemNotFound();
+
+	/* Test33DeleteItemCancel */
+	// DeleteItem when the user cancels the delete
+	static bool Test33_DeleteItemCancel();
 };
 

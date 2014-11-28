@@ -38,6 +38,9 @@
 	- Test28()
 	- Test29()
 	- Test30()
+	- Test31()
+	- Test32()
+	- Test33()
 
 */
 
@@ -77,6 +80,9 @@ void InputTestSuite::SetUpTests()
 	std::string test28Name = "AddItem Basic";
 	std::string test29Name = "AddItem Blank fields";
 	std::string test30Name = "AddItem Existing Item";
+	std::string test31Name = "DeleteItem Basic";
+	std::string test32Name = "DeleteItem Item Not Found";
+	std::string test33Name = "DeleteItem Cancel";
 
 	// Create TestFunction function pointers
 	TestFunction test1Func = &Test1_StringPromptBasic;
@@ -109,6 +115,9 @@ void InputTestSuite::SetUpTests()
 	TestFunction test28Func = &Test28_AddItemBasic;
 	TestFunction test29Func = &Test29_AddItemBlanks;
 	TestFunction test30Func = &Test30_AddItemExists;
+	TestFunction test31Func = &Test31_DeleteItemBasic;
+	TestFunction test32Func = &Test32_DeleteItemNotFound;
+	TestFunction test33Func = &Test33_DeleteItemCancel;
 
 	// Create the test cases
 	Test test1(test1Name, test1Func);
@@ -141,6 +150,9 @@ void InputTestSuite::SetUpTests()
 	Test test28(test28Name, test28Func);
 	Test test29(test29Name, test29Func);
 	Test test30(test30Name, test30Func);
+	Test test31(test31Name, test31Func);
+	Test test32(test32Name, test32Func);
+	Test test33(test33Name, test33Func);
 	
 	// Add the Tests to the TestSuite architecture
 	AddTest(test1);
@@ -173,6 +185,9 @@ void InputTestSuite::SetUpTests()
 	AddTest(test28);
 	AddTest(test29);
 	AddTest(test30);
+	AddTest(test31);
+	AddTest(test32);
+	AddTest(test33);
 }
 
 /* ------ Test Functions ------ */
@@ -517,4 +532,47 @@ bool InputTestSuite::Test30_AddItemExists()
 	Input::AddItem(list);
     std::string answer = Input::StringPrompt("As expected?");
 	return Input::Validate(answer);
+}
+
+/* Test31DeleteItemBasic */
+// Tests DeleteItem basic functionality
+bool InputTestSuite::Test31_DeleteItemBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "Please delete 'Coors Light'." << std::endl;
+	Input::DeleteItem(list);
+	return (!(list.findRecord("Coors Light", item2))) && list.getItemCount() == 1;
+}
+
+/* Test32DeleteItemNotFound */
+// DeleteItem when trying to delete an item that
+// does not exist in the list.
+bool InputTestSuite::Test32_DeleteItemNotFound()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "Please try to delete 'Bud Light'." << std::endl;
+	Input::DeleteItem(list);
+	return list.getItemCount() == 2;
+}
+
+/* Test33DeleteItemCancel */
+// DeleteItem when the user cancels the delete
+bool InputTestSuite::Test33_DeleteItemCancel()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "Please begin to delete 'Coors Light', but cancel when asked for final verification." << std::endl;
+	Input::DeleteItem(list);
+	return list.findRecord("Coors Light", item2) && list.getItemCount() == 2;
 }
