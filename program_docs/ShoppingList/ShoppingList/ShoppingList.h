@@ -22,7 +22,7 @@ private:
 	ListItem* findRecordPtr(const std::string& name); //const ;
 public:
 	ShoppingList();
-	~ShoppingList();
+	~ShoppingList(); //todo - have this call bstree.destroyall to clean up.
 
 	// bool setFileName(const std::string& newFileName);
 	// std::string getFileName();
@@ -34,7 +34,7 @@ public:
 
 
 	bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
-	bool removeRecord(const std::string& name);
+	bool removeRecord(const std::string& name); //todo: change to deleteRecord
 	bool findRecord(const std::string& name, ListItem& found); //const; //this might change
 	int getItemCount() const;
 

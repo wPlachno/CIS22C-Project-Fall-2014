@@ -14,7 +14,13 @@ Team 5 Project
 
 
 //enum for possible errors
-enum FileIOErrors {FILE_ERROR_OPENING, FILE_NO_ERROR, FILE_ERROR_ADDING = -1, ERROR_OUTFILE_NULL = -1};
+enum FileIOErrors 
+{
+	FILE_ERROR_OPENING, 
+	FILE_NO_ERROR, 
+	FILE_ERROR_ADDING = -1, 
+	ERROR_OUTFILE_NULL = -1
+};
 
 struct FileIO_TempFileData
 {

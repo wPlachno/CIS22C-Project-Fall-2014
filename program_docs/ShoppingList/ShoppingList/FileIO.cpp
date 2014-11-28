@@ -67,21 +67,22 @@ int FileIO::loadFile(ShoppingList& list, const std::string& fileName)
 	return FILE_NO_ERROR;
 }
 
-int FileIO::writeToFile(ListItem& item, std::ofstream outfile)
+
+int FileIO::writeToFile(ListItem& item, std::ofstream* outfile)
 {
 	if (!outfile)
 		return ERROR_OUTFILE_NULL; //returns -1 if outfile points to null
 
-	if (!(outfile.is_open()))
+	if (!(outfile->is_open()))
 		return FILE_ERROR_OPENING; //returns 0 if file not opened
 	else
 	{
-		outfile << item.getName() << "\n"
+		*outfile << item.getName() << "\n"
 			<< item.getCost() << "\n"
 			<< item.getStore() << "\n"
 			<< item.getQuantity() << "\n"
 			<< item.getDate() << "\n";
-
+			
 		return FILE_NO_ERROR;  //returns 1 if no errors
 	} //end if
 
