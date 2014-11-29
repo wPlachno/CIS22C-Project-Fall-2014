@@ -1,4 +1,4 @@
-
+//created by Andrew Light
 #include "ListItem.h"
 
 ListItem::ListItem(){
@@ -84,20 +84,17 @@ string ListItem::getDate(){
 void ListItem::setDate(const string& val){
 	date = val;
 }
+string ListItem::getKey(){
+	string tmp = "";
+	for (int i = 0; i < name.length(); i++){
+		tmp += toupper(name[i]);	//converts all characters in name to uppercase
+	}
+	return tmp;	//returns uppercase version of name
+}
 int ListItem::compareKey(const string& b){
 	string tmp = "";
-	for (int i = 0; i < b.length(); i++){	//ensuring that the keys are properly compared
+	for (int i = 0; i < b.length(); i++){	//converting second key to uppercase, ensuring that the keys are properly compared
 		tmp += toupper(b[i]);
 	}
 	return getKey().compare(tmp);
-}
-string ListItem::getKey(){	//hey rob, you do want this to be K T::getKey() not T T:: getKey() right? you said the second one on the agenda notes, but i'm assuming that was a typo
-	string tmp = "";
-	for (int i = 0; i < name.length(); i++){
-		tmp += toupper(name[i]);
-	}
-	return tmp;
-}
-ListItem::~ListItem()
-{
 }
