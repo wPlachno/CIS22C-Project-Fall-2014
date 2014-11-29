@@ -7,7 +7,6 @@ Goel
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-
 #include <iostream>
 #include <string>
 #include "ListItem.h"
@@ -25,11 +24,12 @@ struct item //struct named item that will be held in the hash table (this will a
 	ListItem* list;
 	item* next; // pointer that allows the item to point to another item
 	keyOverFlow* overflow; //puts any key conflicts here
-	item(){
+	item()
+	{
 		list = NULL;
 		next = NULL;
 		overflow = NULL;
-	};
+	}
 };
 
 struct listKey //linked list for key comparing
@@ -39,7 +39,8 @@ struct listKey //linked list for key comparing
 	item *itemPtr;
 	listKey *next;	//remove entirely, use HashTable[x+1] or whatever
 	//listKey *&start;
-	listKey(){
+	listKey()
+	{
 		itemKey = NULL;
 		itemPtr = NULL;
 		next = NULL;
@@ -65,15 +66,19 @@ public:
 
 	void addItem(ListItem* newItem); //Function that will add items into the hash table
 
-	bool removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
+	ListItem* removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
-	void display(); //Displays the hash table;
+	void const display(); //Displays the hash table;
 
-	void displayItems(int index); //Displays the items of a particular index
+	void const displayItems(std::string name); //Displays the items of a particular index
 
-	void PrintEff(); //Prints out the Efficiency
+	void const PrintEff(); //Prints out the Efficiency
+
+	void const displayKeySeq(); //Displays the hash table using the hashing key sequence
+
+
 
 	//for the comparing linked list
 
@@ -132,16 +137,6 @@ public:
 			//create the first node
 			firstNode(index);
 		}
-		//if it isn't empty, it should just skip the first if statement a start comparing
-		//compare with the linked list
-		/*else if (searchList(newKeys, index))
-		{
-			keyOverFlow *flow = new keyOverFlow;
-
-			//retrieve the first occurrence from the table
-			flow = HashTable[index]->overflow; //and add the second key occurrence to the overflow list
-
-		}*/
 		else if(!searchList(newKeys, index)) //if the index isn't used yet, add it to the list
 		{ 
 			newKeys->itemKey = index; //set the value to the node
