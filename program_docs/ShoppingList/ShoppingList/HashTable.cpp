@@ -31,7 +31,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int HTable::hashFcn(const std::string& key/*, const ListItem* newItem*/)
+int HTable::hashFcn(const std::string& key/*, const ListItem* newItem*/) const
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -55,7 +55,7 @@ will print out that the item was found.
 Else, if it wasn't found, the function simply states that the item wasn't
 found in the hash table.
 */
-ListItem *HTable::search(std::string name)
+ListItem *HTable::search(std::string name) const
 {
 	//const ListItem *temp = new ListItem;
 	int index = hashFcn(name); //finds the hash value of that particular name and sets index equal to it
@@ -135,7 +135,7 @@ void HTable::addItem(ListItem* newItem)
 		else //if the index of the HashTable is NULL
 		{
 			ListItem* data;	// a temp object pointer of ListItem
-			string s = newItem->getKey(); //a temp string to hold the new item's name value
+			std::string s = newItem->getKey(); //a temp string to hold the new item's name value
 
 			if (s < HashTable[index]->list->getKey()) //if the new name is smaller than the name that's already in the index,
 			{
@@ -333,7 +333,7 @@ number of items within that particular index using the variable count
 and then returning that variable. (This function is later used in the 
 display functions)
 */
-int HTable::countItems(int index)
+int HTable::countItems(int index) const
 {
 	int count = 0;
 
@@ -366,7 +366,7 @@ int HTable::countItems(int index)
 /*display(): Displays the contents (items of the indexes) and number of items for each index
 of the hash table using for loops and the function countItems().
 */
-void const HTable::display()
+void HTable::display() const
 {
 	int num; //variable used to hold the number of items in each index/element
 
@@ -385,7 +385,7 @@ void const HTable::display()
 			std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[i]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 
 			if (HashTable[i]->overflow->itemPtr != NULL) //if the index's overflow isn't empty,
 			{//dsplay the overflow
@@ -395,7 +395,7 @@ void const HTable::display()
 				std::cout << "Quanity: " << HashTable[i]->overflow->itemPtr->getQuantity() << std::endl;
 				std::cout << "Prefered Store: " << HashTable[i]->overflow->itemPtr->getStore() << std::endl;
 				std::cout << "Due Date: " << HashTable[i]->overflow->itemPtr->getDate() << std::endl;
-				cout << "-----------------------------" << endl;
+				std::cout << "-----------------------------" << std::endl;
 
 				if (HashTable[i]->overflow->overflow != NULL) //and if the over's overflow isn't empty,
 				{//display that too
@@ -405,7 +405,7 @@ void const HTable::display()
 					std::cout << "Quanity: " << HashTable[i]->overflow->overflow->itemPtr->getQuantity() << std::endl;
 					std::cout << "Prefered Store: " << HashTable[i]->overflow->overflow->itemPtr->getQuantity() << std::endl;
 					std::cout << "Due Date: " << HashTable[i]->overflow->overflow->itemPtr->getDate() << std::endl;
-					cout << "-----------------------------" << endl;
+					std::cout << "-----------------------------" << std::endl;
 				}
 			}
 
@@ -419,7 +419,7 @@ void const HTable::display()
 
 /*displayItems(): Displays only the items in a particular index.
 */
-void const HTable::displayItems(std::string name)
+void HTable::displayItems(std::string name) const
 {
 	int index = hashFcn(name);
 	//item* tablePtr = HashTable[index]; //points to the index of hash table
@@ -433,7 +433,7 @@ void const HTable::displayItems(std::string name)
 			std::cout << "Quanity: " << HashTable[index]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[index]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[index]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 		else if (HashTable[index]->overflow->itemPtr != NULL && HashTable[index]->overflow->itemPtr->getKey() == name)//else, if the index's overflow list isn't empty AND the name matches
 		{
@@ -442,7 +442,7 @@ void const HTable::displayItems(std::string name)
 			std::cout << "Quanity: " << HashTable[index]->overflow->itemPtr->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[index]->overflow->itemPtr->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[index]->overflow->itemPtr->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 		else if (HashTable[index]->overflow->overflow->itemPtr != NULL && HashTable[index]->overflow->overflow->itemPtr->getKey() == name) //if not, check next down in the overflow
 		{
@@ -451,23 +451,23 @@ void const HTable::displayItems(std::string name)
 			std::cout << "Quanity: " << HashTable[index]->overflow->overflow->itemPtr->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[index]->overflow->overflow->itemPtr->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[index]->overflow->overflow->itemPtr->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 	}
 	else //if the name wasn't found in the HashTable
 	{
 		std::cout << "Error: Item was not found." << std::endl;
-		cout << "-----------------------------" << endl;
+		std::cout << "-----------------------------" << std::endl;
 	}
 }
 
 /*PrintEff(): Function that will show the efficiency of the hash table
 by using the load factor
 */
-void const HTable::PrintEff()
+void HTable::PrintEff() const
 {
 	float loadFactor; //the load factor
-	int count; //to help calculate the number of elements in the table
+	int count = 0; //to help calculate the number of elements in the table
 
 	item *tablePtr = HashTable[0]; //create a pointer to the hash table pointing to the first element of the table
 
@@ -500,7 +500,7 @@ void const HTable::PrintEff()
 contents only after it has been sorted by 'key' order. The one
 with the smallest hash key will be the first to be displayed.
 */
-void const HTable::displayKeySeq()
+void  HTable::displayKeySeq() const
 {
 	int keys[tableSize]; //array of keys
 	item *ptr; //pointer of item type
@@ -533,12 +533,13 @@ void const HTable::displayKeySeq()
 	{
 		int index = keys[i];
 
-		cout << "Name: " << HashTable[index]->list->getKey() << endl;
-		cout << "Cost: " << HashTable[index]->list->getCost() << endl;
-		cout << "Quanity: " << HashTable[index]->list->getQuantity() << endl;
-		cout << "Prefered Store: " << HashTable[index]->list->getStore() << endl;
-		cout << "Due Date: " << HashTable[index]->list->getDate() << endl;
-		cout << "-----------------------------" << endl;
+		std::cout << HashTable[index]->list->getKey() << std::endl;
+		//cout << "Name: " << HashTable[index]->list->getKey() << endl;
+		//cout << "Cost: " << HashTable[index]->list->getCost() << endl;
+		//cout << "Quanity: " << HashTable[index]->list->getQuantity() << endl;
+		//cout << "Prefered Store: " << HashTable[index]->list->getStore() << endl;
+		//cout << "Due Date: " << HashTable[index]->list->getDate() << endl;
+		//cout << "-----------------------------" << endl;
 	}
 }
 

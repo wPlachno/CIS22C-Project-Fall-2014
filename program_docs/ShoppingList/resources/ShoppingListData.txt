@@ -1,3 +1,13 @@
+Hot Dogs
+6.95
+Costco
+1
+7/4/2015
+Hamburger
+9.96
+Costco
+2
+7/4/2015
 Sandwich
 15.00
 Safeway
@@ -27,3 +37,4 @@ Cake Mix
 5.75
 Nobb Hill Foods
 5
+

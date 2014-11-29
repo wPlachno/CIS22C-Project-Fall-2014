@@ -14,8 +14,6 @@ enum
 	SL_ERROR_WRITE
 };
 
-
-
 class ShoppingList
 {
 
@@ -28,7 +26,7 @@ private:
 	//std::string fileName; //in a gui app this would be a better configuration
 
 
-	ListItem* findRecordPtr(const std::string& name); //const ;
+	ListItem* findRecordPtr(const std::string& name) const;
 public:
 	ShoppingList();
 	~ShoppingList(); //todo - have this call bstree.destroyall to clean up.
@@ -38,17 +36,19 @@ public:
 
 
 	bool addRecord(const ListItem& toAdd); //copy the data into a new allocated item
-	bool removeRecord(const std::string& name); //todo: change to deleteRecord
-	bool findRecord(const std::string& name, ListItem& found); //const; //this might change
+	bool deleteRecord(const std::string& name); //todo: change to deleteRecord
+	bool findRecord(const std::string& name, ListItem& found) const; //this might change
+	bool exists(const std::string& name) const;
+
 	int getItemCount() const;
-	bool exists(const std::string& name);
+	
 
 	//print methods... separate?
-	void displayItem(const std::string& item);// const;
+	void displayItem(const std::string& item) const;
 	void printTree() const;
-	void printListHashSeq(); //const;
+	void printListHashSeq() const;
 	void printListByName() const;
-	void printHashTableEfficiency(); //const;
+	void printHashTableEfficiency() const;
 
 	//group defiined
 	void printByStore(const std::string& storeName) const;

@@ -427,8 +427,8 @@ void BSTree<T, K>::printTree() const
 template <typename T, typename K>
 void BSTree<T, K>::_printTree(BSTreeNode<T>* subTreePtr, int level) const
 {
-	if(!subTreePtr)
-		return;
+	//if(!subTreePtr)
+	//	return;
 	
 	for(int i = level+1; i > 0; i--)
 	{
@@ -441,11 +441,19 @@ void BSTree<T, K>::_printTree(BSTreeNode<T>* subTreePtr, int level) const
 			std::cout << "  ";
 	}
 	
-	std::cout << " " << subTreePtr->data->getKey() << std::endl;
-	
-	_printTree(subTreePtr->left, level+1);
-	_printTree(subTreePtr->right, level+1);
-	
+	if (subTreePtr)
+		std::cout << " " << subTreePtr->data->getKey() << std::endl;
+	else
+	{
+		std::cout << "]" << std::endl;
+		return;
+	}
+
+	if ((subTreePtr->left || subTreePtr->right))
+	{
+		_printTree(subTreePtr->left, level + 1);
+		_printTree(subTreePtr->right, level + 1);
+	}
 }
 
 

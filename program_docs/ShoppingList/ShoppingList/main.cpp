@@ -19,6 +19,7 @@ void main_loop(ShoppingList& theList)
 	{
 		std::cout << std::endl;
 		Output::PrintMainMenu();
+		std::cout << std::endl;
 		option = Input::GetMainMenuChoice();
 		std::cout << std::endl;
 		
@@ -37,6 +38,7 @@ void main_loop(ShoppingList& theList)
 				break;
 			case OPTION_HASHSEQ:
 				theList.printListHashSeq();
+				break;
 			case OPTION_KEYSEQ:
 				theList.printListByName();
 				break;

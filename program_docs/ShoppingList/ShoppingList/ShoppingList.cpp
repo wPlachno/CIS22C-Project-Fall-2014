@@ -77,7 +77,7 @@ ShoppingList::~ShoppingList()
 @return A pointer to the found record.  Returns nullptr if the record is not found.
  */
 
-ListItem* ShoppingList::findRecordPtr(const std::string& name) 
+ListItem* ShoppingList::findRecordPtr(const std::string& name) const
 {
 	return bstree.get(name);
 	//return htable.search(name); 
@@ -151,7 +151,7 @@ bool ShoppingList::addRecord(const ListItem& toAdd)
 */
 
 
-bool ShoppingList::removeRecord(const std::string& name)
+bool ShoppingList::deleteRecord(const std::string& name)
 {
 	ListItem* toDeleteTable, *toDeleteTree;
 
@@ -191,7 +191,7 @@ bool ShoppingList::removeRecord(const std::string& name)
  @return true if the record was found, false otherwise.
  */
 
-bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
+bool ShoppingList::findRecord(const std::string& name, ListItem& found) const
 {
    ListItem* pFound = findRecordPtr(name);
 
@@ -212,7 +212,7 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) //const
 */
 
 //todo: add this to presentation
-bool ShoppingList::exists(const std::string& name) //const
+bool ShoppingList::exists(const std::string& name) const
 {
 	return findRecordPtr(name);
 }
@@ -230,7 +230,7 @@ int ShoppingList::getItemCount() const
 /** Find a record and print it to the screen.
 @param item The name of the item to display.
  */
-void ShoppingList::displayItem(const std::string& name) //const
+void ShoppingList::displayItem(const std::string& name) const
 {
 	ListItem* found = findRecordPtr(name);
  
@@ -257,10 +257,9 @@ void ShoppingList::printTree() const
 /** Print the list in hash key sequence to stdout.
  */
 
-void ShoppingList::printListHashSeq() //const
+void ShoppingList::printListHashSeq() const
 {
-	//htable.display(); //todo what happended to the other function
-   // htable.displayKeySeq();
+    htable.displayKeySeq();
 }
 
 
@@ -291,7 +290,7 @@ void ShoppingList::printByStore(const std::string& storeName) const
 /** Print efficiency statistics of the hash table.
 */
 
-void ShoppingList::printHashTableEfficiency() //const
+void ShoppingList::printHashTableEfficiency() const
 {
 	htable.PrintEff();
 }

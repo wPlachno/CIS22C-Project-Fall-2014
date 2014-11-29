@@ -154,7 +154,7 @@ void Input::DeleteItem(ShoppingList& items)
 		if (Input::Validate(confirm))
 		{
 			// Confirmed Deletion
-			if (items.removeRecord(name))
+			if (items.deleteRecord(name))
 				std::cout << name << " was successfully removed." << std::endl;
 			// Unsuccessful deletion
 			else

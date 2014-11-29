@@ -67,16 +67,16 @@ void Output::PrintItem(ListItem& item)
 	std::string qtyStr = std::to_string(qty);
 
 	// Check for empty
-	if (date == "EMPTY DATE") { date = "N/A"; }
+	if (date == "EMPTY DATE") { date = "N/A"; } //rhoyer - Where did we agree on this?  Everywhere else it's just assumed that a blank is ""
 	if (store == "EMPTY STORE") { store = "N/A"; }
-	if (qty == -1) { qtyStr = "N/A"; }
+	if (qty == -1) { qtyStr = "N/A"; } //rhoyer - todo - what about 0
 
 	// Output
 	std::cout << "Name: " << name << std::endl;
 	std::cout << "Date: " << date << std::endl;
 	std::cout << "Quantity: " << qtyStr << std::endl;
 	std::cout << "Cost: ";
-	if (cost == -1) { std::cout << "N/A"; }
+	if (cost == -1) { std::cout << "N/A"; } //rhoyer - what if the cost is 0? -
 	else { std::cout << std::setprecision(2) << std::fixed << "$" << cost; }
 	std::cout << std::endl << "Preferred Store: " << store << std::endl;
 }

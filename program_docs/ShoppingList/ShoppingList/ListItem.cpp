@@ -8,7 +8,7 @@ ListItem::ListItem(){
 	quantity = -1;
 	date = "EMPTY OBJECT";
 }
-ListItem::ListItem(string n){
+ListItem::ListItem(std::string n){
 	name = n;
 	cost = -1;
 	store = "EMPTY STORE";
@@ -22,7 +22,7 @@ ListItem::ListItem(const ListItem& l){
 	quantity = l.quantity;
 	date = l.date;
 }
-ListItem::ListItem(string n, double c, string st, int q, string d){
+ListItem::ListItem(std::string n, double c, std::string st, int q, std::string d){
 	name = n;
 	cost = c;
 	store = st;
@@ -57,7 +57,7 @@ ListItem ListItem::operator=(const ListItem& right){
 	date = right.date;
 	return *this;
 }
-string ListItem::getName(){
+std::string ListItem::getName(){
 	return name;
 }
 double ListItem::getCost(){
@@ -66,10 +66,10 @@ double ListItem::getCost(){
 void ListItem::setCost(double d){
 	cost = d;
 }
-string ListItem::getStore(){
+std::string ListItem::getStore(){
 	return store;
 }
-void ListItem::setStore(const string& val){
+void ListItem::setStore(const std::string& val){
 	store = val;
 }
 int ListItem::getQuantity(){
@@ -78,21 +78,21 @@ int ListItem::getQuantity(){
 void ListItem::setQuantity(int val){
 	quantity = val;
 }
-string ListItem::getDate(){
+std::string ListItem::getDate(){
 	return date;
 }
-void ListItem::setDate(const string& val){
+void ListItem::setDate(const std::string& val){
 	date = val;
 }
-string ListItem::getKey(){
-	string tmp = "";
+std::string ListItem::getKey(){
+	std::string tmp = "";
 	for (int i = 0; i < name.length(); i++){
 		tmp += toupper(name[i]);	//converts all characters in name to uppercase
 	}
 	return tmp;	//returns uppercase version of name
 }
-int ListItem::compareKey(const string& b){
-	string tmp = "";
+int ListItem::compareKey(const std::string& b){
+	std::string tmp = "";
 	for (int i = 0; i < b.length(); i++){	//converting second key to uppercase, ensuring that the keys are properly compared
 		tmp += toupper(b[i]);
 	}
