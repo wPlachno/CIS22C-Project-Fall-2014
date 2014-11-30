@@ -71,6 +71,6 @@ protected:
 	// The array of Test objects to be run.
 	// Instantiated by SetUpTests(),
 	// amount kept by numTests
-	Test tests[40];
+	Test tests[80];
 };
 

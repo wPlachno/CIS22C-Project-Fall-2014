@@ -14,12 +14,13 @@ enum MainMenuOption {
 	OPTION_ADD = 1,
 	OPTION_DELETE = 2,
 	OPTION_PRIMARYKEY = 3,
-	OPTION_HASHSEQ = 4,
-	OPTION_KEYSEQ = 5,
-	OPTION_BST = 6,
-	OPTION_EFFICIENCY = 7,
-	OPTION_BYSTORE = 8,
-	OPTION_QUIT = 9
+	OPTION_EDIT = 4,
+	OPTION_HASHSEQ = 5,
+	OPTION_KEYSEQ = 6,
+	OPTION_BST = 7,
+	OPTION_EFFICIENCY = 8,
+	OPTION_BYSTORE = 9,
+	OPTION_QUIT = 10
 };
 
 /* class Pull
@@ -63,6 +64,12 @@ public:
 	   it from the shopping list.
 	*/
 	static void DeleteItem(ShoppingList& items);
+
+	/* static void EditItem(ShoppingList&) */
+	/* A large function that contains the menu interface for the user 
+	   to edit a listItem in an existing shopping list.
+	*/
+	static void EditItem(ShoppingList& items);
 
 	/* static bool Validate(string) */
 	// Basically checks whether the argument is equivalent to 

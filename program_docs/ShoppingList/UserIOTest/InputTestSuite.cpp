@@ -8,39 +8,54 @@
 /* Implementation file for InputTestSuite class
 	Contains:
 	- SetUpTests()
-	- Test1()
-	- Test2()
-	- Test3()
-	- Test4()
-	- Test5()
-	- Test6()
-	- Test7()
-	- Test8()
-	- Test9()
-	- Test10()
-	- Test11()
-	- Test12()
-	- Test13()
-	- Test14()
-	- Test15()
-	- Test16()
-	- Test17()
-	- Test18()
-	- Test19()
-	- Test20()
-	- Test21()
-	- Test22()
-	- Test23()
-	- Test24()
-	- Test25()
-	- Test26()
-	- Test27()
-	- Test28()
-	- Test29()
-	- Test30()
-	- Test31()
-	- Test32()
-	- Test33()
+	- Test1		StringPrompt
+	- Test2		StringPrompt
+	- Test3		IntPrompt
+	- Test4		IntPrompt
+	- Test5		IntPrompt
+	- Test6		DoublePrompt
+	- Test7		DoublePrompt
+	- Test8		DoublePrompt
+	- Test9		DoublePrompt
+	- Test10	GetMainMenuChoice
+	- Test11	GetMainMenuChoice
+	- Test12	GetMainMenuChoice
+	- Test13	GetMainMenuChoice
+	- Test14	GetMainMenuChoice
+	- Test15	GetMainMenuChoice
+	- Test16	GetMainMenuChoice
+	- Test17	GetMainMenuChoice
+	- Test18	GetMainMenuChoice
+	- Test19	GetMainMenuChoice
+	- Test20	GetMainMenuChoice
+	- Test21	GetMainMenuChoice
+	- Test22	Validate
+	- Test23	Validate
+	- Test24	Validate
+	- Test25	Validate
+	- Test26	Validate
+	- Test27	Validate
+	- Test28	Validate
+	- Test29	AddItem
+	- Test30	AddItem
+	- Test31	AddItem
+	- Test32	DeleteItem
+	- Test33	DeleteItem
+	- Test34	DeleteItem
+	- Test35	EditItem
+	- Test36	EditItem
+	- Test37	EditItem
+	- Test38	EditItem
+	- Test39	EditItem
+	- Test40	EditItem
+	- Test41	EditItem
+	- Test42	EditItem
+	- Test43	EditItem
+	- Test44	EditItem
+	- Test45	EditItem
+	- Test46	EditItem
+	- Test47	EditItem
+
 
 */
 
@@ -62,27 +77,41 @@ void InputTestSuite::SetUpTests()
 	std::string test10Name = "GetMainMenuChoice OPTION_ADD";
 	std::string test11Name = "GetMainMenuChoice OPTION_DELETE";
 	std::string test12Name = "GetMainMenuChoice OPTION_PRIMARYKEY";
-	std::string test13Name = "GetMainMenuChoice OPTION_HASHSEQ";
-	std::string test14Name = "GetMainMenuChoice OPTION_KEYSEQ";
-	std::string test15Name = "GetMainMenuChoice OPTION_BST";
-	std::string test16Name = "GetMainMenuChoice OPTION_EFFICIENCY";
-	std::string test17Name = "GetMainMenuChoice OPTION_BYSTORE";
-	std::string test18Name = "GetMainMenuChoice OPTION_QUIT";
-	std::string test19Name = "GetMainMenuChoice Non-Option Integer";
-	std::string test20Name = "GetMainMenuChoice Non-Integer";
-	std::string test21Name = "Validate true on y";
-	std::string test22Name = "Validate true on Y";
-	std::string test23Name = "Validate true on yes";
-	std::string test24Name = "Validate true on Yes";
-	std::string test25Name = "Validate true on true";
-	std::string test26Name = "Validate true on True";
-	std::string test27Name = "Validate false on n";
-	std::string test28Name = "AddItem Basic";
-	std::string test29Name = "AddItem Blank fields";
-	std::string test30Name = "AddItem Existing Item";
-	std::string test31Name = "DeleteItem Basic";
-	std::string test32Name = "DeleteItem Item Not Found";
-	std::string test33Name = "DeleteItem Cancel";
+	std::string test13Name = "GetMainMenuChoice OPTION_EDIT";
+	std::string test14Name = "GetMainMenuChoice OPTION_HASHSEQ";
+	std::string test15Name = "GetMainMenuChoice OPTION_KEYSEQ";
+	std::string test16Name = "GetMainMenuChoice OPTION_BST";
+	std::string test17Name = "GetMainMenuChoice OPTION_EFFICIENCY";
+	std::string test18Name = "GetMainMenuChoice OPTION_BYSTORE";
+	std::string test19Name = "GetMainMenuChoice OPTION_QUIT";
+	std::string test20Name = "GetMainMenuChoice Non-Option Integer";
+	std::string test21Name = "GetMainMenuChoice Non-Integer";
+	std::string test22Name = "Validate true on y";
+	std::string test23Name = "Validate true on Y";
+	std::string test24Name = "Validate true on yes";
+	std::string test25Name = "Validate true on Yes";
+	std::string test26Name = "Validate true on true";
+	std::string test27Name = "Validate true on True";
+	std::string test28Name = "Validate false on n";
+	std::string test29Name = "AddItem Basic";
+	std::string test30Name = "AddItem Blank fields";
+	std::string test31Name = "AddItem Existing Item";
+	std::string test32Name = "DeleteItem Basic";
+	std::string test33Name = "DeleteItem Item Not Found";
+	std::string test34Name = "DeleteItem Cancel";
+	std::string test35Name = "EditItem Item Not Found";
+	std::string test36Name = "EditItem Return";
+	std::string test37Name = "EditItem Invalid Choice";
+	std::string test38Name = "EditItem Name New";
+	std::string test39Name = "EditItem Name Found";
+	std::string test40Name = "EditItem Cost Basic";
+	std::string test41Name = "EditItem Cost Blank";
+	std::string test42Name = "EditItem Store Basic";
+	std::string test43Name = "EditItem Store Blank";
+	std::string test44Name = "EditItem Quantity Basic";
+	std::string test45Name = "EditItem Quantity Blank";
+	std::string test46Name = "EditItem Date Basic";
+	std::string test47Name = "EditItem Date Blank";
 
 	// Create TestFunction function pointers
 	TestFunction test1Func = &Test1_StringPromptBasic;
@@ -97,27 +126,41 @@ void InputTestSuite::SetUpTests()
 	TestFunction test10Func = &Test10_MainMenuOptionAdd;
 	TestFunction test11Func = &Test11_MainMenuOptionDelete;
 	TestFunction test12Func = &Test12_MainMenuOptionPrimaryKey;
-	TestFunction test13Func = &Test13_MainMenuOptionHashSeq;
-	TestFunction test14Func = &Test14_MainMenuOptionKeySeq;
-	TestFunction test15Func = &Test15_MainMenuOptionBST;
-	TestFunction test16Func = &Test16_MainMenuOptionEfficiency;
-	TestFunction test17Func = &Test17_MainMenuOptionByStore;
-	TestFunction test18Func = &Test18_MainMenuOptionQuit;
-	TestFunction test19Func = &Test19_MainMenuNonOption;
-	TestFunction test20Func = &Test20_MainMenuNonInteger;
-	TestFunction test21Func = &Test21_Validate_y;
-	TestFunction test22Func = &Test22_Validate_Y;
-	TestFunction test23Func = &Test23_Validate_yes;
-	TestFunction test24Func = &Test24_Validate_Yes;
-	TestFunction test25Func = &Test25_Validate_true;
-	TestFunction test26Func = &Test26_Validate_True;
-	TestFunction test27Func = &Test27_ValidateInvalid;
-	TestFunction test28Func = &Test28_AddItemBasic;
-	TestFunction test29Func = &Test29_AddItemBlanks;
-	TestFunction test30Func = &Test30_AddItemExists;
-	TestFunction test31Func = &Test31_DeleteItemBasic;
-	TestFunction test32Func = &Test32_DeleteItemNotFound;
-	TestFunction test33Func = &Test33_DeleteItemCancel;
+	TestFunction test13Func = &Test13_MainMenuOptionEdit;
+	TestFunction test14Func = &Test14_MainMenuOptionHashSeq;
+	TestFunction test15Func = &Test15_MainMenuOptionKeySeq;
+	TestFunction test16Func = &Test16_MainMenuOptionBST;
+	TestFunction test17Func = &Test17_MainMenuOptionEfficiency;
+	TestFunction test18Func = &Test18_MainMenuOptionByStore;
+	TestFunction test19Func = &Test19_MainMenuOptionQuit;
+	TestFunction test20Func = &Test20_MainMenuNonOption;
+	TestFunction test21Func = &Test21_MainMenuNonInteger;
+	TestFunction test22Func = &Test22_Validate_y;
+	TestFunction test23Func = &Test23_Validate_Y;
+	TestFunction test24Func = &Test24_Validate_yes;
+	TestFunction test25Func = &Test25_Validate_Yes;
+	TestFunction test26Func = &Test26_Validate_true;
+	TestFunction test27Func = &Test27_Validate_True;
+	TestFunction test28Func = &Test28_ValidateInvalid;
+	TestFunction test29Func = &Test29_AddItemBasic;
+	TestFunction test30Func = &Test30_AddItemBlanks;
+	TestFunction test31Func = &Test31_AddItemExists;
+	TestFunction test32Func = &Test32_DeleteItemBasic;
+	TestFunction test33Func = &Test33_DeleteItemNotFound;
+	TestFunction test34Func = &Test34_DeleteItemCancel;
+	TestFunction test35Func = &Test35_EditItemNotFound;
+	TestFunction test36Func = &Test36_EditItemReturn;
+	TestFunction test37Func = &Test37_EditItemInvalidChoice;
+	TestFunction test38Func = &Test38_EditItemNameNew;
+	TestFunction test39Func = &Test39_EditItemNameFound;
+	TestFunction test40Func = &Test40_EditItemCostBasic;
+	TestFunction test41Func = &Test41_EditItemCostBlank;
+	TestFunction test42Func = &Test42_EditItemStoreBasic;
+	TestFunction test43Func = &Test43_EditItemStoreBlank;
+	TestFunction test44Func = &Test44_EditItemQtyBasic;
+	TestFunction test45Func = &Test45_EditItemQtyBlank;
+	TestFunction test46Func = &Test46_EditItemDateBasic;
+	TestFunction test47Func = &Test47_EditItemDateBlank;
 
 	// Create the test cases
 	Test test1(test1Name, test1Func);
@@ -153,6 +196,20 @@ void InputTestSuite::SetUpTests()
 	Test test31(test31Name, test31Func);
 	Test test32(test32Name, test32Func);
 	Test test33(test33Name, test33Func);
+	Test test34(test34Name, test34Func);
+	Test test35(test35Name, test35Func);
+	Test test36(test36Name, test36Func);
+	Test test37(test37Name, test37Func);
+	Test test38(test38Name, test38Func);
+	Test test39(test39Name, test39Func);
+	Test test40(test40Name, test40Func);
+	Test test41(test41Name, test41Func);
+	Test test42(test42Name, test42Func);
+	Test test43(test43Name, test43Func);
+	Test test44(test44Name, test44Func);
+	Test test45(test45Name, test45Func);
+	Test test46(test46Name, test46Func);
+	Test test47(test47Name, test47Func);
 	
 	// Add the Tests to the TestSuite architecture
 	AddTest(test1);
@@ -188,6 +245,20 @@ void InputTestSuite::SetUpTests()
 	AddTest(test31);
 	AddTest(test32);
 	AddTest(test33);
+	AddTest(test34);
+	AddTest(test35);
+	AddTest(test36);
+	AddTest(test37);
+	AddTest(test38);
+	AddTest(test39);
+	AddTest(test40);
+	AddTest(test41);
+	AddTest(test42);
+	AddTest(test43);
+	AddTest(test44);
+	AddTest(test45);
+	AddTest(test46);
+	AddTest(test47);
 }
 
 /* ------ Test Functions ------ */
@@ -295,7 +366,7 @@ bool InputTestSuite::Test9_DoublePromptInteger()
 // of 1 as OPTION_ADD
 bool InputTestSuite::Test10_MainMenuOptionAdd()
 {
-	std::cout << "Please enter 1 after the prompt." << std::endl;
+	std::cout << "Please enter 1 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_ADD;
 }
@@ -305,7 +376,7 @@ bool InputTestSuite::Test10_MainMenuOptionAdd()
 // of 2 as OPTION_DELETE
 bool InputTestSuite::Test11_MainMenuOptionDelete()
 {
-	std::cout << "Please enter 2 after the prompt." << std::endl;
+	std::cout << "Please enter 2 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_DELETE;
 }
@@ -315,76 +386,86 @@ bool InputTestSuite::Test11_MainMenuOptionDelete()
 // of 3 as OPTION_PRIMARYKEY
 bool InputTestSuite::Test12_MainMenuOptionPrimaryKey()
 {
-	std::cout << "Please enter 3 after the prompt." << std::endl;
+	std::cout << "Please enter 3 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_PRIMARYKEY;
 }
 
-/* Test13MainMenuOptionHashSeq */
+/* Test13MainMenuOptionEdit */
+// Tests GetMainMenuChoice for correct interpretation
+// of 4 as OPTION_EDIT
+bool InputTestSuite::Test13_MainMenuOptionEdit()
+{
+	std::cout << "Please enter 4 after the prompt." << std::endl << std::endl;
+	MainMenuOption option = Input::GetMainMenuChoice();
+	return option == MainMenuOption::OPTION_EDIT;
+}
+
+/* Test14MainMenuOptionHashSeq */
 // Tests GetMainMenuChoice for correct interpretation
 // of 4 as OPTION_HASHSEQ
-bool InputTestSuite::Test13_MainMenuOptionHashSeq()
+bool InputTestSuite::Test14_MainMenuOptionHashSeq()
 {
-	std::cout << "Please enter 4 after the prompt." << std::endl;
+	std::cout << "Please enter 5 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_HASHSEQ;
 }
 
-/* Test14MainMenuOptionKeySeq */
+/* Test15MainMenuOptionKeySeq */
 // Tests GetMainMenuChoice for correct interpretation
 // of 5 as OPTION_KEYSEQ
-bool InputTestSuite::Test14_MainMenuOptionKeySeq()
+bool InputTestSuite::Test15_MainMenuOptionKeySeq()
 {
-	std::cout << "Please enter 5 after the prompt." << std::endl;
+	std::cout << "Please enter 6 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_KEYSEQ;
 }
 
-/* Test15MainMenuOptionBST */
+/* Test16MainMenuOptionBST */
 // Tests GetMainMenuChoice for correct interpretation
 // of 6 as OPTION_BST
-bool InputTestSuite::Test15_MainMenuOptionBST()
+bool InputTestSuite::Test16_MainMenuOptionBST()
 {
-	std::cout << "Please enter 6 after the prompt." << std::endl;
+	std::cout << "Please enter 7 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_BST;
 }
 
-/* Test16MainMenuOptionEfficiency */
+/* Test17MainMenuOptionEfficiency */
 // Tests GetMainMenuChoice for correct interpretation
 // of 7 as OPTION_EFFICIENCY
-bool InputTestSuite::Test16_MainMenuOptionEfficiency()
+bool InputTestSuite::Test17_MainMenuOptionEfficiency()
 {
-	std::cout << "Please enter 7 after the prompt." << std::endl;
+	std::cout << "Please enter 8 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_EFFICIENCY;
 }
 
-/* Test17MainMenuOptionByStore */
+/* Test18MainMenuOptionByStore */
 // Tests GetMainMenuChoice for correct interpretation
 // of 8 as OPTION_BYSTORE
-bool InputTestSuite::Test17_MainMenuOptionByStore()
+bool InputTestSuite::Test18_MainMenuOptionByStore()
 {
-	std::cout << "Please enter 8 after the prompt." << std::endl;
+	std::cout << "Please enter 9 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_BYSTORE;
 }
 
-/* Test18MainMenuOptionQuit */
+/* Test19MainMenuOptionQuit */
 // Tests GetMainMenuChoice for correct interpretation
 // of 9 as OPTION_QUIT
-bool InputTestSuite::Test18_MainMenuOptionQuit()
+bool InputTestSuite::Test19_MainMenuOptionQuit()
 {
-	std::cout << "Please enter 9 after the prompt." << std::endl;
+	std::cout << "Please enter 10 after the prompt." << std::endl << std::endl;
 	MainMenuOption option = Input::GetMainMenuChoice();
 	return option == MainMenuOption::OPTION_QUIT;
 }
 
-/* Test19MainMenuNonOption */
+/* Test20MainMenuNonOption */
 // Tests GetMainMenuChoice for non-option integer
-bool InputTestSuite::Test19_MainMenuNonOption()
+bool InputTestSuite::Test20_MainMenuNonOption()
 {
-	std::cout << "Please enter 10 after the prompt. Then enter 9 for valid input." << std::endl;
+	std::cout << "Please enter 11 after the prompt. Then enter 10 for valid input." << std::endl << std::endl;
 	MainMenuOption option;
 	try {
 		option = Input::GetMainMenuChoice();
@@ -393,11 +474,11 @@ bool InputTestSuite::Test19_MainMenuNonOption()
 	return option == MainMenuOption::OPTION_QUIT;
 }
 
-/* Test20MainMenuNonInteger */
+/* Test21MainMenuNonInteger */
 // Tests GetMainMenuChoice for non-integer input
-bool InputTestSuite::Test20_MainMenuNonInteger()
+bool InputTestSuite::Test21_MainMenuNonInteger()
 {
-	std::cout << "Please enter 'why' after the prompt. Then enter 9 for valid input." << std::endl;
+	std::cout << "Please enter 'why' after the prompt. Then enter 10 for valid input." << std::endl << std::endl;
 	MainMenuOption option;
 	try {
 		option = Input::GetMainMenuChoice();
@@ -406,9 +487,9 @@ bool InputTestSuite::Test20_MainMenuNonInteger()
 	return option == MainMenuOption::OPTION_QUIT;
 }
 
-/* Test21Validate_y */
+/* Test22Validate_y */
 // Tests Validate with 'y'
-bool InputTestSuite::Test21_Validate_y()
+bool InputTestSuite::Test22_Validate_y()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'y' and press enter";
@@ -416,9 +497,9 @@ bool InputTestSuite::Test21_Validate_y()
 	return Input::Validate(answer);
 }
 
-/* Test22Validate_Y */
+/* Test23Validate_Y */
 // Tests Validate with 'Y'
-bool InputTestSuite::Test22_Validate_Y()
+bool InputTestSuite::Test23_Validate_Y()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'Y' and press enter";
@@ -426,9 +507,9 @@ bool InputTestSuite::Test22_Validate_Y()
 	return Input::Validate(answer);
 }
 
-/* Test23Validate_yes */
+/* Test24Validate_yes */
 // Tests Validate with 'yes'
-bool InputTestSuite::Test23_Validate_yes()
+bool InputTestSuite::Test24_Validate_yes()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'yes' and press enter";
@@ -436,9 +517,9 @@ bool InputTestSuite::Test23_Validate_yes()
 	return Input::Validate(answer);
 }
 
-/* Test24Validate_Yes */
+/* Test25Validate_Yes */
 // Tests Validate with 'Yes'
-bool InputTestSuite::Test24_Validate_Yes()
+bool InputTestSuite::Test25_Validate_Yes()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'Yes' and press enter";
@@ -446,9 +527,9 @@ bool InputTestSuite::Test24_Validate_Yes()
 	return Input::Validate(answer);
 }
 
-/* Test25Validate_true */
+/* Test26Validate_true */
 // Tests Validate with 'true'
-bool InputTestSuite::Test25_Validate_true()
+bool InputTestSuite::Test26_Validate_true()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'true' and press enter";
@@ -456,9 +537,9 @@ bool InputTestSuite::Test25_Validate_true()
 	return Input::Validate(answer);
 }
 
-/* Test26Validate_y */
+/* Test27Validate_y */
 // Tests Validate with 'True'
-bool InputTestSuite::Test26_Validate_True()
+bool InputTestSuite::Test27_Validate_True()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'True' and press enter";
@@ -466,9 +547,9 @@ bool InputTestSuite::Test26_Validate_True()
 	return Input::Validate(answer);
 }
 
-/* Test27ValidateInvalid */
+/* Test28ValidateInvalid */
 // Tests Validate with invalid
-bool InputTestSuite::Test27_ValidateInvalid()
+bool InputTestSuite::Test28_ValidateInvalid()
 {
 	std::string prompt, answer;
 	prompt = "Please type 'n' and press enter";
@@ -476,9 +557,9 @@ bool InputTestSuite::Test27_ValidateInvalid()
 	return !(Input::Validate(answer));
 }
 
-/* Test28AddItemBasicFunctionality */
+/* Test29AddItemBasicFunctionality */
 // Tests the basic AddItem functionality
-bool InputTestSuite::Test28_AddItemBasic()
+bool InputTestSuite::Test29_AddItemBasic()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
@@ -487,14 +568,14 @@ bool InputTestSuite::Test28_AddItemBasic()
 	list.addRecord(item2);
 	ListItem userItem("Water", 1.99, "Wal-Mart", 1, "11/21/2014");
 	std::cout << "Please enter the following item into the prompts: " << std::endl;
-	std::cout << "Name: Water, Date: 11/21/2014, Store: Wal-Mart, Quantity: 1, Cost: 1.99" << std::endl;
+	std::cout << "Name: Water, Date: 11/21/2014, Store: Wal-Mart, Quantity: 1, Cost: 1.99" << std::endl << std::endl;
 	Input::AddItem(list);
 	return list.findRecord("Water", userItem);	
 }
 
-/* Test29AddItemBlanks */
+/* Test30AddItemBlanks */
 // Tests blank fields in the AddItem function
-bool InputTestSuite::Test29_AddItemBlanks()
+bool InputTestSuite::Test30_AddItemBlanks()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
@@ -503,7 +584,7 @@ bool InputTestSuite::Test29_AddItemBlanks()
 	list.addRecord(item2);
 	ListItem userItem("Water", 1.99, "Wal-Mart", 1, "11/21/2014");
 	std::cout << "Please enter the following item into the prompts: " << std::endl;
-	std::cout << "Name: Water, Cost: _, Store: _, Quantity: _, Date: _" << std::endl;
+	std::cout << "Name: Water, Cost: _, Store: _, Quantity: _, Date: _" << std::endl << std::endl;
 	Input::AddItem(list);
 	if (list.findRecord("Water", userItem))
 	{
@@ -519,60 +600,290 @@ bool InputTestSuite::Test29_AddItemBlanks()
 	}
 }
 
-/* Test30AddItemExists */
+/* Test31AddItemExists */
 // Tests AddItem when the item already exists
-bool InputTestSuite::Test30_AddItemExists()
+bool InputTestSuite::Test31_AddItemExists()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
 	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
 	list.addRecord(item1);
 	list.addRecord(item2);
-	std::cout << "Please attempt to enter 'Coors Light' as an item. \nTry again and attempt 'Toilet Paper'.\nAfter that do not attempt to add another item." << std::endl;
+	std::cout << "Please attempt to enter 'Coors Light' as an item. \nTry again and attempt 'Toilet Paper'.\nAfter that do not attempt to add another item." << std::endl << std::endl;
 	Input::AddItem(list);
     std::string answer = Input::StringPrompt("As expected?");
 	return Input::Validate(answer);
 }
 
-/* Test31DeleteItemBasic */
+/* Test32DeleteItemBasic */
 // Tests DeleteItem basic functionality
-bool InputTestSuite::Test31_DeleteItemBasic()
+bool InputTestSuite::Test32_DeleteItemBasic()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
 	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
 	list.addRecord(item1);
 	list.addRecord(item2);
-	std::cout << "Please delete 'Coors Light'." << std::endl;
+	std::cout << "Please delete 'Coors Light'." << std::endl << std::endl;
 	Input::DeleteItem(list);
 	return (!(list.findRecord("Coors Light", item2))) && list.getItemCount() == 1;
 }
 
-/* Test32DeleteItemNotFound */
+/* Test33DeleteItemNotFound */
 // DeleteItem when trying to delete an item that
 // does not exist in the list.
-bool InputTestSuite::Test32_DeleteItemNotFound()
+bool InputTestSuite::Test33_DeleteItemNotFound()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
 	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
 	list.addRecord(item1);
 	list.addRecord(item2);
-	std::cout << "Please try to delete 'Bud Light'." << std::endl;
+	std::cout << "Please try to delete 'Bud Light'." << std::endl << std::endl;
 	Input::DeleteItem(list);
 	return list.getItemCount() == 2;
 }
 
-/* Test33DeleteItemCancel */
+/* Test34DeleteItemCancel */
 // DeleteItem when the user cancels the delete
-bool InputTestSuite::Test33_DeleteItemCancel()
+bool InputTestSuite::Test34_DeleteItemCancel()
 {
 	ShoppingList list;
 	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
 	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
 	list.addRecord(item1);
 	list.addRecord(item2);
-	std::cout << "Please begin to delete 'Coors Light', but cancel when asked for final verification." << std::endl;
+	std::cout << "Please begin to delete 'Coors Light', but cancel when asked for final verification." << std::endl << std::endl;
 	Input::DeleteItem(list);
 	return list.findRecord("Coors Light", item2) && list.getItemCount() == 2;
 }
+
+/* Test35EditItemNotFound */
+// EditItem when the user wants to edit a non-existent item
+bool InputTestSuite::Test35_EditItemNotFound()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Try to edit 'Potatoes'" << std::endl
+		<< "2. Verify you received an error and exited the Edit menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	std::string confirm = Input::StringPrompt("As expected?");
+	return Input::Validate(confirm);
+}
+
+/* Test36EditItemReturn */
+// EditItem when user wishes to return to the main menu
+// without changes
+bool InputTestSuite::Test36_EditItemReturn()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'" << std::endl
+		<< "2. Make NO changes." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	return (list.exists("Toilet Paper") && list.exists("Coors Light"));
+}
+
+/* Test37EditItemInvalidChoice */
+// EditItem invalid menu choice
+bool InputTestSuite::Test37_EditItemInvalidChoice()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. At the menu, type -1." << std::endl
+		<< "3. Verify Error prints, but menu still appears." << std::endl 
+		<< "4. Return to main menu" << std::endl << std::endl;
+	Input::EditItem(list);
+	std::string confirm = Input::StringPrompt("As expected?");
+	return Input::Validate(confirm);
+}
+
+/* Test38EditItemNameNew */
+// EditItem when a new name is set
+bool InputTestSuite::Test38_EditItemNameNew()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the name to 'Generic Beer'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list); 
+	return (list.exists("Generic Beer") && !(list.exists("Coors Light")));
+}
+
+/* Test39EditItemNameFound */
+// EditItem when the new name already exists
+bool InputTestSuite::Test39_EditItemNameFound()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the name to 'Toilet Paper'." << std::endl
+		<< "3. Verify error prints." << std::endl
+		<< "4. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	return (list.exists("Toilet Paper") && list.exists("Coors Light"));
+}
+
+/* Test40EditItemCostBasic */
+// EditItem edit cost 
+bool InputTestSuite::Test40_EditItemCostBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the cost to '0.99'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getCost() == 0.99;
+	return false;
+}
+
+/* Test41EditItemCostBlank */
+// EditItem edit cost to blank
+bool InputTestSuite::Test41_EditItemCostBlank()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the cost to blank using '_'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getCost() == -1;
+	return false;
+}
+
+/* Test42EditItemStoreBasic */
+// EditItem edit the store and save changes
+bool InputTestSuite::Test42_EditItemStoreBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the store to '7 Eleven'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getStore() == "7 Eleven";
+	return false;
+}
+
+/* Test43EditItemStoreBlank */
+// EditItem edit the store with blank
+// and save the changes
+bool InputTestSuite::Test43_EditItemStoreBlank()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the store to blank using '_'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getStore() == "EMPTY STORE";
+	return false;
+}
+
+/* Test44EditItemQtyBasic */
+// EditItem edit quantity and save changes
+bool InputTestSuite::Test44_EditItemQtyBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the quantity to '18'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getQuantity() == 18;
+	return false;
+}
+
+/* Test45EditItemQtyBlank */
+// EditItem set quantituy as blank and save
+bool InputTestSuite::Test45_EditItemQtyBlank()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the quantity to blank using '_'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getQuantity() == -1;
+	return false;
+}
+
+/* Test46EditItemDateBasic */
+// EditItem change Date and save
+bool InputTestSuite::Test46_EditItemDateBasic()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the date to '1/12/2000'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getDate() == "1/12/2000";
+	return false;
+}
+
+/* Test47EditItemDataBlank */
+// EditItem set data to blank and save
+bool InputTestSuite::Test47_EditItemDateBlank()
+{
+	ShoppingList list;
+	ListItem item1("Toilet Paper", 9.99, "Safeway", 4, "11/27/2014");
+	ListItem item2("Coors Light", 14.99, "Chevron", 2, "11/26/2014");
+	list.addRecord(item1);
+	list.addRecord(item2);
+	std::cout << "1. Edit 'Coors Light'." << std::endl
+		<< "2. Change the date to blank using '_'." << std::endl
+		<< "3. Return to main menu." << std::endl << std::endl;
+	Input::EditItem(list);
+	if (list.findRecord("Coors Light", item1))
+		return item1.getDate() == "EMPTY DATE";
+	return false;
+}
+

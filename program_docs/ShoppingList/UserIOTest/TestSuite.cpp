@@ -61,6 +61,7 @@ void TestSuite::Run()
 	// Just run em all!
 	for (int i = 0; i < numTests; ++i)
 	{
+		std::cout << "-- " << name << " test " << i + 1 << " of " << numTests << ": " << tests[i].Name() << " --" << std::endl;
 		tests[i].Run();
 		std::cout << std::endl << std::endl;
 	}
@@ -72,7 +73,7 @@ void TestSuite::Run()
 bool TestSuite::AddTest(Test test)
 {
 	// If the tests array is full, dont add
-	if (numTests == 40)
+	if (numTests == 80)
 		return false;
 
 	// Otherwise, put the new test in the first available slot

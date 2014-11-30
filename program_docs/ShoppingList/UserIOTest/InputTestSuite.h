@@ -10,39 +10,53 @@
 	The TestSuite for the Input class
    Functions:
 	- SetUpTests
-	- Test1
-	- Test2
-	- Test3
-	- Test4
-	- Test5
-	- Test6
-	- Test7
-	- Test8
-	- Test9
-	- Test10
-	- Test11
-	- Test12
-	- Test13
-	- Test14
-	- Test15
-	- Test16
-	- Test17
-	- Test18
-	- Test19
-	- Test20
-	- Test21
-	- Test22
-	- Test23
-	- Test24
-	- Test25
-	- Test26
-	- Test27
-	- Test28
-	- Test29
-	- Test30
-	- Test31
-	- Test32
-	- Test33
+	- Test1		StringPrompt
+	- Test2		StringPrompt
+	- Test3		IntPrompt
+	- Test4		IntPrompt
+	- Test5		IntPrompt
+	- Test6		DoublePrompt
+	- Test7		DoublePrompt
+	- Test8		DoublePrompt
+	- Test9		DoublePrompt
+	- Test10	GetMainMenuChoice
+	- Test11	GetMainMenuChoice
+	- Test12	GetMainMenuChoice
+	- Test13	GetMainMenuChoice
+	- Test14	GetMainMenuChoice
+	- Test15	GetMainMenuChoice
+	- Test16	GetMainMenuChoice
+	- Test17	GetMainMenuChoice
+	- Test18	GetMainMenuChoice
+	- Test19	GetMainMenuChoice
+	- Test20	GetMainMenuChoice
+	- Test21	GetMainMenuChoice
+	- Test22	Validate
+	- Test23	Validate
+	- Test24	Validate
+	- Test25	Validate
+	- Test26	Validate
+	- Test27	Validate
+	- Test28	Validate
+	- Test29	AddItem
+	- Test30	AddItem
+	- Test31	AddItem
+	- Test32	DeleteItem
+	- Test33	DeleteItem
+	- Test34	DeleteItem
+	- Test35	EditItem
+	- Test36	EditItem
+	- Test37	EditItem
+	- Test38	EditItem
+	- Test39	EditItem
+	- Test40	EditItem
+	- Test41	EditItem
+	- Test42	EditItem
+	- Test43	EditItem
+	- Test44	EditItem
+	- Test45	EditItem
+	- Test46	EditItem
+	- Test47	EditItem
 
 */
 class InputTestSuite : public TestSuite
@@ -117,95 +131,155 @@ public:
 	// of 3 as OPTION_PRIMARYKEY
 	static bool Test12_MainMenuOptionPrimaryKey();
 
-	/* Test13MainMenuOptionHashSeq */
+	/* Test13MainMenuOptionEdit */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 4 as OPTION_HASHSEQ
-	static bool Test13_MainMenuOptionHashSeq();
+	// of 4 as OPTION_EDIT
+	static bool Test13_MainMenuOptionEdit();
 
-	/* Test14MainMenuOptionKeySeq */
+	/* Test14MainMenuOptionHashSeq */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 5 as OPTION_KEYSEQ
-	static bool Test14_MainMenuOptionKeySeq();
+	// of 5 as OPTION_HASHSEQ
+	static bool Test14_MainMenuOptionHashSeq();
 
-	/* Test15MainMenuOptionBST */
+	/* Test15MainMenuOptionKeySeq */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 6 as OPTION_BST
-	static bool Test15_MainMenuOptionBST();
+	// of 6 as OPTION_KEYSEQ
+	static bool Test15_MainMenuOptionKeySeq();
 
-	/* Test16MainMenuOptionEfficiency */
+	/* Test16MainMenuOptionBST */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 7 as OPTION_EFFICIENCY
-	static bool Test16_MainMenuOptionEfficiency();
+	// of 7 as OPTION_BST
+	static bool Test16_MainMenuOptionBST();
 
-	/* Test17MainMenuOptionByStore */
+	/* Test17MainMenuOptionEfficiency */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 8 as OPTION_BYSTORE
-	static bool Test17_MainMenuOptionByStore();
+	// of 8 as OPTION_EFFICIENCY
+	static bool Test17_MainMenuOptionEfficiency();
 
-	/* Test18MainMenuOptionQuit */
+	/* Test18MainMenuOptionByStore */
 	// Tests GetMainMenuChoice for correct interpretation
-	// of 9 as OPTION_QUIT
-	static bool Test18_MainMenuOptionQuit();
+	// of 9 as OPTION_BYSTORE
+	static bool Test18_MainMenuOptionByStore();
 
-	/* Test19MainMenuNonOption */
+	/* Test19MainMenuOptionQuit */
+	// Tests GetMainMenuChoice for correct interpretation
+	// of 10 as OPTION_QUIT
+	static bool Test19_MainMenuOptionQuit();
+
+	/* Test20MainMenuNonOption */
 	// Tests GetMainMenuChoice for non-option integer
-	static bool Test19_MainMenuNonOption();
+	static bool Test20_MainMenuNonOption();
 
-	/* Test20MainMenuNonInteger */
+	/* Test21MainMenuNonInteger */
 	// Tests GetMainMenuChoice for non-integer input
-	static bool Test20_MainMenuNonInteger();
+	static bool Test21_MainMenuNonInteger();
 
-	/* Test21Validate_y */
+	/* Test22Validate_y */
 	// Tests Validate with 'y'
-	static bool Test21_Validate_y();
+	static bool Test22_Validate_y();
 
-	/* Test22Validate_Y */
+	/* Test23Validate_Y */
 	// Tests Validate with 'Y'
-	static bool Test22_Validate_Y();
+	static bool Test23_Validate_Y();
 
-	/* Test23Validate_yes */
+	/* Test24Validate_yes */
 	// Tests Validate with 'yes'
-	static bool Test23_Validate_yes();
+	static bool Test24_Validate_yes();
 
-	/* Test24Validate_Yes */
+	/* Test25Validate_Yes */
 	// Tests Validate with 'Yes'
-	static bool Test24_Validate_Yes();
+	static bool Test25_Validate_Yes();
 
-	/* Test25Validate_true */
+	/* Test26Validate_true */
 	// Tests Validate with 'true'
-	static bool Test25_Validate_true();
+	static bool Test26_Validate_true();
 
-	/* Test26Validate_y */
+	/* Test27Validate_y */
 	// Tests Validate with 'True'
-	static bool Test26_Validate_True();
+	static bool Test27_Validate_True();
 
-	/* Test27ValidateInvalid */
+	/* Test28ValidateInvalid */
 	// Tests Validate with invalid
-	static bool Test27_ValidateInvalid();
+	static bool Test28_ValidateInvalid();
 
-	/* Test28AddItemBasicFunctionality */
+	/* Test29AddItemBasicFunctionality */
 	// Tests the basic AddItem functionality
-	static bool Test28_AddItemBasic();
+	static bool Test29_AddItemBasic();
 
-	/* Test29AddItemBlanks */
+	/* Test30AddItemBlanks */
 	// Tests blank fields in the AddItem function
-	static bool Test29_AddItemBlanks();
+	static bool Test30_AddItemBlanks();
 
-	/* Test30AddItemExists */
+	/* Test31AddItemExists */
 	// Tests AddItem when the item already exists
-	static bool Test30_AddItemExists();
+	static bool Test31_AddItemExists();
 
-	/* Test31DeleteItemBasic */
+	/* Test32DeleteItemBasic */
 	// Tests DeleteItem basic functionality
-	static bool Test31_DeleteItemBasic();
+	static bool Test32_DeleteItemBasic();
 
-	/* Test32DeleteItemNotFound */
+	/* Test33DeleteItemNotFound */
 	// DeleteItem when trying to delete an item that
 	// does not exist in the list.
-	static bool Test32_DeleteItemNotFound();
+	static bool Test33_DeleteItemNotFound();
 
-	/* Test33DeleteItemCancel */
+	/* Test34DeleteItemCancel */
 	// DeleteItem when the user cancels the delete
-	static bool Test33_DeleteItemCancel();
+	static bool Test34_DeleteItemCancel();
+
+	/* Test35EditItemNotFound */
+	// EditItem when the user wants to edit a non-existent item
+	static bool Test35_EditItemNotFound();
+
+	/* Test36EditItemReturn */
+	// EditItem when user wishes to return to the main menu
+	// without changes
+	static bool Test36_EditItemReturn();
+
+	/* Test37EditItemInvalidChoice */
+	// EditItem invalid menu choice
+	static bool Test37_EditItemInvalidChoice();
+
+	/* Test38EditItemNameNew */
+	// EditItem when a new name is set
+	static bool Test38_EditItemNameNew();
+
+	/* Test39EditItemNameFound */
+	// EditItem when the new name already exists
+	static bool Test39_EditItemNameFound();
+
+	/* Test40EditItemCostBasic */
+	// EditItem edit cost 
+	static bool Test40_EditItemCostBasic();
+
+	/* Test41EditItemCostBlank */
+	// EditItem edit cost to blank
+	static bool Test41_EditItemCostBlank();
+
+	/* Test42EditItemStoreBasic */
+	// EditItem edit the store and save changes
+	static bool Test42_EditItemStoreBasic();
+
+	/* Test43EditItemStoreBlank */
+	// EditItem edit the store with blank
+	// and save the changes
+	static bool Test43_EditItemStoreBlank();
+
+	/* Test44EditItemQtyBasic */
+	// EditItem edit quantity and save changes
+	static bool Test44_EditItemQtyBasic();
+
+	/* Test45EditItemQtyBlank */
+	// EditItem set quantituy as blank and save
+	static bool Test45_EditItemQtyBlank();
+
+	/* Test46EditItemDateBasic */
+	// EditItem change Date and save
+	static bool Test46_EditItemDateBasic();
+
+	/* Test47EditItemDataBlank */
+	// EditItem set data to blank and save
+	static bool Test47_EditItemDateBlank();
+
 };
 

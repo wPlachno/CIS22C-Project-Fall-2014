@@ -34,12 +34,13 @@ void Output::PrintMainMenu()
 	std::cout << "1. Add an item to your shopping database." << std::endl;
 	std::cout << "2. Delete an item from your shopping database." << std::endl;
 	std::cout << "3. Find an item by item name (PRIMARY KEY)." << std::endl;
-	std::cout << "4. List the database in hash sequence." << std::endl;
-	std::cout << "5. List the database in alphabetical order." << std::endl;
-	std::cout << "6. Print the indented list of items as they are stored (BST)." << std::endl;
-	std::cout << "7. View details about the efficiency of the database." << std::endl;
-	std::cout << "8. Print items by store." << std::endl;
-	std::cout << "9. Quit the Shopping List." << std::endl;
+	std::cout << "4. Edit an item from the shopping list." << std::endl;
+	std::cout << "5. List the database in hash sequence." << std::endl;
+	std::cout << "6. List the database in alphabetical order." << std::endl;
+	std::cout << "7. Print the indented list of items as they are stored (BST)." << std::endl;
+	std::cout << "8. View details about the efficiency of the database." << std::endl;
+	std::cout << "9. Print items by store." << std::endl;
+	std::cout << "10. Quit the Shopping List." << std::endl << std::endl;
 }
 
 /* static void PrintError(string errMsg) */
@@ -67,16 +68,16 @@ void Output::PrintItem(ListItem& item)
 	std::string qtyStr = std::to_string(qty);
 
 	// Check for empty
-	if (date == "EMPTY DATE") { date = "N/A"; } //rhoyer - Where did we agree on this?  Everywhere else it's just assumed that a blank is ""
+	if (date == "EMPTY DATE") { date = "N/A"; }
 	if (store == "EMPTY STORE") { store = "N/A"; }
-	if (qty == -1) { qtyStr = "N/A"; } //rhoyer - todo - what about 0
+	if (qty < 1) { qtyStr = "N/A"; }
 
 	// Output
 	std::cout << "Name: " << name << std::endl;
 	std::cout << "Date: " << date << std::endl;
 	std::cout << "Quantity: " << qtyStr << std::endl;
 	std::cout << "Cost: ";
-	if (cost == -1) { std::cout << "N/A"; } //rhoyer - what if the cost is 0? -
+	if (cost <= 0) { std::cout << "N/A"; }
 	else { std::cout << std::setprecision(2) << std::fixed << "$" << cost; }
 	std::cout << std::endl << "Preferred Store: " << store << std::endl;
 }
