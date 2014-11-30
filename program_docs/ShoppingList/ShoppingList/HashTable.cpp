@@ -45,7 +45,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int HTable::hashFcn(const std::string& key)
+int HTable::hashFcn(const std::string& key) const
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -69,7 +69,7 @@ will print out that the item was found.
 Else, if it wasn't found, the function simply states that the item wasn't
 found in the hash table.
 */
-ListItem *HTable::search(std::string name)
+ListItem *HTable::search(const std::string& name) const
 {
 	//const ListItem *temp = new ListItem;
 	int index = hashFcn(name); //finds the hash value of that particular name and sets index equal to it
@@ -255,7 +255,7 @@ find the item first. If the item was found, it's information
 will be removed. Depending if the removal was successful,
 this function will return a true or false bool
 */
-ListItem *HTable::removeItem(const std::string tmp)
+ListItem *HTable::removeItem(const std::string& tmp)
 {
 	std::string name = "";
 	for (int i = 0; i < tmp.length(); i++){
@@ -363,7 +363,7 @@ number of items within that particular index using the variable count
 and then returning that variable. (This function is later used in the 
 display functions)
 */
-int HTable::countItems(int index)	//AL- IMPORTANT NOTE: I am not sure if this works as intended, Rob you may want to check that
+int HTable::countItems(int index) const	//AL- IMPORTANT NOTE: I am not sure if this works as intended, Rob you may want to check that
 {
 	int count = 0;
 
@@ -436,7 +436,7 @@ void HTable::display() const
 
 /*displayItems(): Displays only the items in a particular index.
 */
-void HTable::displayItems(std::string name)
+void HTable::displayItems(std::string name) const
 {
 	int index = hashFcn(name);
 	//item* tablePtr = HashTable[index]; //points to the index of hash table

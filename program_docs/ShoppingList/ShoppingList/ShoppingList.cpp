@@ -70,7 +70,9 @@ bstree()
 
 
 ShoppingList::~ShoppingList()
-{}
+{
+	bstree.destroyAll();
+}
 
 
 /** Find a record in the list and return it by pointer.
@@ -139,7 +141,7 @@ bool ShoppingList::addRecord(const ListItem& toAdd)
 	//before we add to the hash table make sure that the item is unique in the bstree
 	if(!bstree.insert(newItem))
 		return false;
-	//htable.addItem(newItem);
+	htable.addItem(newItem);
 
 	itemCount++;
 	return true;
@@ -157,16 +159,16 @@ bool ShoppingList::deleteRecord(const std::string& name)
 	ListItem* toDeleteTable, *toDeleteTree;
 
 	//todo interface for this needs to be fixed
-/*    toDeleteTable =*/ //htable.removeItem(name);
+    toDeleteTable = htable.removeItem(name);
 	toDeleteTree  = bstree.remove(name);
 
-	if (toDeleteTree /*&& toDeleteTable*/)
+	if (toDeleteTree && toDeleteTable)
 	{
 		delete toDeleteTree;
 		itemCount--;
 		return true;
 	}
-	else if(!toDeleteTree /*&& !toDeleteTable*/)
+	else if(!toDeleteTree && !toDeleteTable)
 		return false;
 	else
 	{
@@ -175,8 +177,8 @@ bool ShoppingList::deleteRecord(const std::string& name)
 		//if we do get here in production, handle this as gracefully as possible.
 		if(toDeleteTree)
 			delete toDeleteTree;
-//        else
-//            delete toDeleteTable;
+        else
+            delete toDeleteTable;
 
 		itemCount--;
 		return true; //todo: should this be true or false?  or should we throw an out of sync error

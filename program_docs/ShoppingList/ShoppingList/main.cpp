@@ -21,7 +21,7 @@ void main_loop(ShoppingList& theList)
 		Output::PrintMainMenu();
 		std::cout << std::endl;
 		option = Input::GetMainMenuChoice();
-		std::cout << std::endl;
+		//std::cout << std::endl;
 		
 		switch(option)
 		{

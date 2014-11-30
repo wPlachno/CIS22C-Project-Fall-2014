@@ -51,11 +51,11 @@ private:
 
 	item** HashTable;
 
-	int hashFcn(const std::string& key/*, const ListItem* newItem*/); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const std::string& key/*, const ListItem* newItem*/) const; //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
 	//for the comparing linked list
 
-	bool empty(listKey *start)//checks to see if the list is empty
+	bool empty(listKey *start) const//checks to see if the list is empty
 	{
 		if (start == NULL || start->itemKey == NULL) //if the first element has nothing
 		{
@@ -75,7 +75,7 @@ private:
 		temp->next = NULL;
 	}
 
-	bool searchList(listKey *start, int index)// searches through the list to detect key doubles
+	bool searchList(listKey *start, int index) const// searches through the list to detect key doubles
 	{
 		//traverse the list with the node
 		while (start != NULL && start->itemKey != NULL) //while the node has something in it,
@@ -142,17 +142,17 @@ public:
 
 	~HTable(); //destruct
 		
-	ListItem *search(std::string name); //searches the hash table with the name of the item and displays the index id found
+	ListItem *search(const std::string& name) const; //searches the hash table with the name of the item and displays the index id found
 
 	void addItem(ListItem* newItem); //Function that will add items into the hash table
 
-	ListItem* removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
+	ListItem* removeItem(const std::string& name); //Removes items and indexes depending on what name is passed to it
 
-	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
+	int countItems(int index) const; //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
 	void display() const; //Displays the hash table;
 
-	void displayItems(std::string name); //Displays the items of a particular index
+	void displayItems(std::string name) const; //Displays the items of a particular index
 
 	void PrintEff() const; //Prints out the Efficiency
 
