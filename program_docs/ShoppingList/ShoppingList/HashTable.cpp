@@ -48,19 +48,13 @@ and changing it to an int and then set it to the remainder of the
 int HTable::hashFcn(const std::string& key) const
 {
 	int hash = 0; //the converted string into int (using ASCII)
-	int index; //index of the key
-
-	index = NULL; //gives index a value
-
 
 	for(int count = 0; count < key.length(); count++)
 	{
 		hash = hash + (int)key[count]; //(int)key converts the characters of the string into ASCII
 	}
 
-	index = hash % tableSize; //making the index
-
-		return index;
+		return hash % tableSize; //making the index
 }
 
 /*search(): This function takes in a value (the name of an item)
