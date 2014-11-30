@@ -71,7 +71,6 @@ found in the hash table.
 */
 ListItem *HTable::search(const std::string& name) const
 {
-	//const ListItem *temp = new ListItem;
 	int index = hashFcn(name); //finds the hash value of that particular name and sets index equal to it
 
 
@@ -119,10 +118,10 @@ item with the same index. This will probably need to get changed to use the coll
 */
 void HTable::addItem(ListItem* newItem)
 {
-	int index = hashFcn(newItem->getKey()/*, newItem*/); //Index will be set to the hashed value of the ID (ID is being used as the key here)
+	int index = hashFcn(newItem->getKey()); //Index will be set to the hashed value of the ID (ID is being used as the key here)
 
 	//Info Check!
-	if (search(/*HashTable[index]->list->getName()*/newItem->getKey()) != NULL)//if the item at the index can be found in the table already,
+	if (search(newItem->getKey()) != NULL)//if the item at the index can be found in the table already,
 	{
 		//then it's a duplicate of the same item
 
@@ -134,8 +133,7 @@ void HTable::addItem(ListItem* newItem)
 		addToList(index); //add the index to the list
 
 		//add to the hash table
-		item* tablePtr = HashTable[index]; // //
-		//item* newPtr = new item; //points to a new item to place the info
+		item* tablePtr = HashTable[index]; 
 
 		if (HashTable[index]->list == NULL) //if hashTable list is empty
 		{
@@ -203,7 +201,6 @@ void HTable::addItem(ListItem* newItem)
 					keyOverFlow* flow = new keyOverFlow; //create a new keyOverFlow pointer object,
 					flow->itemPtr = data; // set the itemPtr equal to data (which still holds the new element) 
 					flow->overflow = NULL; //and set the new object's (flow) overflow equal to NULL
-					//HashTable[index]->list = newItem; //set the HashTable of that index with the values of the new item, (it overwrites what's already in there; don't worry, it's saved in data!)
 					HashTable[index]->overflow = flow; //Then set the HashTable of the index's overflow list equal to the object flow (the new item!)
 				}
 				else //if the overflow list isn't empty,
@@ -230,7 +227,6 @@ void HTable::addItem(ListItem* newItem)
 						added->overflow = head; //the overflow list of added is equal to the values of head
 						added->itemPtr = data; //added's itemPtr now equals data's info (the new info)
 						HashTable[index]->overflow = added; //The overflow of the index is then equal to the info of added
-						//HashTable[index]->list = newItem; //and HashTable list now equals the new element info
 					}
 					else //if follow isn't empty (meaning head is not at the beginning of the list)
 					{
@@ -238,12 +234,9 @@ void HTable::addItem(ListItem* newItem)
 						follow->overflow = added; //set follow's overflow equal to added (making an empty space in the overflow)
 						added->overflow = head; //added's overflow equals head
 						added->itemPtr = data; //and added's itemPtr equals data
-						//HashTable[index]->overflow = added; //Lastly, set HashTable's overflow equal to the new info (added)
 					}
 				}
 			}
-
-			//newPtr->next = NULL; //next one has a pointer pointing to nothing
 		}
 	}
 }
@@ -261,15 +254,11 @@ ListItem *HTable::removeItem(const std::string& tmp)
 	for (int i = 0; i < tmp.length(); i++){
 		name += toupper(tmp[i]);	//converts all characters in name to uppercase
 	}
-	//const ListItem *temp = new ListItem;
-	int index = hashFcn(name/*, temp*/); //set the index equal to the hash value of the name
 
-	//item* remPtr; //removePointer
-	//item* itemPtr1;
-	//item* itemPtr2;
+	int index = hashFcn(name); //set the index equal to the hash value of the name
 
 	//If the index is empty
-	if (/*HashTable[index]->list->getKey() == dfS*/HashTable[index]->list == NULL) //if the name in hash table index is the default one (means nothing is there)
+	if (HashTable[index]->list == NULL) //if the name in hash table index is the default one (means nothing is there)
 	{
 		//if there's nothing in the element, the same can be said for the overflow list
 
@@ -278,7 +267,7 @@ ListItem *HTable::removeItem(const std::string& tmp)
 		return NULL;
 	}
 
-	else if (HashTable[index]->list->getKey() == name /*|| HashTable[index]->overflow->itemPtr->getKey() == name the overflow list && HashTable[index + 1] == NULL*/) //if the name in the hash table matchs the name passed to the function,
+	else if (HashTable[index]->list->getKey() == name) //if the name in the hash table matchs the name passed to the function,
 	{
 		ListItem *move = HashTable[index]->list; //move will hold the object to be deleted
 		keyOverFlow *flow; //and a temp to help move the overflow up one as well
@@ -320,7 +309,6 @@ ListItem *HTable::removeItem(const std::string& tmp)
 				{
 					keyOverFlow *follow = data;
 					data = data->overflow;
-					//keyOverFlow *remove = data->overflow; //have remove equal that overflow (ran out of names...)
 					while (data->overflow != NULL){
 						if (data->itemPtr->getKey() != name){
 							follow = data;
@@ -335,27 +323,11 @@ ListItem *HTable::removeItem(const std::string& tmp)
 							return deleting;
 						}
 					}
-					/*(if (remove->itemPtr->getKey() == name) //if THAT equals the name passed to it.
-					{
-						remove->itemPtr = NULL;
-						delete remove;
-						return HashTable[index]->list;	//error is caused from this somehow
-					}*/
-					/*else //IF the name passed doesn't match, the name in the index, the index's overflow or the overflow's overflow,
-					{
-						return NULL; //it doesn't exist
-					}*/
 				}
 			}
 		}
-		/*else //if there's nothing in the index's overflow,
-		{
-			return NULL; //it doesn't exist	//at this point this isn't necessary, since it will just return null as soon as the if statement ends
-		}*/
-
-		//return NULL;	//if name cannot be found it doesn't exist
 	}
-	return NULL;	//could just have this down here couldn't you?
+	return NULL;	//if name cannot be found it doesn't exist
 }
 
 /*countItems(): Takes in an index passed to it and calculates the 
@@ -363,7 +335,7 @@ number of items within that particular index using the variable count
 and then returning that variable. (This function is later used in the 
 display functions)
 */
-int HTable::countItems(int index) const	//AL- IMPORTANT NOTE: I am not sure if this works as intended, Rob you may want to check that
+int HTable::countItems(int index) const	
 {
 	int count = 0;
 
@@ -399,13 +371,7 @@ void HTable::display() const
 		if (HashTable[i]->list != NULL) //if that particular index doesn't equal NULL (the default string)
 		{
 			//Display the contains of this index
-			std::cout << "index: " << i << std::endl;
-			std::cout << "Name: " << HashTable[i]->list->getName() << std::endl;
-			std::cout << "Cost: " << HashTable[i]->list->getCost() << std::endl;
-			std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
-			std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
-			std::cout << "Due Date: " << HashTable[i]->list->getDate() << std::endl;
-			std::cout << "-----------------------------" << std::endl;
+			std::cout << "index: " << i << "  " << "Name: " << HashTable[i]->list->getName() << std::endl;
 
 			if (HashTable[i]->overflow != NULL) //if the index's overflow isn't empty,
 			{
@@ -415,13 +381,7 @@ void HTable::display() const
 				while (temp != NULL) //if the overflow has something, 
 				{
 					//dsplay the overflow
-					std::cout << "index: " << i << std::endl;
-					std::cout << "Name: " << temp->itemPtr->getName() << std::endl;
-					std::cout << "Cost: " << temp->itemPtr->getCost() << std::endl;
-					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
-					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
-					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					std::cout << "-----------------------------" << std::endl;
+					std::cout << "index: " << i << "  " << "Name: " << temp->itemPtr->getName() << std::endl;
 
 					temp = temp->overflow; //check the next overflow
 				}
@@ -439,18 +399,12 @@ void HTable::display() const
 void HTable::displayItems(std::string name) const
 {
 	int index = hashFcn(name);
-	//item* tablePtr = HashTable[index]; //points to the index of hash table
 
 	if (search(name) != NULL) //if the name passed to to function is found in the hashtable
 	{//check the first info in the index
 		if (HashTable[index]->list->getKey() == name) //if the index's name matches the name passed to the function,
 		{
-			std::cout << "Name: " << HashTable[index]->list->getKey() << std::endl;
-			std::cout << "Cost: " << HashTable[index]->list->getCost() << std::endl;
-			std::cout << "Quanity: " << HashTable[index]->list->getQuantity() << std::endl;
-			std::cout << "Prefered Store: " << HashTable[index]->list->getStore() << std::endl;
-			std::cout << "Due Date: " << HashTable[index]->list->getDate() << std::endl;
-			std::cout << "-----------------------------" << std::endl;
+			std::cout << "Index: " << index << "  " << "Name: " << HashTable[index]->list->getKey() << std::endl;
 		}
 		else if (HashTable[index]->overflow != NULL) //if there's something in the hashTable
 		{
@@ -461,12 +415,9 @@ void HTable::displayItems(std::string name) const
 			{
 				if (temp->itemPtr->getKey() == name)//if the overflow name matches the name that was passed,
 				{//display the item
-					std::cout << "Name: " << temp->itemPtr->getName() << std::endl;
-					std::cout << "Cost: " << temp->itemPtr->getCost() << std::endl;
-					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
-					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
-					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					std::cout << "-----------------------------" << std::endl;
+
+					std::cout << "Index: " << "  " << "Name: " << temp->itemPtr->getName() << std::endl;
+
 					break; //and break the loop (because you already found what you're looking for
 				}
 				
@@ -524,78 +475,10 @@ void HTable::PrintEff() const
 	std::cout << "Fail Efficiency : " << failSearch << std::endl;
 }
 
-
-/*displayKeySeq(): This function will display the hash table's
-contents only after it has been sorted by 'key' order. The one
-with the smallest hash key will be the first to be displayed.
-*/
-/*void const HTable::displayKeySeq()
-{
-	int *keys = new int[tableSize]; //array of keys
-	item *ptr; //pointer of item type
-	for (int i = 0; i < tableSize; i++)//fill the array
-	{
-		ptr = HashTable[i];
-		keys[i] = hashFcn(ptr->list->getKey()); //start filling the keys array
-	}
-	//now sort the array
-	int i, j, imin, temp;
-	for (j = 0; j < tableSize; j++)
-	{
-		imin = j;
-		for (i = j + 1; i < tableSize; i++)
-		{
-			if (keys[i] < keys[imin])
-			{
-				imin = i;
-			}
-		}
-		if (imin != j)
-		{
-			temp = keys[j]; //set temp equal to the index
-			keys[j] = keys[imin]; //set that index to the smallest
-			keys[imin] = temp; //set the smallest equal to temp (the larger one)
-		}
-	}
-	//print out the array
-	for (int i = 0; i < tableSize; i++)
-	{
-		int index = keys[i];
-
-		cout << "Name: " << HashTable[index]->list->getName() << endl;
-		cout << "Cost: " << HashTable[index]->list->getCost() << endl;
-		cout << "Quanity: " << HashTable[index]->list->getQuantity() << endl;
-		cout << "Prefered Store: " << HashTable[index]->list->getStore() << endl;
-		cout << "Due Date: " << HashTable[index]->list->getDate() << endl;
-		cout << "-----------------------------" << endl;
-
-		if (HashTable[index]->overflow != NULL) //if there's something in the index's overflow
-		{
-			keyOverFlow *temp = new keyOverFlow; //make a temp object
-			temp = HashTable[index]->overflow; //to hold the values of the overflow of the index
-
-			while (temp != NULL) //while the overflow has something in it
-			{
-				//print out the overflow
-				cout << "Name: " << temp->itemPtr->getName() << endl;
-				cout << "Cost: " << temp->itemPtr->getCost() << endl;
-				cout << "Quanity: " << temp->itemPtr->getQuantity() << endl;
-				cout << "Prefered Store: " << temp->itemPtr->getStore() << endl;
-				cout << "Due Date: " << temp->itemPtr->getDate() << endl;
-				cout << "-----------------------------" << endl;
-
-				temp = temp->overflow;
-			}
-		}
-	}
-}*/
-
-
-
 /*~HTable(): The destructor of the class
 */
 HTable::~HTable()
 {
-	//AL- i'm pretty sure we need this, unless we're destructing using delete or something
+	
 }
 

@@ -51,7 +51,7 @@ private:
 
 	item** HashTable;
 
-	int hashFcn(const std::string& key/*, const ListItem* newItem*/) const; //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const std::string& key) const; //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
 	//for the comparing linked list
 
@@ -155,8 +155,6 @@ public:
 	void displayItems(std::string name) const; //Displays the items of a particular index
 
 	void PrintEff() const; //Prints out the Efficiency
-
-	void displayKeySeq() const; //Displays the hash table using the hashing key sequence
 
 };
 
