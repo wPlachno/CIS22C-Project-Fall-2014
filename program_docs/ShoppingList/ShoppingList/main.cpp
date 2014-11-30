@@ -31,9 +31,11 @@ void main_loop(ShoppingList& theList)
 			case OPTION_DELETE:
 				Input::DeleteItem(theList);
 				break;
+			case OPTION_EDIT:
+				Input::EditItem(theList);
+				break;
 			case OPTION_PRIMARYKEY:
 				input = Input::StringPrompt("Enter the name of the item to print:");
-				std::cout << std::endl;
 				theList.displayItem(input);
 				break;
 			case OPTION_HASHSEQ:
@@ -57,7 +59,7 @@ void main_loop(ShoppingList& theList)
 				return;
 				break;
 		}
-		std::cout << std::endl << "There are " << theList.getItemCount() << " items in the list." << std::endl;
+		//std::cout << std::endl << "There are " << theList.getItemCount() << " items in the list." << std::endl;
 	}
 }
 
@@ -77,6 +79,7 @@ int main(void)
 		std::cout << "Unable to open file '" << saveFileName << "'." << std::endl;
 		return 1;
 	}
+	std::cout << std::endl << theList.getItemCount() << " records have been loaded." << std::endl;
 
 
 	main_loop(theList);

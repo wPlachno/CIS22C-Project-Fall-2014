@@ -27,6 +27,7 @@ const std::string Input::StringPrompt(const std::string prompt)
 	std::cout << prompt << std::endl;
 	std::string answer;
 	std::getline(std::cin, answer);
+	std::cout << std::endl;
 	int trimStringStart = answer.find_first_not_of(' ');
 	int trimStringLength = answer.find_last_not_of(' ') + 1 - trimStringStart;
 	answer = answer.substr(trimStringStart, trimStringLength);
@@ -44,6 +45,7 @@ const double Input::DoublePrompt(const std::string prompt)
 	std::cin >> answer;
 	std::cin.clear();
 	std::cin.ignore(1000, '\n');
+	std::cout << std::endl;
 	return str2Dbl(answer);
 }
 
@@ -57,7 +59,7 @@ const int Input::IntPrompt(std::string prompt)
 	std::cin >> answer;
 	std::cin.clear();
 	std::cin.ignore(1000, '\n');
-
+	std::cout << std::endl;
 	return str2Int(answer);
 }
 
@@ -304,7 +306,7 @@ void Input::EditItem(ShoppingList& items)
 			if (items.addRecord(*target))
 			{
 				// Successful save
-				std::cout << target->getName() << " was edited successfully." << std::endl;
+				std::cout << std::endl << target->getName() << " was edited successfully." << std::endl;
 			}
 			else {
 				Output::PrintError("Error saving the edits (Input:EditItem:3)");

@@ -56,7 +56,8 @@ void printIfStore(ListItem& item, const std::string& storeName)
 {
 	if(string_to_lower(item.getStore()) == storeName)
 	{
-		std::cout << item.getName() << ", " << std::fixed << std::setprecision(2) << item.getCost() << ", " << item.getQuantity() << ", " << item.getDate() << std::endl;
+		//std::cout << item.getName() << ", " << std::fixed << std::setprecision(2) << item.getCost() << ", " << item.getQuantity() << ", " << item.getDate() << std::endl;
+		std::cout << item.getName() << std::endl;
 	}
 }
 
