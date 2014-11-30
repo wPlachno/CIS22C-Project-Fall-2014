@@ -111,9 +111,9 @@ void Input::AddItem(ShoppingList& items)
 
 	// Get the other fields for the item. '_' entries will be left blank
 	// Note: int/dbl conversion from string auto fixes '_' to -1
-	std::string itemDateStr = Input::StringPrompt("When did you last purchase this item? ('_' to leave blank)");
+	std::string itemDateStr = Input::StringPrompt("When do you need to purchase this item? ('_' to leave blank)");
 	std::string itemStoreStr = Input::StringPrompt("Where do you buy this item? ('_' to leave blank)");
-	int itemQty = Input::IntPrompt("How many do you use? ('_' to leave blank)");
+	int itemQty = Input::IntPrompt("How many do you need? ('_' to leave blank)");
 	double itemCost = Input::DoublePrompt("What is the average price of this item? ('_' to leave blank)");
 
 	// Fix date and store if '_'
