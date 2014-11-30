@@ -54,7 +54,7 @@ int HTable::hashFcn(const std::string& key) const
 		hash = hash + (int)key[count]; //(int)key converts the characters of the string into ASCII
 	}
 
-		return hash % tableSize; //making the index
+	return hash % tableSize; //making the index
 }
 
 /*search(): This function takes in a value (the name of an item)
@@ -427,10 +427,12 @@ void HTable::displayItems(std::string name) const
 }
 
 /*PrintEff(): Function that will show the efficiency of the hash table
-by using the load factor
+by using the load factor, find the longest linked list and the average 
+amount of nodes in a linked list
 */
 void HTable::PrintEff() const
 {
+	//for the load factor
 	double loadFactor; //the load factor
 	int count = 0; //to help calculate the number of elements in the table
 	int index = 0;
@@ -465,8 +467,47 @@ void HTable::PrintEff() const
 	double successSearch = (1.0 / 2.0) * (1.0 + (1.0 / (1.0 - loadFactor))); //using the linear probing algorithm
 	double failSearch = (1.0 / 2.0) * (1.0 + (1.0 / (1.0 - (loadFactor * loadFactor)))); //loadFactor squared
 
+	//for the longest list
+	int longestList = 0; 
+
+	//for the average length of the lists
+	int totalNodes = 0; //total nodes of all the lists
+
+	for (int i = 0; i < tableSize; i++) //go through the table
+	{
+		int longestCount = 0; //the number of nodes in a linked list
+
+		if (HashTable[i]->list != NULL) //if it isn't null,
+		{
+			if (HashTable[i]->overflow != NULL) //if the overflow list ins't null,
+			{
+				keyOverFlow *key = new keyOverFlow;
+				key = HashTable[i]->overflow;
+
+				while (key != NULL) //while the overflow has something;
+				{
+					longestCount++; //add one
+					totalNodes++; 
+
+					key = key->overflow; //move down the overflow list
+				}
+			}
+		}
+		if (longestList < longestCount) //compare
+		{
+			longestList = longestCount; //set longestList equal to the most nodes found
+		}
+	}
+	//convert to doubles
+	double dTotalNodes = totalNodes;
+	double dtableSize = tableSize;
+
+	std::cout << "Longest Linked List: " << longestList << std::endl;
+	std::wcout << "Average Number of nodes: " << dTotalNodes / dTableSize << std::endl;
+
 	std::cout << "Success Efficiency : " << successSearch << std::endl;
 	std::cout << "Fail Efficiency : " << failSearch << std::endl;
+
 }
 /*removeAllItems(): Removes all the items from the hash table
 */
