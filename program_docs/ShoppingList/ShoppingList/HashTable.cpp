@@ -371,7 +371,7 @@ int HTable::countItems(int index)
 /*display(): Displays the contents (items of the indexes) and number of items for each index
 of the hash table using for loops and the function countItems().
 */
-void const HTable::display()
+void HTable::display() const
 {
 	int num; //variable used to hold the number of items in each index/element
 
@@ -418,7 +418,7 @@ void const HTable::display()
 
 /*displayItems(): Displays only the items in a particular index.
 */
-void const HTable::displayItems(std::string name)
+void HTable::displayItems(std::string name) const
 {
 	int index = hashFcn(name);
 	//item* tablePtr = HashTable[index]; //points to the index of hash table
@@ -466,7 +466,7 @@ void const HTable::displayItems(std::string name)
 /*PrintEff(): Function that will show the efficiency of the hash table
 by using the load factor
 */
-void const HTable::PrintEff()
+void HTable::PrintEff() const
 {
 	double loadFactor; //the load factor
 	int count = 0; //to help calculate the number of elements in the table
@@ -511,7 +511,7 @@ void const HTable::PrintEff()
 contents only after it has been sorted by 'key' order. The one
 with the smallest hash key will be the first to be displayed.
 */
-void const HTable::displayKeySeq()
+void HTable::displayKeySeq() const
 {
 	int *keys = new int[tableSize]; //array of keys
 	item *ptr; //pointer of item type
