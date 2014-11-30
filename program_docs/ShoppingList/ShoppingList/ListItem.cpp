@@ -12,7 +12,7 @@ ListItem::ListItem(std::string n){
 	name = n;
 	cost = -1;
 	store = "EMPTY STORE";
-	quantity = -1;
+	quantity = 1;
 	date = "EMPTY DATE";
 }
 ListItem::ListItem(const ListItem& l){
@@ -63,26 +63,30 @@ std::string ListItem::getName(){
 double ListItem::getCost(){
 	return cost;
 }
-void ListItem::setCost(double d){
-	cost = d;
+void ListItem::setCost(double d){	//if there is a negative cost, cost is set to the error value of -1
+	if (d <= 0) cost = -1;
+	else cost = d;
 }
 std::string ListItem::getStore(){
 	return store;
 }
 void ListItem::setStore(const std::string& val){
-	store = val;
+	if (val == "_") store = "EMPTY STORE";
+	else store = val;
 }
 int ListItem::getQuantity(){
 	return quantity;
 }
-void ListItem::setQuantity(int val){
-	quantity = val;
+void ListItem::setQuantity(int val){	//you will always want at least one of an object
+	if (val <= 0) quantity = 1;
+	else quantity = val;
 }
 std::string ListItem::getDate(){
 	return date;
 }
 void ListItem::setDate(const std::string& val){
-	date = val;
+	if (val == "_") date = "EMPTY DATE";
+	else date = val;
 }
 std::string ListItem::getKey(){
 	std::string tmp = "";
