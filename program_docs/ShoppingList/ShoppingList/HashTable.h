@@ -150,13 +150,13 @@ public:
 
 	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
-	void const display(); //Displays the hash table;
+	void display() const; //Displays the hash table;
 
-	void const displayItems(std::string name); //Displays the items of a particular index
+	void displayItems(std::string name) const; //Displays the items of a particular index
 
-	void const PrintEff(); //Prints out the Efficiency
+	void PrintEff() const; //Prints out the Efficiency
 
-	void const displayKeySeq(); //Displays the hash table using the hashing key sequence
+	void displayKeySeq() const; //Displays the hash table using the hashing key sequence
 
 };
 
