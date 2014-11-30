@@ -45,7 +45,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int HTable::hashFcn(const std::string& key/*, const ListItem* newItem*/)
+int HTable::hashFcn(const std::string& key)
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -144,7 +144,7 @@ void HTable::addItem(ListItem* newItem)
 		else //if the index of the HashTable isn't NULL
 		{
 			ListItem* data;	// a temp object pointer of ListItem
-			string s = newItem->getKey(); //a temp string to hold the new item's name value
+			std::string s = newItem->getKey(); //a temp string to hold the new item's name value
 
 			if (s < HashTable[index]->list->getKey()) //if the new name is smaller than the name that's already in the index,
 			{
@@ -389,7 +389,7 @@ int HTable::countItems(int index)	//AL- IMPORTANT NOTE: I am not sure if this wo
 /*display(): Displays the contents (items of the indexes) and number of items for each index
 of the hash table using for loops and the function countItems().
 */
-void const HTable::display()
+void HTable::display() const
 {
 	int num; //variable used to hold the number of items in each index/element
 
@@ -405,7 +405,7 @@ void const HTable::display()
 			std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[i]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 
 			if (HashTable[i]->overflow != NULL) //if the index's overflow isn't empty,
 			{
@@ -421,7 +421,7 @@ void const HTable::display()
 					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
 					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
 					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					cout << "-----------------------------" << endl;
+					std::cout << "-----------------------------" << std::endl;
 
 					temp = temp->overflow; //check the next overflow
 				}
@@ -436,7 +436,7 @@ void const HTable::display()
 
 /*displayItems(): Displays only the items in a particular index.
 */
-void const HTable::displayItems(std::string name)
+void HTable::displayItems(std::string name)
 {
 	int index = hashFcn(name);
 	//item* tablePtr = HashTable[index]; //points to the index of hash table
@@ -450,7 +450,7 @@ void const HTable::displayItems(std::string name)
 			std::cout << "Quanity: " << HashTable[index]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[index]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[index]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 		else if (HashTable[index]->overflow != NULL) //if there's something in the hashTable
 		{
@@ -466,7 +466,7 @@ void const HTable::displayItems(std::string name)
 					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
 					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
 					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					cout << "-----------------------------" << endl;
+					std::cout << "-----------------------------" << std::endl;
 					break; //and break the loop (because you already found what you're looking for
 				}
 				
@@ -476,7 +476,7 @@ void const HTable::displayItems(std::string name)
 		else //if the name wasn't found in the HashTable
 		{
 			std::cout << "Error: Item was not found." << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 	}
 }
@@ -484,7 +484,7 @@ void const HTable::displayItems(std::string name)
 /*PrintEff(): Function that will show the efficiency of the hash table
 by using the load factor
 */
-void const HTable::PrintEff()
+void HTable::PrintEff() const
 {
 	double loadFactor; //the load factor
 	int count = 0; //to help calculate the number of elements in the table
@@ -596,6 +596,6 @@ with the smallest hash key will be the first to be displayed.
 */
 HTable::~HTable()
 {
-	//AL- i'm pretty sure we REALLY need this, unless we're destructing using delete or something
+	//AL- i'm pretty sure we need this, unless we're destructing using delete or something
 }
 

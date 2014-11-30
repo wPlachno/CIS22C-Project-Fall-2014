@@ -53,29 +53,6 @@ private:
 
 	int hashFcn(const std::string& key/*, const ListItem* newItem*/); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
-public:
-	HTable(); //constructs
-	HTable(int tableSize); //a constrct that can take in the size of the hashtable
-
-	~HTable(); //destruct
-
-							
-	ListItem *search(std::string name); //searches the hash table with the name of the item and displays the index id found
-
-	void addItem(ListItem* newItem); //Function that will add items into the hash table
-
-	ListItem* removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
-
-	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
-
-	void const display(); //Displays the hash table;
-
-	void const displayItems(std::string name); //Displays the items of a particular index
-
-	void const PrintEff(); //Prints out the Efficiency
-
-	void const displayKeySeq(); //Displays the hash table using the hashing key sequence
-
 	//for the comparing linked list
 
 	bool empty(listKey *start)//checks to see if the list is empty
@@ -129,8 +106,8 @@ public:
 			//create the first node
 			firstNode(index);
 		}
-		else if(!searchList(newKeys, index)) //if the index isn't used yet, add it to the list
-		{ 
+		else if (!searchList(newKeys, index)) //if the index isn't used yet, add it to the list
+		{
 			newKeys->itemKey = index; //set the value to the node
 			newKeys->next = NULL;// and set the next node to NULL
 		}
@@ -142,9 +119,9 @@ public:
 		listKey *del = NULL; //delete
 
 		if (empty(keys))//if the list is empty,
-			{
-				return; //just return
-			}
+		{
+			return; //just return
+		}
 		else if (searchList(keys, index)) //if found,
 		{
 			//delete it
@@ -157,6 +134,29 @@ public:
 			return; //just return
 		}
 	}
+
+
+public:
+	HTable(); //constructs
+	HTable(int tableSize); //a constrct that can take in the size of the hashtable
+
+	~HTable(); //destruct
+		
+	ListItem *search(std::string name); //searches the hash table with the name of the item and displays the index id found
+
+	void addItem(ListItem* newItem); //Function that will add items into the hash table
+
+	ListItem* removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
+
+	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
+
+	void display() const; //Displays the hash table;
+
+	void displayItems(std::string name); //Displays the items of a particular index
+
+	void PrintEff() const; //Prints out the Efficiency
+
+	void displayKeySeq() const; //Displays the hash table using the hashing key sequence
 
 };
 
