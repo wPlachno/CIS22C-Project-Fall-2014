@@ -22,15 +22,40 @@ Functions:
 /* static const string StringPrompt(string prompt) */
 /* Prints prompt, then gets the user input
 */
-const std::string Input::StringPrompt(const std::string prompt)
+const std::string Input::StringPrompt(const std::string prompt, const bool allowBlanks)
 {
-	std::cout << prompt << std::endl;
+	bool answerIsEmpty;
 	std::string answer;
-	std::getline(std::cin, answer);
-	std::cout << std::endl;
+	do {
+		// Give the prompt
+		std::cout << prompt << std::endl;
+
+		// Get the answer
+		std::getline(std::cin, answer);
+
+		// Add spacing for looks
+		std::cout << std::endl;
+
+		// Check for empty string
+		answerIsEmpty = answer.find_first_not_of(' ') == std::string::npos;
+
+		// If we dont allow blanks, but we got them, 
+		// send a message and reprompt
+		if (!allowBlanks && answerIsEmpty)
+		{
+			std::cout << "You must answer the question to continue." << std::endl << std::endl;
+		}
+	} while (!allowBlanks && answerIsEmpty);
+
+	// If we allow blanks, return it
+	if (answerIsEmpty) return " ";
+
+	// Trim whitespace
 	int trimStringStart = answer.find_first_not_of(' ');
 	int trimStringLength = answer.find_last_not_of(' ') + 1 - trimStringStart;
 	answer = answer.substr(trimStringStart, trimStringLength);
+
+	// Return the answer
 	return answer;
 
 }
@@ -111,14 +136,10 @@ void Input::AddItem(ShoppingList& items)
 
 	// Get the other fields for the item. '_' entries will be left blank
 	// Note: int/dbl conversion from string auto fixes '_' to -1
-	std::string itemDateStr = Input::StringPrompt("When did you last purchase this item? ('_' to leave blank)");
-	std::string itemStoreStr = Input::StringPrompt("Where do you buy this item? ('_' to leave blank)");
-	int itemQty = Input::IntPrompt("How many do you use? ('_' to leave blank)");
-	double itemCost = Input::DoublePrompt("What is the average price of this item? ('_' to leave blank)");
-
-	// Fix date and store if '_'
-	if (itemDateStr == "_") { itemDateStr = "EMPTY DATE"; }
-	if (itemStoreStr == "_") { itemStoreStr = "EMPTY STORE"; }
+	std::string itemDateStr = Input::StringPrompt("When will you need this item by? ('_' to leave blank)", true);
+	std::string itemStoreStr = Input::StringPrompt("Where do you buy this item? ('_' to leave blank)", true);
+	int itemQty = Input::IntPrompt("How many do you need? ('_' to leave blank)");
+	double itemCost = Input::DoublePrompt("What is the approximate cost of this item? ('_' to leave blank)");
 
 	// Generate the new item
 	ListItem newItem(name, itemCost, itemStoreStr, itemQty, itemDateStr);
@@ -253,8 +274,7 @@ void Input::EditItem(ShoppingList& items)
 				else { std::cout << "N/A" << std::endl; }
 
 				// Get new
-				newToken = Input::StringPrompt("New Store: ('_' for blank) ");
-				if (newToken == "_") { newToken = "EMPTY STORE"; }
+				newToken = Input::StringPrompt("New Store: ('_' for blank) ", true);
 
 				// Save changes to target
 				target->setStore(newToken);
@@ -266,7 +286,7 @@ void Input::EditItem(ShoppingList& items)
 				currentQty = target->getQuantity();
 				std::cout << "Current Quantity: ";
 				if (currentQty > 0) { std::cout << currentQty << std::endl; }
-				else { std::cout << "N/A" << std::endl; }
+				else { std::cout << "1" << std::endl; }
 
 				// Get new
 				newQty = Input::IntPrompt("New Quantity: ('_' for blank) ");
@@ -284,8 +304,7 @@ void Input::EditItem(ShoppingList& items)
 				else { std::cout << "N/A" << std::endl; }
 
 				// Get new
-				newToken = Input::StringPrompt("New Date: ('_' for blank) ");
-				if (newToken == "_") { newToken = "EMPTY DATE"; }
+				newToken = Input::StringPrompt("New Date: ('_' for blank) ", true);
 
 				// Save changes to target
 				target->setDate(newToken);

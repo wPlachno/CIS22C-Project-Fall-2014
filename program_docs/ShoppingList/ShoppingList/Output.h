@@ -6,7 +6,7 @@
 #define OUTPUT_H
 #include "ListItem.h"
 
-/* class Push
+/* class Output
 This class will hold all the code, in static functions,
 for printing to the terminal.
 */

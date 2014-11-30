@@ -18,10 +18,10 @@ Functions:
 */
 void Output::PrintLanding()
 {
-	std::cout << "Hello and welcome to the Shopping List!" << std::endl;
+	std::cout << "Hello and welcome to the Shopping List!" << std::endl << std::endl;
 	std::cout << "This program, written by Rob Hoyer, Andrew Light, Nicci Hart, Olivia Zhang, and Will Plachno, "
-		<< "was designed to aid in the maintenance of the supply of common household items." << std::endl;
-	std::cout << "Try it out!" << std::endl;
+		<< "was designed to aid in the maintenance of the supply of common household items." << std::endl << std::endl;
+	std::cout << "Try it out!" << std::endl << std::endl;
 	system("pause");
 }
 
@@ -48,7 +48,7 @@ void Output::PrintMainMenu()
 */
 void Output::PrintError(const std::string errMsg)
 {
-	std::cout << "ERROR: " << errMsg << std::endl;
+	std::cout << "ERROR: " << errMsg << std::endl << std::endl;
 }
 
 /* static void Item(ListItem* item) */
@@ -70,14 +70,14 @@ void Output::PrintItem(ListItem& item)
 	// Check for empty
 	if (date == "EMPTY DATE") { date = "N/A"; }
 	if (store == "EMPTY STORE") { store = "N/A"; }
-	if (qty < 1) { qtyStr = "N/A"; }
+	if (qty < 1) { qty = 1; }
 
 	// Output
 	std::cout << "Name: " << name << std::endl;
 	std::cout << "Date: " << date << std::endl;
-	std::cout << "Quantity: " << qtyStr << std::endl;
+	std::cout << "Quantity: " << qty << std::endl;
 	std::cout << "Cost: ";
 	if (cost <= 0) { std::cout << "N/A"; }
 	else { std::cout << std::setprecision(2) << std::fixed << "$" << cost; }
-	std::cout << std::endl << "Preferred Store: " << store << std::endl;
+	std::cout << std::endl << "Preferred Store: " << store << std::endl << std::endl;
 }

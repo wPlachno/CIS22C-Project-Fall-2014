@@ -23,7 +23,7 @@ enum MainMenuOption {
 	OPTION_QUIT = 10
 };
 
-/* class Pull
+/* class Input
 This class will hold all the code, in static functions,
 for collecting information from the terminal.
 */
@@ -34,7 +34,7 @@ public:
 	/* static const string StringPrompt(string prompt) */
 	/* Prints prompt, then gets the user input
 	*/
-	static const std::string StringPrompt(const std::string prompt);
+	static const std::string StringPrompt(const std::string prompt, const bool allowBlanks = false);
 
 	/* static const double DoublePrompt(string prompt) */
 	/* Prints prompt, then gets the user input
@@ -55,7 +55,8 @@ public:
 
 	/* static void AddItem(ShoppingList&) */
 	/* Goes through the process of adding a new item.
-	   Requires the ShoppingList in order to check for redundancy and add the item
+	   Requires the ShoppingList in order to check for redundancy and 
+	   add the item
 	*/
 	static void AddItem(ShoppingList& items);
 
