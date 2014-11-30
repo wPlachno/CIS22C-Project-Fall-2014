@@ -591,11 +591,39 @@ with the smallest hash key will be the first to be displayed.
 }*/
 
 
-
+void HTable::removeAllItems(){
+	for (int index = 0; index < tableSize; index++)	//for every index in table
+	{
+		if (HashTable == NULL) return;
+		if (HashTable[index] == NULL) continue;
+		if (HashTable[index]->list == NULL && HashTable[index]->overflow == NULL) //if the index is completely empty
+		{
+			delete HashTable[index];	//delete the index
+			HashTable[index] = NULL;
+		}
+		else
+		{
+			keyOverFlow* remove = HashTable[index]->overflow;
+			keyOverFlow* tmp = NULL;
+			while (remove != NULL){
+				remove->itemPtr = NULL;	//all ListItem pointers are simply set to null, will be deleted when destructor of BST is called
+				tmp = remove->overflow;
+				remove->overflow = NULL;
+				delete remove;
+				remove = tmp;
+			}
+			HashTable[index]->list = NULL;
+			delete HashTable[index];
+		}
+	}
+	delete HashTable;
+	HashTable = NULL;
+}
 /*~HTable(): The destructor of the class
 */
 HTable::~HTable()
 {
-	//AL- i'm pretty sure we need this, unless we're destructing using delete or something
+	removeAllItems();
+	delete HashTable;
 }
 

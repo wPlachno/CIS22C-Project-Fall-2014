@@ -308,12 +308,13 @@ void BSTree<T, K>::_destroyAll(BSTreeNode<T>* subTreePtr)
 		return;
 	
 	_destroyAll(subTreePtr->left);
+	_destroyAll(subTreePtr->right);
 	if(subTreePtr->data)
 	{
 		delete subTreePtr->data;
 		delete subTreePtr;
 	}
-	_destroyAll(subTreePtr->right);
+	//_destroyAll(subTreePtr->right);	//caused access violation errors, since you tried to delete the right branch of the now deleted subTreePtr
 }
 
 
