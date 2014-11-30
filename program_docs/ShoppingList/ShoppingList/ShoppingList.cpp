@@ -259,7 +259,7 @@ void ShoppingList::printTree() const
 
 void ShoppingList::printListHashSeq() const
 {
-    htable.displayKeySeq();
+    htable.display();	//display key sequence was broken, did not perform as expected
 }
 
 
