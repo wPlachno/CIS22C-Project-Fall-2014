@@ -11,7 +11,6 @@ Goel
 #include <string>
 #include "ListItem.h"
 
-
 struct keyOverFlow //linked list for collision resolution
 {
 	ListItem* itemPtr;
@@ -34,11 +33,9 @@ struct item //struct named item that will be held in the hash table (this will a
 
 struct listKey //linked list for key comparing
 {
-	//listKey(listKey *&start1, int itemKey1, item* itemPtr1, listKey* next1) : start(start1), itemKey(itemKey1), itemPtr(itemPtr1), next(next1) {}; //used to initialize the ref variable start.
 	int itemKey;
 	item *itemPtr;
 	listKey *next;	//remove entirely, use HashTable[x+1] or whatever
-	//listKey *&start;
 	listKey()
 	{
 		itemKey = NULL;
@@ -50,39 +47,38 @@ struct listKey //linked list for key comparing
 class HTable
 {
 private:
-	static const int tableSize = 1; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
+	int tableSize = 25; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
 
 	item** HashTable;
-	//item* HashTable[tableSize]; //the hash table essentially; an array of items
 
-	int hashFcn(const std::string& key/*, const ListItem* newItem*/) const; //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
+	int hashFcn(const std::string& key/*, const ListItem* newItem*/); //Function that will take in string key and change it to an int that will become the index number in the hash table of an element 
 
 public:
-	HTable(); //construct
+	HTable(); //constructs
+	HTable(int tableSize); //a constrct that can take in the size of the hashtable
+
 	~HTable(); //destruct
 
 							
-	ListItem *search(std::string name) const; //searches the hash table with the name of the item and displays the index id found
+	ListItem *search(std::string name); //searches the hash table with the name of the item and displays the index id found
 
 	void addItem(ListItem* newItem); //Function that will add items into the hash table
 
 	ListItem* removeItem(const std::string name); //Removes items and indexes depending on what name is passed to it
 
-	int countItems(int index) const; //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
+	int countItems(int index); //This function will count the number of items in an index (element) in the hash table. (Will be used in the display functions)
 
-	void  display() const; //Displays the hash table;
+	void const display(); //Displays the hash table;
 
-	void displayItems(std::string name) const; //Displays the items of a particular index
+	void const displayItems(std::string name); //Displays the items of a particular index
 
-	void PrintEff() const; //Prints out the Efficiency
+	void const PrintEff(); //Prints out the Efficiency
 
-	void displayKeySeq() const; //Displays the hash table using the hashing key sequence
-
-
+	void const displayKeySeq(); //Displays the hash table using the hashing key sequence
 
 	//for the comparing linked list
 
-	bool empty(listKey *start) const//checks to see if the list is empty
+	bool empty(listKey *start)//checks to see if the list is empty
 	{
 		if (start == NULL || start->itemKey == NULL) //if the first element has nothing
 		{
@@ -102,11 +98,8 @@ public:
 		temp->next = NULL;
 	}
 
-	bool searchList(listKey *start, int index) const// searches through the list to detect key doubles
+	bool searchList(listKey *start, int index)// searches through the list to detect key doubles
 	{
-		//listKey *node = start; //set the first node to the first element in the list
-
-
 		//traverse the list with the node
 		while (start != NULL && start->itemKey != NULL) //while the node has something in it,
 		{
@@ -126,7 +119,6 @@ public:
 		return false;
 	}
 
-
 	void addToList(int index) //adds the index to the list, but checks for double indexes first
 	{
 		listKey *newKeys = new listKey;
@@ -143,7 +135,6 @@ public:
 			newKeys->next = NULL;// and set the next node to NULL
 		}
 	}
-
 
 	void removeFromList(int index) //removes an index from the list (if the index can be found
 	{
