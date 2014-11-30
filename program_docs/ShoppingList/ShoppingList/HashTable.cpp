@@ -474,81 +474,20 @@ void HTable::PrintEff() const
 	std::cout << "Success Efficiency : " << successSearch << std::endl;
 	std::cout << "Fail Efficiency : " << failSearch << std::endl;
 }
-
-<<<<<<< HEAD
-=======
-
-/*displayKeySeq(): This function will display the hash table's
-contents only after it has been sorted by 'key' order. The one
-with the smallest hash key will be the first to be displayed.
+/*removeAllItems(): Removes all the items from the hash table
 */
-/*void const HTable::displayKeySeq()
+void HTable::removeAllItems()
 {
-	int *keys = new int[tableSize]; //array of keys
-	item *ptr; //pointer of item type
-	for (int i = 0; i < tableSize; i++)//fill the array
-	{
-		ptr = HashTable[i];
-		keys[i] = hashFcn(ptr->list->getKey()); //start filling the keys array
-	}
-	//now sort the array
-	int i, j, imin, temp;
-	for (j = 0; j < tableSize; j++)
-	{
-		imin = j;
-		for (i = j + 1; i < tableSize; i++)
-		{
-			if (keys[i] < keys[imin])
-			{
-				imin = i;
-			}
-		}
-		if (imin != j)
-		{
-			temp = keys[j]; //set temp equal to the index
-			keys[j] = keys[imin]; //set that index to the smallest
-			keys[imin] = temp; //set the smallest equal to temp (the larger one)
-		}
-	}
-	//print out the array
-	for (int i = 0; i < tableSize; i++)
-	{
-		int index = keys[i];
-
-		cout << "Name: " << HashTable[index]->list->getName() << endl;
-		cout << "Cost: " << HashTable[index]->list->getCost() << endl;
-		cout << "Quanity: " << HashTable[index]->list->getQuantity() << endl;
-		cout << "Prefered Store: " << HashTable[index]->list->getStore() << endl;
-		cout << "Due Date: " << HashTable[index]->list->getDate() << endl;
-		cout << "-----------------------------" << endl;
-
-		if (HashTable[index]->overflow != NULL) //if there's something in the index's overflow
-		{
-			keyOverFlow *temp = new keyOverFlow; //make a temp object
-			temp = HashTable[index]->overflow; //to hold the values of the overflow of the index
-
-			while (temp != NULL) //while the overflow has something in it
-			{
-				//print out the overflow
-				cout << "Name: " << temp->itemPtr->getName() << endl;
-				cout << "Cost: " << temp->itemPtr->getCost() << endl;
-				cout << "Quanity: " << temp->itemPtr->getQuantity() << endl;
-				cout << "Prefered Store: " << temp->itemPtr->getStore() << endl;
-				cout << "Due Date: " << temp->itemPtr->getDate() << endl;
-				cout << "-----------------------------" << endl;
-
-				temp = temp->overflow;
-			}
-		}
-	}
-}*/
-
-
-void HTable::removeAllItems(){
 	for (int index = 0; index < tableSize; index++)	//for every index in table
 	{
-		if (HashTable == NULL) return;
-		if (HashTable[index] == NULL) continue;
+		if (HashTable == NULL)
+		{
+			return;
+		}
+		if (HashTable[index] == NULL)
+		{
+			continue;
+		}
 		if (HashTable[index]->list == NULL && HashTable[index]->overflow == NULL) //if the index is completely empty
 		{
 			delete HashTable[index];	//delete the index
@@ -558,7 +497,8 @@ void HTable::removeAllItems(){
 		{
 			keyOverFlow* remove = HashTable[index]->overflow;
 			keyOverFlow* tmp = NULL;
-			while (remove != NULL){
+			while (remove != NULL)
+			{
 				remove->itemPtr = NULL;	//all ListItem pointers are simply set to null, will be deleted when destructor of BST is called
 				tmp = remove->overflow;
 				remove->overflow = NULL;
@@ -572,16 +512,12 @@ void HTable::removeAllItems(){
 	delete HashTable;
 	HashTable = NULL;
 }
->>>>>>> origin/master
+
 /*~HTable(): The destructor of the class
 */
 HTable::~HTable()
 {
-<<<<<<< HEAD
-	
-=======
 	removeAllItems();
 	delete HashTable;
->>>>>>> origin/master
 }
 
