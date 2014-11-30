@@ -21,12 +21,12 @@ struct item //struct named item that will be held in the hash table (this will a
 { //what the items contain
 	
 	ListItem* list;
-	item* next; // pointer that allows the item to point to another item
+	//item* next; // pointer that allows the item to point to another item
 	keyOverFlow* overflow; //puts any key conflicts here
 	item()
 	{
 		list = NULL;
-		next = NULL;
+		//next = NULL;
 		overflow = NULL;
 	}
 };
