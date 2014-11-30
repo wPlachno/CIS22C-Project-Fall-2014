@@ -138,7 +138,7 @@ void HTable::addItem(ListItem* newItem)
 		else //if the index of the HashTable isn't NULL
 		{
 			ListItem* data;	// a temp object pointer of ListItem
-			string s = newItem->getKey(); //a temp string to hold the new item's name value
+			std::string s = newItem->getKey(); //a temp string to hold the new item's name value
 
 			if (s < HashTable[index]->list->getKey()) //if the new name is smaller than the name that's already in the index,
 			{
