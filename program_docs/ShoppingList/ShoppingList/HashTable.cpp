@@ -39,7 +39,7 @@ and changing it to an int and then set it to the remainder of the
  converted string (hash) divided by the size of the table  
 (The remainder is the index)
 */
-int HTable::hashFcn(const std::string& key/*, const ListItem* newItem*/)
+int HTable::hashFcn(const std::string& key)
 {
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
@@ -387,7 +387,7 @@ void const HTable::display()
 			std::cout << "Quanity: " << HashTable[i]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[i]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[i]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 
 			if (HashTable[i]->overflow != NULL) //if the index's overflow isn't empty,
 			{
@@ -403,7 +403,7 @@ void const HTable::display()
 					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
 					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
 					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					cout << "-----------------------------" << endl;
+					std::cout << "-----------------------------" << std::endl;
 
 					temp = temp->overflow; //check the next overflow
 				}
@@ -432,7 +432,7 @@ void const HTable::displayItems(std::string name)
 			std::cout << "Quanity: " << HashTable[index]->list->getQuantity() << std::endl;
 			std::cout << "Prefered Store: " << HashTable[index]->list->getStore() << std::endl;
 			std::cout << "Due Date: " << HashTable[index]->list->getDate() << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 		else if (HashTable[index]->overflow != NULL) //if there's something in the hashTable
 		{
@@ -448,7 +448,7 @@ void const HTable::displayItems(std::string name)
 					std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
 					std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
 					std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
-					cout << "-----------------------------" << endl;
+					std::cout << "-----------------------------" << std::endl;
 					break; //and break the loop (because you already found what you're looking for
 				}
 				
@@ -458,7 +458,7 @@ void const HTable::displayItems(std::string name)
 		else //if the name wasn't found in the HashTable
 		{
 			std::cout << "Error: Item was not found." << std::endl;
-			cout << "-----------------------------" << endl;
+			std::cout << "-----------------------------" << std::endl;
 		}
 	}
 }
@@ -544,12 +544,12 @@ void const HTable::displayKeySeq()
 	{
 		int index = keys[i];
 
-		cout << "Name: " << HashTable[index]->list->getKey() << endl;
-		cout << "Cost: " << HashTable[index]->list->getCost() << endl;
-		cout << "Quanity: " << HashTable[index]->list->getQuantity() << endl;
-		cout << "Prefered Store: " << HashTable[index]->list->getStore() << endl;
-		cout << "Due Date: " << HashTable[index]->list->getDate() << endl;
-		cout << "-----------------------------" << endl;
+		std::cout << "Name: " << HashTable[index]->list->getKey() << std::endl;
+		std::cout << "Cost: " << HashTable[index]->list->getCost() << std::endl;
+		std::cout << "Quanity: " << HashTable[index]->list->getQuantity() << std::endl;
+		std::cout << "Prefered Store: " << HashTable[index]->list->getStore() << std::endl;
+		std::cout << "Due Date: " << HashTable[index]->list->getDate() << std::endl;
+		std::cout << "-----------------------------" << std::endl;
 
 		if (HashTable[index]->overflow != NULL) //if there's something in the index's overflow
 		{
@@ -559,12 +559,12 @@ void const HTable::displayKeySeq()
 			while (temp != NULL) //while the overflow has something in it
 			{
 				//print out the overflow
-				cout << "Name: " << temp->itemPtr->getKey() << endl;
-				cout << "Cost: " << temp->itemPtr->getCost() << endl;
-				cout << "Quanity: " << temp->itemPtr->getQuantity() << endl;
-				cout << "Prefered Store: " << temp->itemPtr->getStore() << endl;
-				cout << "Due Date: " << temp->itemPtr->getDate() << endl;
-				cout << "-----------------------------" << endl;
+				std::cout << "Name: " << temp->itemPtr->getKey() << std::endl;
+				std::cout << "Cost: " << temp->itemPtr->getCost() << std::endl;
+				std::cout << "Quanity: " << temp->itemPtr->getQuantity() << std::endl;
+				std::cout << "Prefered Store: " << temp->itemPtr->getStore() << std::endl;
+				std::cout << "Due Date: " << temp->itemPtr->getDate() << std::endl;
+				std::cout << "-----------------------------" << std::endl;
 
 				temp = temp->overflow;
 			}
