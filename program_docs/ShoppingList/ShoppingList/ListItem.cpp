@@ -30,7 +30,7 @@ ListItem::ListItem(std::string n, double c, std::string st, int q, std::string d
 	else store = st;
 	if(q <= 0) quantity = 1;
 	else quantity = q;
-	if (d == "_") date = "EMPTY DATE";
+	if (d == "_" || d == "" || d == " ") date = "EMPTY DATE";
 	else date = d;
 }
 bool ListItem::operator<(const ListItem& right){
@@ -89,7 +89,7 @@ std::string ListItem::getDate(){
 	return date;
 }
 void ListItem::setDate(const std::string& val){
-	if (val == "_") date = "EMPTY DATE";
+	if (val == "_" || val == "" || val == " ") date = "EMPTY DATE";
 	else date = val;
 }
 std::string ListItem::getKey(){
