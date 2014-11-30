@@ -72,6 +72,7 @@ bstree()
 ShoppingList::~ShoppingList()
 {
 	bstree.destroyAll();
+	htable.removeAllItems();
 }
 
 

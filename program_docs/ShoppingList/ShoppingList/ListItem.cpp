@@ -24,13 +24,13 @@ ListItem::ListItem(const ListItem& l){
 }
 ListItem::ListItem(std::string n, double c, std::string st, int q, std::string d){
 	name = n;
-	if(c <= 0) cost = -1
+	if (c <= 0) cost = -1;
 	else cost = c;
 	if(st == "_") store = "EMPTY STORE";
 	else store = st;
 	if(q <= 0) quantity = 1;
 	else quantity = q;
-	if(d == "_") date = "EMPTY DATE"
+	if (d == "_") date = "EMPTY DATE";
 	else date = d;
 }
 bool ListItem::operator<(const ListItem& right){

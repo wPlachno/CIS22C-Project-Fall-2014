@@ -143,7 +143,7 @@ public:
 	~HTable(); //destruct
 		
 	ListItem *search(const std::string& name) const; //searches the hash table with the name of the item and displays the index id found
-
+	void removeAllItems();
 	void addItem(ListItem* newItem); //Function that will add items into the hash table
 
 	ListItem* removeItem(const std::string& name); //Removes items and indexes depending on what name is passed to it
