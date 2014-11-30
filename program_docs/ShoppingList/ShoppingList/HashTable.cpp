@@ -50,7 +50,7 @@ int HTable::hashFcn(const std::string& key) const
 	int hash = 0; //the converted string into int (using ASCII)
 	int index; //index of the key
 
-	index = key.length(); //gives index a value
+	index = NULL; //gives index a value
 
 
 	for(int count = 0; count < key.length(); count++)
