@@ -42,17 +42,13 @@ public:
 	bool isEmpty() const;
 	bool insert( T* pNewRecord);
 	T* remove(const K& targetKey);
-	//bool exists(const K& targetKey) const;
 	T* get(const K& targetKey) const;
 	void removeAll();
 	void destroyAll();
 	void breadthFirstTraversal(const std::function<void(T&)>& visit) const;
 	void inorderTraversal(const std::function<void(T&)>& visit) const;
-	//void preorderTraversal(const std::function<void(T&)>& visist) const;
 	void printTree() const; //this is a pre-order traversal
 	
-	
-	//bool writeToFile(const std::string& filename);
 };
 
 
@@ -87,7 +83,7 @@ bool BSTree<T, K>::isEmpty() const
 
 /** Insert a recrod into the tree.
  @param pNewRecord A pointer to the record to be inserted.
- @return true if the insertion was performed, false otherwise. //todo: this might be better as an int
+ @return true if the insertion was performed, false otherwise. 
  */
 template <typename T, typename K>
 bool BSTree<T, K>::insert(T* pNewRecord)
@@ -167,7 +163,7 @@ BSTreeNode<T>* BSTree<T, K>::_removeValue(BSTreeNode<T>* subTreePtr, const K& ta
 	
 	if(nullptr == subTreePtr) //nothing found
 	{
-		*removed = nullptr; //todo: double check this
+		*removed = nullptr; 
 		return nullptr;
 	}
 	
@@ -314,7 +310,6 @@ void BSTree<T, K>::_destroyAll(BSTreeNode<T>* subTreePtr)
 		delete subTreePtr->data;
 		delete subTreePtr;
 	}
-	//_destroyAll(subTreePtr->right);	//caused access violation errors, since you tried to delete the right branch of the now deleted subTreePtr
 }
 
 
@@ -424,7 +419,7 @@ void BSTree<T, K>::printTree() const
  @param subTreePtr Pointer to the subtree to print.
  @param level The current level of the subtree.
  */
-//todo - figure out a way of printing the tree so that it shows where null nodes are
+
 template <typename T, typename K>
 void BSTree<T, K>::_printTree(BSTreeNode<T>* subTreePtr, int level) const
 {
