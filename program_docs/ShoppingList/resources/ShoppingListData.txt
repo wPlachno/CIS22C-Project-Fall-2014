@@ -8,33 +8,118 @@ Hamburger
 Costco
 2
 7/4/2015
-Sandwich
-15.00
-Safeway
+Salt
+3.00
+Lucky
 1
-12/12/2014
+EMPTY DATE
 Bacon
 7.50
 
 3
 12/25/2014
-Salt
-3.00
-Lucky
+Hamburger Buns
+-1.00
+Costco
+2
+7/4/2015
+Pickles
+3.98
+Safeway
+3
+Thanksgiving
+Sandwich
+15.00
+Safeway
 1
-
+12/12/2014
+Aparagus
+-1.00
+Safeway
+1
+EMPTY DATE
 Diet Coke
-
+-1.00
 Safeway
 2
 1/12/2015
+Hello Kitty Toaster
+40.00
+Target
+1
+EMPTY DATE
+Muffins
+5.00
+Costco
+1
+Next week
+Salmon Cutters
+150.00
+Sally's Secret Seaside Shack
+2
+12/25/2014
+white bread
+2.37
+Costco
+1
+7/5/2015
 Cat Food
-
+-1.00
 Petco
 1
-
+EMPTY DATE
+Dog Food
+-1.00
+PetSmart
+1
+Tomorrow
+Jazz Bricks
+25.66
+Pedro's Music Hut
+50
+EMPTY DATE
+Orange Juice
+-1.00
+Safeway
+1
+EMPTY DATE
+Power Drill
+-1.00
+Home Depot
+1
+EMPTY DATE
 Cake Mix
 5.75
 Nobb Hill Foods
 5
-
+EMPTY DATE
+Cheerios
+-1.00
+Costco
+1
+EMPTY DATE
+GoT Season 4 Blu-ray
+-1.00
+Target
+1
+EMPTY DATE
+Light Bulbs
+-1.00
+Home Depot
+5
+EMPTY DATE
+Palmiers
+7.00
+Costco
+1
+EMPTY DATE
+Puffed Pork
+30.00
+The Artisanal Meat Factory Outlet
+1
+12/25/2014
+Corn Sluice
+-1.00
+EMPTY STORE
+1
+12/25/2014

@@ -147,7 +147,7 @@ void Input::AddItem(ShoppingList& items)
 	if (items.addRecord(newItem))
 	{
 		// If the item was successfully added, tell the user and print the final item
-		std::cout << name << " was successfully added to the shopping list." << std::endl;
+		std::cout << name << " was successfully added to the shopping list." << std::endl << std::endl;
 		Output::PrintItem(newItem);
 	}
 	else {

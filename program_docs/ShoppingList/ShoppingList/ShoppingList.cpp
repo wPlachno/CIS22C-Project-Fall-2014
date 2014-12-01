@@ -218,7 +218,7 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) const
 //todo: add this to presentation
 bool ShoppingList::exists(const std::string& name) const
 {
-	return findRecordPtr(name);
+	return (findRecordPtr(name) ? true : false);
 }
 
 /** Get the number of items in the list.

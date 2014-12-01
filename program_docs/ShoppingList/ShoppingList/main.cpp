@@ -70,19 +70,18 @@ int main(void)
 	const std::string saveFileName = "ShoppingListData.txt";
 	ShoppingList theList;
 
-
 	Output::PrintLanding();
 
-//read
 	if (theList.loadFromFile(saveFileName) != SL_SUCCESS)
 	{
 		std::cout << "Unable to open file '" << saveFileName << "'." << std::endl;
 		return 1;
 	}
-	std::cout << std::endl << theList.getItemCount() << " records have been loaded." << std::endl;
+	std::cout << std::endl << theList.getItemCount() << " records have been loaded from '" << saveFileName << "'." << std::endl;
 
 
 	main_loop(theList);
+
 
 	if (theList.writeToFile(saveFileName) != SL_SUCCESS)
 	{
@@ -90,6 +89,11 @@ int main(void)
 		return 1;
 	}
 
-//write
+	std::cout << "Wrote " << theList.getItemCount() << " items to '" << saveFileName << "'." << std::endl;
+
+	std::cout << std::endl;
+	//for demo purposes only
+	system("PAUSE"); 
+
 	return 0;
 }
