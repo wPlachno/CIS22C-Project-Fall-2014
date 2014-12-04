@@ -457,18 +457,21 @@ void HTable::PrintEff() const
 		}
 			index++;
 	}
-	
-	//change ints to doubles
-	double dCount = count;
-	double dTableSize = tableSize;
+		//change ints to doubles
+		double dCount = count;
+		double dTableSize = tableSize;
 
-	loadFactor = dCount /*number of items in the table*/ / dTableSize; //max size of the table
+		loadFactor = dCount /*number of items in the table*/ / dTableSize; //max size of the table
 
 	double successSearch = (1.0 / 2.0) * (1.0 + (1.0 / (1.0 - loadFactor))); //using the linear probing algorithm
-	double failSearch = (1.0 / 2.0) * (1.0 + (1.0 / (1.0 - (loadFactor * loadFactor)))); //loadFactor squared
+	double squared = (1.0 - loadFactor);
+	double failSearch = (1.0 / 2.0) * (1.0 + (1.0 / ((1.0 - loadFactor) * squared))); //loadFactor squared
 
 	//for the longest list
 	int longestList = 0; 
+
+	//to help find the average about of nodes per element (excluding empty elements)
+	int elements = 0; 
 
 	//for the average length of the lists
 	int totalNodes = 0; //total nodes of all the lists
@@ -479,6 +482,7 @@ void HTable::PrintEff() const
 
 		if (HashTable[i]->list != NULL) //if it isn't null,
 		{
+			elements++;
 			if (HashTable[i]->overflow != NULL) //if the overflow list ins't null,
 			{
 				keyOverFlow *key = new keyOverFlow;
@@ -500,10 +504,11 @@ void HTable::PrintEff() const
 	}
 	//convert to doubles
 	double dTotalNodes = totalNodes;
-	double dtableSize = tableSize;
+	//double dtableSize = tableSize;
+	double dElements = elements;
 
 	std::cout << "Longest Linked List: " << longestList << std::endl;
-	std::wcout << "Average Number of nodes: " << dTotalNodes / dTableSize << std::endl;
+	std::wcout << "Average Number of nodes: " << dTotalNodes / elements << std::endl;
 
 	std::cout << "Success Efficiency : " << successSearch << std::endl;
 	std::cout << "Fail Efficiency : " << failSearch << std::endl;

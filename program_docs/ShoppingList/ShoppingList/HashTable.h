@@ -47,7 +47,7 @@ struct listKey //linked list for key comparing
 class HTable
 {
 private:
-	int tableSize = 25; //size of the hash table (Or max size the table can be) This will need to be changed to accept a "change-able" value to allow the hash table to be editted
+	int tableSize = 40; //size of the hash table (Or max size the table can be)
 
 	item** HashTable;
 
