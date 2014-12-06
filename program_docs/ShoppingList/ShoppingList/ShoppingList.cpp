@@ -1,7 +1,6 @@
 /******************************************************************************
  Implemenation of ShoppingList class.
 
- todo: if list is empty, then say that it is when printing full list.
 
  Author: Robert Hoyer
  ******************************************************************************/
@@ -18,7 +17,6 @@
 
 
 
-//todo: which has faster times for various actions: tree or hash table?  the one with faster time will be used for retrieval
 
 /** Wrapper function for FileIO::writeToFile
 */
@@ -26,11 +24,11 @@
 void fileWrite(ListItem& item, std::ofstream* outFile)
 {
 	int result = FileIO::writeToFile(item, outFile);
-	//todo - throw exception
+	
+	//todo - exceptions
 	assert(result != FILE_ERROR_OPENING);
 
 	assert(result != ERROR_OUTFILE_NULL);
-
 
 	//std::cout << "Write: " << item.getName() << " to file." << std::endl;
 }
@@ -87,7 +85,7 @@ ListItem* ShoppingList::findRecordPtr(const std::string& name) const
 	//return htable.search(name); 
 }
 
-//todo: finish
+
 /** Load the shopping list from a file.
  @param fileName The name of the file to load.
  @return SL_SUCCESS if success. SL_ERROR_FILE_NOOPEN if the file cannot be opended.
@@ -116,7 +114,7 @@ int ShoppingList::writeToFile(const std::string& fileName) const
 	outFile.open(fileName);
 
 	if (!outFile.is_open())
-		return SL_ERROR_FILE_NOOPEN; //todo - meaningful return values
+		return SL_ERROR_FILE_NOOPEN; 
 
 	auto visitFunc = std::bind(fileWrite, std::placeholders::_1, &outFile);
 
@@ -159,7 +157,7 @@ bool ShoppingList::deleteRecord(const std::string& name)
 {
 	ListItem* toDeleteTable, *toDeleteTree;
 
-	//todo interface for this needs to be fixed
+
     toDeleteTable = htable.removeItem(name);
 	toDeleteTree  = bstree.remove(name);
 
@@ -215,7 +213,7 @@ bool ShoppingList::findRecord(const std::string& name, ListItem& found) const
 @return true if found, false otherwise.
 */
 
-//todo: add this to presentation
+
 bool ShoppingList::exists(const std::string& name) const
 {
 	return (findRecordPtr(name) ? true : false);
